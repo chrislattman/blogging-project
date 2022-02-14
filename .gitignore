@@ -1,0 +1,7 @@
+.editorconfig
+.classpath
+.project
+.DS_Store
+desktop.ini
+/bin/
+/out/
