@@ -7,7 +7,7 @@ Git is a version control system (VCS) or source control management (SCM) system,
 ## Table of Contents
 
 - [First time usage](#first-time-usage)
-- [Initializing a git repository](#initializing-a-git-repository)
+- [Initializing a Git repository](#initializing-a-git-repository)
 - [Committing to a repository](#committing-to-a-repository)
 - [Merge conflicts](#merge-conflicts)
 - [Merge requests](#merge-requests)
@@ -15,7 +15,7 @@ Git is a version control system (VCS) or source control management (SCM) system,
 
 ## First time usage
 
-Run these commands the very first time you use `git`:
+Run these commands the very first time you use Git:
 
 ```
 git config --global user.email "your email address"
@@ -31,9 +31,9 @@ For Windows:
     ```
 - This ensures compatibility with Unix-like OSes, which use Unix (LF) rather than Windows (CRLF) line endings
 
-These `git` settings will be cached, so you only have to do this once.
+These Git settings will be cached, so you only have to do this once.
 
-## Initializing a git repository
+## Initializing a Git repository
 
 ### To download an existing repo using SSH (recommended):
 
@@ -67,7 +67,17 @@ Optional:
 - Summarize the repo in a `README.md` file
 - Copy and paste a license into `LICENSE`
 
-Create a new repo on GitLab and follow the instructions to push an existing local repo from the command line
+Create a new repo on GitLab and follow the instructions to push an existing local repo from the command line.
+
+These instructions should be similar to the following:
+
+```
+git remote add origin <URL>
+git branch -m main
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+```
 
 ## Committing to a repository
 
@@ -230,9 +240,9 @@ Then delete the merged branch:
 git branch -D <merged_branch>
 ```
 
-Congratulations! You have now contributed code with `git`.
+Congratulations! You have now contributed code with Git.
 
-PS: on GitHub and Bitbucket, Merge Requests are known as Pull Requests, and the default branch for GitHub is currently called `master`.
+PS: on GitHub and Bitbucket, Merge Requests are known as Pull Requests, and the default branch for Git is currently called `master`.
 
 ## Miscellaneous
 
@@ -277,7 +287,7 @@ git push -f
 
 ### Tagging
 
-Tagging is commonplace on popular open source projects. It allows you to mark a point in a branch's history as being important. This point in history is commonly known as a version, and the version numbers in `git` tags should follow the versioning standards laid out [here](https://semver.org/).
+Git tagging is commonplace on popular open source projects. It allows you to mark a point in a branch's history as being important. This point in history is commonly known as a version, and the version numbers in tags should follow the versioning standards laid out [here](https://semver.org/).
 
 Example: create a version 1.0.1 tag for the `main` branch:
 
