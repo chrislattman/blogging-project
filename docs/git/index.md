@@ -242,7 +242,7 @@ git branch -D <merged_branch>
 
 Congratulations! You have now contributed code with Git.
 
-PS: on GitHub and Bitbucket, Merge Requests are known as Pull Requests, and the default branch for Git is currently called `master`.
+PS: on GitHub and Bitbucket, Merge Requests are known as Pull Requests (PRs), and the default branch for Git is currently called `master`.
 
 ## Miscellaneous
 
