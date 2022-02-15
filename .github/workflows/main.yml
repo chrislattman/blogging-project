@@ -59,7 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Script
-        if: jobs.build.steps.build-artifacts.outputs.cache-hit != 'true'
+        if: build.steps.build-artifacts.outputs.cache-hit != 'true'
         run: |
           curl -LO https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.8.2/junit-platform-console-standalone-1.8.2.jar
           javac -d bin -cp bin:junit-platform-console-standalone-1.8.2.jar test/app/*.java
@@ -83,7 +83,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Script
-        if: jobs.test.steps.test-artifacts.outputs.cache-hit != 'true'
+        if: test.steps.test-artifacts.outputs.cache-hit != 'true'
         run: |
           curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.7/org.jacoco.agent-0.8.7-runtime.jar
           curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.cli/0.8.7/org.jacoco.cli-0.8.7-nodeps.jar
