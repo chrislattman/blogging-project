@@ -39,7 +39,6 @@ jobs:
           --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED \
           --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED \
           -jar google-java-format-1.13.0-all-deps.jar src/app/*.java test/app/*.java
-
   build:
     needs: lint
     runs-on: ubuntu-latest
@@ -54,7 +53,6 @@ jobs:
         with:
           path: bin
           key: ${{ runner.os }}-build-artifacts
-
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -84,7 +82,6 @@ jobs:
         with:
           path: junit-platform-console-standalone-1.8.2.jar
           key: ${{ runner.os }}-junit-jar
-
   coverage:
     needs: test
     runs-on: ubuntu-latest
