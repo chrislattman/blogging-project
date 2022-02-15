@@ -83,6 +83,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Script
         run: |
+          ls -al
           curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.7/org.jacoco.agent-0.8.7-runtime.jar
           curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.cli/0.8.7/org.jacoco.cli-0.8.7-nodeps.jar
           java -javaagent:org.jacoco.agent-0.8.7-runtime.jar -jar junit-platform-console-standalone-1.8.2.jar --class-path=bin --scan-classpath --fail-if-no-tests
