@@ -73,9 +73,9 @@ These instructions should be similar to the following:
 
 ```
 git remote add origin <URL>
-git branch -m main
 git add .
 git commit -m "Initial commit"
+git branch -m main
 git push -u origin main
 ```
 
