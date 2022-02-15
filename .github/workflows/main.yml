@@ -1,0 +1,97 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  lint:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # Runs a set of commands using the runner's shell
+      - name: Script
+        run: |
+          curl -LO https://repo.maven.apache.org/maven2/com/google/googlejavaformat/google-java-format/1.13.0/google-java-format-1.13.0-all-deps.jar
+          java \
+          --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
+          --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
+          --add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED \
+          --add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED \
+          --add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
+          --add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED \
+          --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
+          --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
+          --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED \
+          --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED \
+          -jar google-java-format-1.13.0-all-deps.jar src/app/*.java test/app/*.java
+
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Script
+        run: javac -d bin src/app/*.java
+      - name: Build Artifacts
+        id: build-artifacts
+        uses: actions/cache@v2
+        with:
+          path: bin
+          key: ${{ runner.os }}-build-artifacts
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Script
+        if: jobs.build.steps.build-artifacts.outputs.cache-hit != 'true'
+        run: |
+          curl -LO https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.8.2/junit-platform-console-standalone-1.8.2.jar
+          javac -d bin -cp bin:junit-platform-console-standalone-1.8.2.jar test/app/*.java
+          java -jar junit-platform-console-standalone-1.8.2.jar --class-path=bin --scan-classpath --fail-if-no-tests
+      - name: Test Artifacts
+        id: test-artifacts
+        uses: actions/cache@v2
+        with:
+          path: bin
+          key: ${{ runner.os }}-test-artifacts
+      - name: JUnit jar
+        id: junit-jar
+        uses: actions/cache@v2
+        with:
+          path: junit-platform-console-standalone-1.8.2.jar
+          key: ${{ runner.os }}-junit-jar
+
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Script
+        if: jobs.test.steps.test-artifacts.outputs.cache-hit != 'true'
+        run: |
+          curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.7/org.jacoco.agent-0.8.7-runtime.jar
+          curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.cli/0.8.7/org.jacoco.cli-0.8.7-nodeps.jar
+          java -javaagent:org.jacoco.agent-0.8.7-runtime.jar -jar junit-platform-console-standalone-1.8.2.jar --class-path=bin --scan-classpath --fail-if-no-tests
+          rm bin/app/*Test.class bin/app/Driver.class
+          java -jar org.jacoco.cli-0.8.7-nodeps.jar report jacoco.exec --classfiles bin --sourcefiles src --html coverage-report
+      - name: Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: coverage-report
