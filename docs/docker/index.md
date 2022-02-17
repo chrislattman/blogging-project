@@ -71,6 +71,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
         - use `-dt` instead of `-d` to prevent the container from exiting (it will need to be stopped by running `docker stop container_name`)
     - Optional: use `-p 80:8080` to bind port 8080 of the container to port 80 of the host computer
     - Optional: use `--privileged` to run this container with extended privileges (e.g. to allow some syscalls to be executed)
+    - Optional: use `--rm` to automatically remove the container when it exits
 
 - `docker run -it [--name container_name] --mount src=volume_name,dst=/data image_name [/bin/bash]`
     - starts up a container named `container_name` using the image `image_name` running a bash shell
@@ -80,6 +81,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - like the previous command, except it mounts the current local directory as a bind mount (similar to a volume) to directory `/data` of the container
     - for Windows hosts using PowerShell, replace `$(pwd)` with `${PWD}`
     - for Windows hosts using Command Prompt (not recommended), replace `$(pwd)` with `%cd%`
+    - Optional: use `-w "$(pwd)` to set the working directory to the value of `pwd`
 
 - `docker volume create volume_name`
     - creates a new volume named `volume_name`
