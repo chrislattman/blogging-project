@@ -82,7 +82,7 @@ jobs:
         with:
           path: junit-platform-console-standalone-1.8.2.jar
           key: ${{ runner.os }}-junit-jar
-  coverage:
+  cover:
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -118,3 +118,25 @@ jobs:
         with:
           name: coverage-report
           path: coverage-report
+  package:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull repo
+        uses: actions/checkout@v2
+      - name: Download build artifacts
+        uses: actions/cache@v2
+        id: build-artifacts
+        with:
+          path: bin
+          key: ${{ runner.os }}-build-artifacts
+      - name: Script
+        run: |
+          cd bin
+          echo -e "Manifest-Version":" 1.0\nMain-Class":" app.Driver\n" > manifest.mf
+          jar -cmf manifest.mf ../blogging-project.jar app/*.class
+      - name: Upload jar
+        uses: actions/upload-artifact@v2
+        with:
+          name: blogging-project.jar
+          path: blogging-project.jar
