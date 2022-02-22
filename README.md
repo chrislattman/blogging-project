@@ -95,7 +95,7 @@ Some info about the files in this folder:
 - [`.gitignore`](.gitignore) has the names of files, folders, and file extensions to exclude from this repository
     - It is meant to keep build files and other "junk" on your computer without clogging up this repository
 
-- [`.gitlab-ci.yml`](.gitlab-ci.yml) has the GitLab CI/CD configurations, a.k.a. the "pipeline" used to build and test your code
+- [`.github/workflows/main.yml`](..github/workflows/main.yml) has the GitHub Actions configurations, a.k.a. the "pipeline" used to build and test your code
 
 - [`LICENSE.txt`](LICENSE.txt) has the open source license for this project (GNU GPLv3)
     - It's optional, but good to have nonetheless
