@@ -10,7 +10,7 @@ Git is a version control system (VCS) or source control management (SCM) system,
 - [Initializing a Git repository](#initializing-a-git-repository)
 - [Committing to a repository](#committing-to-a-repository)
 - [Merge conflicts](#merge-conflicts)
-- [Merge requests](#merge-requests)
+- [Pull requests](#pull-requests)
 - [Miscellaneous](#miscellaneous)
 
 ## First time usage
@@ -38,19 +38,19 @@ These Git settings will be cached, so you only have to do this once.
 ### To download an existing repo using SSH (recommended):
 
 ```
-git clone git@gitlab.com:owner/repository.git
+git clone git@github.com:owner/repository.git
 ```
 
 ### To download an existing repo using HTTPS:
 
 ```
-git clone https://gitlab.com/owner/repository.git
+git clone https://github.com/owner/repository.git
 ```
 
 or
 
 ```
-git clone https://your-username:your-PAT@gitlab.com/owner/repository.git
+git clone https://your-username:your-PAT@github.com/owner/repository.git
 ```
 - For a private repo you don’t own, but have access to
 
@@ -103,7 +103,7 @@ git branch
 
 ### **If you are working on a new issue:**
 
-Fetch branches from GitLab:
+Fetch branches from GitHub:
 
 ```
 git fetch -p
@@ -223,11 +223,11 @@ Finally, force push the changes:
 git push -f
 ```
 
-## Merge requests
+## Pull requests
 
-Once you are ready to finish an issue, submit a Merge Request (MR) on GitLab for the corresponding branch. Prefix the name of your MR with the associated Jira issue you are working on, e.g. `BP-12: Name of merge request`. In the MR description, explain the changes that were made, i.e. summarize the commits. Make sure to Squash and Merge your commits, and have GitLab delete the branch once the MR is merged in.
+Once you are ready to finish an issue, submit a Pull Request (PR) on GitLab for the corresponding branch. Prefix the name of your PR with the associated Jira issue you are working on, e.g. `BP-12: Name of pull request`. In the PR description, explain the changes that were made, i.e. summarize the commits. Make sure to Squash and Merge your commits, and have GitHub delete the branch once the PR is merged in.
 
-After the MR has been merged in, switch back to the main branch and pull the most recent version of it:
+After the PR has been merged in, switch back to the main branch and pull the most recent version of it:
 
 ```
 git checkout main
@@ -242,13 +242,11 @@ git branch -D <merged_branch>
 
 Congratulations! You have now contributed code with Git.
 
-PS: on GitHub and Bitbucket, Merge Requests are known as Pull Requests (PRs), and the default branch for Git is currently called `master`.
-
 ## Miscellaneous
 
 ### Forking a repository
 
-In case you see the term "fork" somewhere on GitLab or another code hosting website, [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo) is some info on it.
+In case you see the term "fork" somewhere on GitHub or another code hosting website, [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo) is some info on it.
 
 A fork is more or less a copy of another repository with personal changes (or a complete lack of changes) added to it.
 
@@ -263,7 +261,7 @@ git push -u origin <new-branch-name>
 git push -d origin <branch-name>
 ```
 
-If the branch had a MR, you will need to create a new MR.
+If the branch had a PR, you will need to create a new PR.
 
 ### Squashing commits on a branch
 
@@ -304,4 +302,4 @@ git fetch -t
 git tag
 ```
 
-On GitLab, tags can be associated with [Releases](https://gitlab.com/chrislattman/blogging-project/-/releases), which contain information about specific tags as well as downloadable files (i.e. the source code compiled into a `.exe` file for Windows users).
+On GitHub, tags can be associated with [Releases](https://github.com/chrislattman/blogging-project/releases), which contain information about specific tags as well as downloadable files (i.e. the source code compiled into a `.exe` file for Windows users).
