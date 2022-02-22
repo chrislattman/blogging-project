@@ -9,7 +9,7 @@
 
 ## Getting Started
 
-Make sure your GitLab account has a strong password and [2FA](https://docs.gitlab.com/ee/user/profile/account/two_factor_authentication.html#enable-one-time-password) enabled. Also make sure that your Atlassian account has a strong password and [2FA](https://support.atlassian.com/atlassian-account/docs/manage-two-step-verification-for-your-atlassian-account/#Twostepverification-Useaverificationapponyoursmartphone) enabled.
+Make sure your GitHub account has a strong password and [2FA](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app) enabled. Also make sure that your Atlassian account has a strong password and [2FA](https://support.atlassian.com/atlassian-account/docs/manage-two-step-verification-for-your-atlassian-account/#Twostepverification-Useaverificationapponyoursmartphone) enabled.
 
 Then read the [docs](docs).
 
