@@ -23,23 +23,23 @@ ssh-keygen -t ed25519 -C "your email address"
 
 Press enter/return 3 more times. This saves the key in the default location and leaves the key password blank.
 
-To add your key to your GitLab account, copy the output of
+To add your key to your GitHub account, copy the output of
 
 ```
 cat ~/.ssh/id_ed25519.pub
 ```
 
-and paste it [here](https://gitlab.com/-/profile/keys) in the Key text box. Give your SSH key a title (e.g. MackBook Pro). Don't add an expiration date.
+and paste it [here](https://github.com/settings/ssh/new) in the Key text box. Give your SSH key a title (e.g. MackBook Pro). Don't add an expiration date.
 
 After you add the key, you can test it by running
 
 ```
-ssh -T git@gitlab.com
+ssh -T git@github.com
 ```
 
-You might get a message about the authenticity of the GitLab host. Make sure to enter `yes` when prompted to continue connecting.
+You might get a message about the authenticity of the GitHub host. Make sure to enter `yes` when prompted to continue connecting.
 
-You should then see a message like this: `Welcome to GitLab, @username!`
+You should then see a message like this: `Hi username! You've successfully authenticated, but GitHub does not provide shell access.`
 
 ## Usage
 
@@ -141,7 +141,7 @@ Read more about VirtualBox [here](../virtualbox).
 
 ## `scp`
 
-Stands for "secure copy." It is similar to [`cp`](https://gitlab.com/chrislattman/blogging-project/-/tree/main/docs/unix-commands#cp), but allows you to copy files and directories over the Internet between your computer and a remote server (or VM).
+Stands for "secure copy." It is similar to [`cp`](../unix-commands#cp), but allows you to copy files and directories over the Internet between your computer and a remote server (or VM).
 
 - It is installed with `ssh` because it uses the SSH protocol for security
 
