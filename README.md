@@ -81,8 +81,8 @@ For each issue:
     - This should be in the "To Do" bin
     - Follow the Git instructions [here](docs/git#committing-to-a-repository) for new issues
 - If you are currently working on an issue, then simply click and drag it into the "In Progress" bin
-- When you are ready to submit an issue, create a [Merge Request](docs/git#merge-requests) for your Git branch
-- Once the Merge Request has been merged in for an associated Jira issue, click and drag it into the "Done" bin
+- When you are ready to submit an issue, create a [Pull Request](docs/git#pull-requests) for your Git branch
+- Once the Pull Request has been merged in for an associated Jira issue, click and drag it into the "Done" bin
 
 Using Jira might sound pointless for a project this small, but in larger projects with more people, it is a necessity. Jira also allows you to create as many issues as you want, so you can plan far into the future (this is what businesses do).
 
