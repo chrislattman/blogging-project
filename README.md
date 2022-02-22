@@ -73,7 +73,7 @@ Notes on Java are [here](docs/java).
 
 You will submit your code using [`git`](docs/git). Make sure to get acquainted with the commands; there aren't too many but they will help you a lot with this project and out in the real world.
 
-You will notice that the Git page mentions "issues." Reason: this project cannot be completed in one night. It is best to split up your work into small, manageable chunks. These chunks may be individual commands, new test cases, bug fixes, or even new features you're working on. Jira calls these chunks "issues" (_not_ the same as [GitLab issues](https://gitlab.com/chrislattman/blogging-project/-/issues)). We will be using Jira for issue tracking.
+You will notice that the Git page mentions "issues." Reason: this project cannot be completed in one night. It is best to split up your work into small, manageable chunks. These chunks may be individual commands, new test cases, bug fixes, or even new features you're working on. Jira calls these chunks "issues" (_not_ the same as [GitHub issues](https://github.com/chrislattman/blogging-project/issues)). We will be using Jira for issue tracking.
 
 For each issue:
 
