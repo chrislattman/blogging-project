@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="blogging-project" default="build" basedir=".">
+    <!-- Variables used in this file (use build.properties instead) -->
+    <!-- <property name="source" location="src/app"/>
+    <property name="tests" location="test/app"/> -->
+    <property file="build.properties"/>
+
+    <!-- Aggregates source/test file names into space-separated variables -->
+    <fileset dir="${source-dir}" id="source-files">
+        <include name="*.java"/>
+    </fileset>
+    <fileset dir="${test-dir}" id="test-files">
+        <include name="*.java"/>
+    </fileset>
+    <pathconvert property="java-source-files" refid="source-files" pathsep=" "/>
+    <pathconvert property="java-test-files" refid="test-files" pathsep=" "/>
+
+    <!-- Tasks for downloading jar files -->
+    <target name="check-library" description="Checks if the library folder has already been created.">
+        <available file="${library}" type="dir" property="library.present"/>
+    </target>
+    <target name="check-google-format" description="Checks if the Google Java Format jar has been downloaded already.">
+        <available file="${google-format-jar}" property="google-format.present"/>
+    </target>
+    <target name="check-junit" description="Checks if the JUnit 5 jar has been downloaded already.">
+        <available file="${junit-jar}" property="junit.present"/>
+    </target>
+    <target name="check-jacoco-agent" description="Checks if the JaCoCo agent jar has been downloaded already.">
+        <available file="${jacoco-agent-jar}" property="jacoco-agent.present"/>
+    </target>
+    <target name="check-jacoco-cli" description="Checks if the JaCoCo CLI jar has been downloaded already.">
+        <available file="${jacoco-cli-jar}" property="jacoco-cli.present"/>
+    </target>
+    <target name="init-library" unless="library.present" depends="check-library" description="Initializes the library directory.">
+        <mkdir dir="${library}"/>
+    </target>
+    <target name="download-google-format" unless="google-format.present" depends="init-library,check-google-format" description="Downloads the Google Java Format jar file.">
+        <get src="${google-format-jar-url}" dest="${google-format-jar}"/>
+    </target>
+    <target name="download-junit" unless="junit.present" depends="init-library,check-junit" description="Downloads the JUnit 5 jar file.">
+        <get src="${junit-jar-url}" dest="${junit-jar}"/>
+    </target>
+    <target name="download-jacoco-agent" unless="jacoco-agent.present" depends="init-library,check-jacoco-agent" description="Downloads the JaCoCo agent jar file.">
+        <get src="${jacoco-agent-jar-url}" dest="${jacoco-agent-jar}"/>
+    </target>
+    <target name="download-jacoco-cli" unless="jacoco-cli.present" depends="init-library,check-jacoco-cli" description="Downloads the JaCoCo CLI jar file.">
+        <get src="${jacoco-cli-jar-url}" dest="${jacoco-cli-jar}"/>
+    </target>
+    <target name="download" depends="download-google-format,download-junit,download-jacoco-agent,download-jacoco-cli" description="Download all dependencies."/>
+
+    <!-- Lint, build, test, cover, and package tasks as well as helper tasks -->
+    <target name="lint" depends="download-google-format" description="Lints code for style errors.">
+        <java jar="${google-format-jar}" fork="true">
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"/>
+            <jvmarg value="--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED"/>
+            <jvmarg value="--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED"/>
+            <arg line="${java-source-files} ${java-test-files}"/>
+        </java>
+    </target>
+    <target name="clean" description="Deletes all build files and coverage reports.">
+        <delete dir="${build}"/>
+        <delete dir="${coverage-dir}"/>
+        <delete file="jacoco.exec"/>
+        <delete>
+            <fileset dir=".">
+                <include name="*.jar"/>
+            </fileset>
+        </delete>
+    </target>
+    <target name="clean-all" depends="clean" description="Deletes all build files, coverage reports, and dependencies.">
+        <delete dir="${library}"/>
+    </target>
+    <target name="init" depends="clean" description="Initializes the build directory.">
+        <mkdir dir="${build}"/>
+    </target>
+    <target name="build" depends="init,download-junit" description="Builds source and test files.">
+        <javac destdir="${build}" includeantruntime="false">
+            <src path="${source-dir}"/>
+            <src path="${test-dir}"/>
+            <classpath>
+                <pathelement path="${junit-jar}"/>
+            </classpath>
+        </javac>
+    </target>
+    <target name="test" depends="build" description="Runs all test cases.">
+        <java jar="${junit-jar}" fork="true">
+            <arg line="--class-path=${build} --scan-classpath --fail-if-no-tests"/>
+        </java>
+    </target>
+    <target name="cover" depends="build,download-jacoco-agent,download-jacoco-cli" description="Generates a HTML code coverage report.">
+        <java jar="${junit-jar}" fork="true">
+            <jvmarg value="-javaagent:${jacoco-agent-jar}"/>
+            <arg line="--class-path=${build} --scan-classpath --fail-if-no-tests"/>
+        </java>
+        <delete file="${build-dir}/Driver.class"/>
+        <delete>
+            <fileset dir="${build-dir}">
+                <include name="*Test.class"/>
+            </fileset>
+        </delete>
+        <java jar="${jacoco-cli-jar}" fork="true">
+            <arg line="report jacoco.exec --classfiles ${build} --sourcefiles ${source} --html ${coverage-dir}"/>
+        </java>
+    </target>
+    <target name="package" depends="build" description="Generates a runnable jar of the project.">
+        <jar destfile="blogging-project.jar" basedir="${build}" excludes="**/*Test.class">
+            <manifest>
+                <attribute name="Main-Class" value="${package}.Driver"/>
+            </manifest>
+        </jar>
+    </target>
+</project>

@@ -7,6 +7,7 @@ Java is a cross-platform programming language used for many applications.
 - [Development](#development)
 - [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
+- [Build Automation Tools](#build-automation-tools)
 - [Advanced](#advanced-not-recommended)
 
 ## Development
@@ -116,6 +117,16 @@ If this still doesn't work, try the following:
 
 The Driver class should now be able to run.
 
+## Build Automation Tools
+
+A build automation tool is a program used to compile, test, and package code for a [compiled language](https://en.wikipedia.org/wiki/Compiled_language). There are three major build automation tools for Java:
+
+- Ant
+- Maven
+- Gradle
+
+[Ant](build-automation-tools/ant) and [Maven](build-automation-tools/maven) are discussed in this project. We will not be discussing Gradle, since it uses a programming language (Groovy) instead of XML. However, it is worth noting that Google chose Gradle as the build automation tool for Android Studio due to its increased efficiency.
+
 ## Advanced (not recommended)
 
 To build and run a Java project from the command line, you have two options:
@@ -149,3 +160,9 @@ To build and run a Java project from the command line, you have two options:
     jar -cmf manifest.mf archive.jar pkg/*.class
     java -jar archive.jar
     ```
+
+To view the contents of a `.jar` file:
+
+```
+jar -tf archive.jar
+```

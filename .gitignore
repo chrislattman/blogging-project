@@ -1,7 +1,9 @@
-.editorconfig
 .classpath
 .project
 .DS_Store
-desktop.ini
 /bin/
 /out/
+/lib/
+/coverage-report/
+jacoco.exec
+*.jar

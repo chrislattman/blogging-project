@@ -767,11 +767,23 @@ You might see other compression algorithms used besides `.gz`, such as `.bz2`, t
 Usage:
 
 ```bash
+# To view the contents of a .zip file:
+zip -sf archive.zip
+
 # To compress files into a .zip:
 zip archive.zip [files] [directory/*]
 
 # To extract a .zip file:
 unzip archive.zip
+
+# To view the contents of a .tar[.gz|.bz2|.xz] file:
+tar -tf archive.tar[.gz|.bz2|.xz]
+
+# To archive (but not compress) files into a .tar file:
+tar -cf archive.tar [files] [directory/*]
+
+# To unarchive a .tar file:
+tar -xf archive.tar
 
 # To compress files into a .tar.gz file:
 tar -czf archive.tar.gz [files] [directory/*]
@@ -795,18 +807,14 @@ tar -xJf archive.tar.xz
 uncompress archive.tar.Z
 tar -xf archive.tar
 
-# When extracting any file, you can output its contents to a separate directory:
+# When extracting any archive, you can output its contents to a separate directory:
 mkdir output-directory
-tar -x*f archive.tar.* -C output-directory
-
-# This also works for .tar files (which have no compression):
-mkdir output-directory
-tar -xf archive.tar -C output-directory
+tar -x[z|j|J]f archive.tar[.gz|.bz2|.xz] -C output-directory
 ```
 
 - `[files]` refers to the files that you want to compress
 - `[directory/*]` refers to a directory that you want to compress
-    - You can compress more than one directory
+    - You can compress multiple directories
     - It is important to include the `/*` to include all of the files within a given directory
 - **Make sure to specify file extensions** when compressing files to ensure [portability](https://en.wikipedia.org/wiki/Software_portability)
 
