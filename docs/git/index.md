@@ -65,7 +65,7 @@ git init
 Optional:
 - Create a `.gitignore` file to specify files/file types to ignore
 - Summarize the repo in a `README.md` file
-- Copy and paste a license into `LICENSE`
+- Copy and paste a license into `LICENSE.txt`
 
 Create a new repo on GitHub and follow the instructions to push an existing local repo from the command line.
 
