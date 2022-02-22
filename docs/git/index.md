@@ -67,7 +67,7 @@ Optional:
 - Summarize the repo in a `README.md` file
 - Copy and paste a license into `LICENSE`
 
-Create a new repo on GitLab and follow the instructions to push an existing local repo from the command line.
+Create a new repo on GitHub and follow the instructions to push an existing local repo from the command line.
 
 These instructions should be similar to the following:
 
@@ -225,7 +225,7 @@ git push -f
 
 ## Pull requests
 
-Once you are ready to finish an issue, submit a Pull Request (PR) on GitLab for the corresponding branch. Prefix the name of your PR with the associated Jira issue you are working on, e.g. `BP-12: Name of pull request`. In the PR description, explain the changes that were made, i.e. summarize the commits. Make sure to Squash and Merge your commits, and have GitHub delete the branch once the PR is merged in.
+Once you are ready to finish an issue, submit a Pull Request (PR) on GitHub for the corresponding branch. Prefix the name of your PR with the associated Jira issue you are working on, e.g. `BP-12: Name of pull request`. In the PR description, explain the changes that were made, i.e. summarize the commits. Make sure to Squash and Merge your commits, and have GitHub delete the branch once the PR is merged in.
 
 After the PR has been merged in, switch back to the main branch and pull the most recent version of it:
 
