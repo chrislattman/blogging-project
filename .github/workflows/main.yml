@@ -13,7 +13,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  lint:
+  Lint:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -37,8 +37,8 @@ jobs:
           --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED \
           --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED \
           -jar google-java-format-1.13.0-all-deps.jar src/app/*.java test/app/*.java
-  build:
-    needs: lint
+  Build:
+    needs: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Pull repo
@@ -51,8 +51,8 @@ jobs:
         with:
           path: bin
           key: ${{ runner.os }}-build-artifacts
-  test:
-    needs: build
+  Test:
+    needs: Build
     runs-on: ubuntu-latest
     steps:
       - name: Pull repo
@@ -80,8 +80,8 @@ jobs:
         with:
           path: junit-platform-console-standalone-1.8.2.jar
           key: ${{ runner.os }}-junit-jar
-  cover:
-    needs: test
+  Cover:
+    needs: Test
     runs-on: ubuntu-latest
     steps:
       - name: Pull repo
@@ -116,8 +116,8 @@ jobs:
         with:
           name: coverage-report
           path: coverage-report
-  package:
-    needs: test
+  Package:
+    needs: Test
     runs-on: ubuntu-latest
     steps:
       - name: Pull repo
