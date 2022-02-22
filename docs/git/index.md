@@ -52,7 +52,7 @@ or
 ```
 git clone https://your-username:your-PAT@github.com/owner/repository.git
 ```
-- For a private repo you don’t own, but have access to
+- For a private repo that you have access to
 
 ### To initialize your current folder as a new git repo:
 
