@@ -29,7 +29,7 @@ To add your key to your GitHub account, copy the output of
 cat ~/.ssh/id_ed25519.pub
 ```
 
-and paste it [here](https://github.com/settings/ssh/new) in the Key text box. Give your SSH key a title (e.g. MackBook Pro). Don't add an expiration date.
+and paste it [here](https://github.com/settings/ssh/new) in the Key text box. Give your SSH key a title (e.g. MacBook Pro). Don't add an expiration date.
 
 After you add the key, you can test it by running
 
