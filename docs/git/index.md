@@ -63,6 +63,7 @@ git init
 ```
 
 Optional:
+- Create a `.gitattributes` file to format line endings for Git
 - Create a `.gitignore` file to specify files/file types to ignore
 - Summarize the repo in a `README.md` file
 - Copy and paste a license into `LICENSE.txt`
