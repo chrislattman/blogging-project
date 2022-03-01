@@ -257,6 +257,7 @@ To rename a branch (except the `main` branch, which is protected), run the follo
 
 ```
 git checkout <branch-name>
+git pull
 git branch -m <new-branch-name>
 git push -u origin <new-branch-name>
 git push -d origin <branch-name>
@@ -271,6 +272,7 @@ If the branch had a PR, you will need to create a new PR.
 To squash the last _n_ commits on a branch (except the `main` branch, which is protected), run the following code:
 
 ```
+git pull
 git reset --soft HEAD~n
 git commit -m "your commit message"
 git push -f
@@ -279,6 +281,7 @@ git push -f
 To squash all commits on a branch _tracking_ `main`, run the following code:
 
 ```
+git pull
 git reset --soft main
 git commit -m "your commit message"
 git push -f
@@ -292,6 +295,7 @@ Example: create a version 1.0.1 tag for the `main` branch:
 
 ```
 git checkout main
+git pull
 git tag -a v1.0.1 -m "Version 1.0.1"
 git push origin v1.0.1
 ```
