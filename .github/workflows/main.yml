@@ -75,6 +75,12 @@ jobs:
         with:
           path: bin
           key: ${{ runner.os }}-test-artifacts
+      - name: Cache jacoco.exec
+        id: jacoco-exec
+        uses: actions/cache@v2
+        with:
+          path: jacoco.exec
+          key: ${{ runner.os }}-jacoco-exec
   Cover:
     needs: Test
     runs-on: ubuntu-latest
@@ -87,10 +93,15 @@ jobs:
         with:
           path: bin
           key: ${{ runner.os }}-test-artifacts
+      - name: Download jacoco.exec
+        uses: actions/cache@v2
+        id: jacoco-exec
+        with:
+          path: jacoco.exec
+          key: ${{ runner.os }}-jacoco-exec
       - name: Script
         run: |
           curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.cli/0.8.7/org.jacoco.cli-0.8.7-nodeps.jar
-          java -javaagent:org.jacoco.agent-0.8.7-runtime.jar -jar junit-platform-console-standalone-1.8.2.jar --class-path=bin --scan-classpath --fail-if-no-tests
           rm bin/app/*Test.class bin/app/Driver.class
           java -jar org.jacoco.cli-0.8.7-nodeps.jar report jacoco.exec --classfiles bin --sourcefiles src --html coverage-report
       - name: Upload coverage report
