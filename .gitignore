@@ -1,0 +1,10 @@
+.classpath
+.project
+.DS_Store
+/bin/
+/out/
+/lib/
+/coverage-report/
+jacoco.exec
+*.jar
+*.patch

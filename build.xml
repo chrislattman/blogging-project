@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="blogging-project" xmlns:ivy="antlib:org.apache.ivy.ant" default="build" basedir=".">
+    <!-- Variables used in this file (use build.properties instead) -->
+    <!-- <property name="source" location="src/app"/>
+    <property name="tests" location="test/app"/> -->
+    <property file="build.properties"/>
+
+    <!-- Aggregates source/test file names into space-separated variables -->
+    <fileset dir="${source-dir}" id="source-files">
+        <include name="*.java"/>
+    </fileset>
+    <pathconvert property="java-source-files" refid="source-files" pathsep=" "/>
+    <fileset dir="${test-dir}" id="test-files">
+        <include name="*.java"/>
+    </fileset>
+    <pathconvert property="java-test-files" refid="test-files" pathsep=" "/>
+
+    <!-- jars that Ivy won't download for some reason -->
+    <target name="check-google-format" depends="init-library">
+        <available file="${library}/${google-format-jar}" property="google-format.present"/>
+    </target>
+    <target name="download-google-format" unless="google-format.present" depends="check-google-format">
+        <get src="${google-format-jar-url}" dest="${library}/${google-format-jar}"/>
+    </target>
+    <target name="check-jacoco-agent" depends="init-library">
+        <available file="${library}/${jacoco-agent-jar}" property="jacoco-agent.present"/>
+    </target>
+    <target name="download-jacoco-agent" unless="jacoco-agent.present" depends="check-jacoco-agent">
+        <get src="${jacoco-agent-jar-url}" dest="${library}/${jacoco-agent-jar}"/>
+    </target>
+    <target name="check-jacoco-cli" depends="init-library">
+        <available file="${library}/${jacoco-cli-jar}" property="jacoco-cli.present"/>
+    </target>
+    <target name="download-jacoco-cli" unless="jacoco-cli.present" depends="check-jacoco-cli">
+        <get src="${jacoco-cli-jar-url}" dest="${library}/${jacoco-cli-jar}"/>
+    </target>
+
+    <!-- Initialize the library folder -->
+    <target name="check-library">
+        <available file="${library}" type="dir" property="library.present"/>
+    </target>
+    <target name="init-library" unless="library.present" depends="check-library">
+        <mkdir dir="${library}"/>
+    </target>
+
+    <!-- Lint, build, test, cover, and package tasks as well as helper tasks -->
+    <target name="lint" depends="init" description="Lints code for style errors.">
+        <java jar="${library}/${google-format-jar}" fork="true">
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED"/>
+            <jvmarg value="--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"/>
+            <jvmarg value="--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED"/>
+            <jvmarg value="--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED"/>
+            <arg line="${java-source-files} ${java-test-files}"/>
+        </java>
+    </target>
+    <target name="clean" description="Deletes all build files and coverage reports.">
+        <delete dir="${build}"/>
+        <delete dir="${coverage-dir}"/>
+        <delete file="jacoco.exec"/>
+        <delete>
+            <fileset dir=".">
+                <include name="*.jar"/>
+            </fileset>
+        </delete>
+    </target>
+    <target name="clean-all" depends="clean" 
+        description="Deletes all build files, coverage reports, and clears the Ivy cache.">
+        <ivy:cleancache/>
+    </target>
+    <target name="init" depends="download-google-format,download-jacoco-agent,download-jacoco-cli" 
+        description="Initializes the build directory and downloads dependencies.">
+        <mkdir dir="${build}"/>
+        <ivy:retrieve/>
+    </target>
+    <target name="build" depends="init" description="Builds source and test files.">
+        <javac destdir="${build}" includeantruntime="false">
+            <src path="${source-dir}"/>
+            <src path="${test-dir}"/>
+            <classpath>
+                <pathelement path="${library}/${junit-jar}"/>
+            </classpath>
+        </javac>
+    </target>
+    <target name="test" depends="build" description="Runs all test cases.">
+        <java jar="${library}/${junit-jar}" fork="true">
+            <arg line="--class-path=${build} --scan-classpath --fail-if-no-tests"/>
+        </java>
+    </target>
+    <target name="cover" depends="build" description="Generates a HTML code coverage report.">
+        <java jar="${library}/${junit-jar}" fork="true">
+            <jvmarg value="-javaagent:${library}/${jacoco-agent-jar}"/>
+            <arg line="--class-path=${build} --scan-classpath --fail-if-no-tests"/>
+        </java>
+        <delete file="${build-dir}/Driver.class"/>
+        <delete>
+            <fileset dir="${build-dir}">
+                <include name="*Test.class"/>
+            </fileset>
+        </delete>
+        <java jar="${library}/${jacoco-cli-jar}" fork="true">
+            <arg line="report jacoco.exec --classfiles ${build} --sourcefiles ${source} --html ${coverage-dir}"/>
+        </java>
+    </target>
+    <target name="package" depends="build" description="Generates a runnable jar of the project.">
+        <jar destfile="${output-jar}" basedir="${build}" excludes="**/*Test.class">
+            <manifest>
+                <attribute name="Main-Class" value="${package}.Driver"/>
+            </manifest>
+        </jar>
+    </target>
+</project>
