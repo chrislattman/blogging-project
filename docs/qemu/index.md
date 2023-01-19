@@ -51,7 +51,7 @@ sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/ubunt
 ### Port forwarding
 
 ```
-sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/ubuntuserver2204.qcow2 -net user,hostfwd=tcp::3022-:22
+sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda myvm.qcow2 -device e1000e,netdev=net0 -netdev user,id=net0,hostfwd=tcp::3022-:22
 ```
 
 - This binds port 3022 on your host OS to port 22 (default SSH port) on the VM
