@@ -30,7 +30,7 @@ Note: remove `sudo` when running these steps on macOS or Windows.
 1. Install the operating system (I am giving it 4 GB of memory and 4 CPUs):
 
     ```
-    sudo qemu-system-x86_64 -boot d -cdrom ~/Downloads/ubuntu-22.04.1-live-server-amd64.iso -cpu host -m 4G -smp 4 -drive file=./ubuntuserver2204.qcow2,format=raw,index=0,media=disk
+    sudo qemu-system-x86_64 -boot d -cdrom ~/Downloads/ubuntu-22.04.1-live-server-amd64.iso -cpu host -m 4G -smp 4 -drive file=ubuntuserver2204.qcow2,format=raw,index=0,media=disk
     ```
 
     - This assumes the .iso file for the guest OS is in your Downloads folder
@@ -43,7 +43,7 @@ Note: remove `sudo` when running these steps on macOS or Windows.
 ### Running VM
 
 ```
-sudo qemu-system-x86_64 -enable-kvm -cpu host -m 4G -smp 4 -drive file=./ubuntuserver2204.qcow2,format=raw,index=0,media=disk
+sudo qemu-system-x86_64 -enable-kvm -cpu host -m 4G -smp 4 -drive file=ubuntuserver2204.qcow2,format=raw,index=0,media=disk
 ```
 
 - `-enable-kvm` is a Linux-only feature
