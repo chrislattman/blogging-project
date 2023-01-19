@@ -52,8 +52,8 @@ sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.
 sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda myvm.qcow2 -device e1000e,netdev=net0 -netdev user,id=net0,hostfwd=tcp::3022-:22
 ```
 
-- This binds port 3022 on your host OS to port 22 (default SSH port) on the VM
-- You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1`, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
+- This binds port 3022 of your host OS to port 22 (default SSH port) of the VM
+- You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1` in another terminal window, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
 - You can save your login credentials by following [these](../ssh#saving-your-login-to-the-server) instructions
 
 ### Creating a snapshot
