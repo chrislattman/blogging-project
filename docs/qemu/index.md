@@ -44,5 +44,5 @@ Note: remove `sudo` when running these steps on macOS or Windows.
 ### Running VM
 
 ```
-sudo qemu-system-x86_64 -enable-kvm -cpu host -m 4G -smp 4 -drive file=~/qemu-vms/ubuntuserver2204.qcow2,format=raw,index=0,media=disk
+sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -drive file=~/qemu-vms/ubuntuserver2204.qcow2,format=raw,index=0,media=disk
 ```
