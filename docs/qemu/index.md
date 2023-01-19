@@ -2,6 +2,8 @@
 
 QEMU (Quick EMUlator) is a command line hypervisor. Like [VirtualBox](../virtualbox), you can use it to create virtual machines.
 
+Note: on Linux, you can use [Virtual Machine Manager](https://virt-manager.org/) (also called virt-manager) as a graphical interface to QEMU.
+
 ## Installation
 
 Install QEMU using the link [here](https://www.qemu.org/download/), and select your operating system.
