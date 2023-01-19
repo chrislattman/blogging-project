@@ -1800,13 +1800,13 @@ Trivia: on macOS, devices are automatically mounted in the `/Volumes` directory
 You may want to format a removable storage device from a Linux terminal. To do so:
 
 1. Follow steps 1-2 from above
-1. Run `sudo umount /dev/sdXX`, using the name from step 2 above
-    - This removes OS access to the files and folders on the device, but still allows your computer hardware to communicate with the device itself
 1. Optional: have only one partition
     - Run `sudo fdisk /dev/sdX` (e.g. `sda` not `sda1`)
     - In the prompt, enter `d` repeatedly until there are no more partitions left
     - Enter `n`, then accept the defaults by pressing enter until a new partition has been created
     - Enter `w` to save your changes and exit
+1. Run `sudo umount /dev/sdX1`, using the name from step 2 above
+    - This removes OS access to the files and folders on the device, but still allows your computer hardware to communicate with the device itself
 1. Run `sudo dd if=/dev/zero of=/dev/sdXX bs=4M status=progress && sync`
     - This overwrites the entire partition with zeros
     - This can take a really long time to complete
@@ -1832,7 +1832,12 @@ Alternatively, you may want to create a startup disk. To do so:
     - Take note of the type. Look for the device of type `part` (partition), not `disk`!
     - If there is confusion, run `sudo fdisk -l | grep -Iin -B 1 "company"` and replace `company` with the manufacturer of your flash drive
         - This tells you if the name's prefix is `sda` or `sdb` or something else
-1. Run `sudo umount /dev/sdXX`, using the name from step 2
+1. Optional: have only one partition
+    - Run `sudo fdisk /dev/sdX` (e.g. `sda` not `sda1`)
+    - In the prompt, enter `d` repeatedly until there are no more partitions left
+    - Enter `n`, then accept the defaults by pressing enter until a new partition has been created
+    - Enter `w` to save your changes and exit
+1. Run `sudo umount /dev/sdX1`, using the name from step 2
 1. Run `sudo dd if=/path/to/disk.iso of=/dev/sdX bs=4M status=progress && sync`
     - `/path/to/disk.iso` is the location of the .iso file you want to install on the flash drive
     - `sdX` is the name from step 2 but without the number (i.e. the whole disk, not just a partition)

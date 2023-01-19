@@ -21,7 +21,7 @@ Note: remove `sudo` when running these steps on macOS or Windows.
     cd ~/qemu-vms
     ```
 
-1. Create the file that will store your VM (I am giving it 25 GB of storage space):
+1. Create the file that will store your VM (I am giving it 25 GB of storage):
 
     ```
     sudo qemu-img create ubuntuserver2204.qcow2 25G
