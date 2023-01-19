@@ -38,14 +38,12 @@ Note: remove `sudo` when running these steps on macOS or Windows.
     - A good rule of thumb is to give your VM a quarter of your computer's CPU and memory resources
     - On Windows and Linux, release the cursor from the QEMU window by pressing `Ctrl + Alt + G`
         - On macOS, press `Cmd + Option + Ctrl + G`
-    - The installer may hang when trying to install security updates
-        - If it says "Install complete!" on the top orange banner, you can close the QEMU window
-    - If the installer finishes and you see an option to "Reboot Now", simply close the QEMU window
+    - When the installer finishes, close the QEMU window
 
 ### Running VM
 
 ```
-sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/ubuntuserver2204.qcow2
+sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.qcow2
 ```
 
 ### Port forwarding
