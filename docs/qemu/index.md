@@ -28,7 +28,7 @@ Install QEMU using the link [here](https://www.qemu.org/download/), and select y
 1. Install the operating system (I am giving it 4 CPUs and 4 GB of memory):
 
     ```
-    qemu-system-x86_64 -enable-kvm -boot d -cdrom /path/to/your/disk.iso -cpu host -smp 4 -m 4G -hda myvm.qcow2
+    qemu-system-x86_64 -enable-kvm -boot d -cdrom /path/to/your/disk.iso -cpu host -smp 4 -m 4G -hda myvm.qcow2 
     ```
 
     - `-enable-kvm` is a Linux-only feature
