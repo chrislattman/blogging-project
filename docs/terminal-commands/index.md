@@ -1271,17 +1271,17 @@ Example:
 [Chris@Chris-MBP-16 ~]$ ifconfig
 lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
 	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
-	inet 127.0.0.1 netmask 0xff000000 
-	inet6 ::1 prefixlen 128 
-	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
 	nd6 options=201<PERFORMNUD,DAD>
 en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 	options=6463<RXCSUM,TXCSUM,TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
-	ether 01:23:45:67:89:0a 
-	inet6 fe80::451:fde8:31fc:cb02%en0 prefixlen 64 secured scopeid 0x6 
-	inet6 2600:8806:2907:8a00:14c8:a203:4bc2:9d99 prefixlen 64 autoconf secured 
-	inet6 2600:8806:2907:8a00:f86a:2677:f8bd:58a2 prefixlen 64 autoconf temporary 
-	inet6 2600:8806:2907:8a00::16c prefixlen 64 dynamic 
+	ether 01:23:45:67:89:0a
+	inet6 fe80::451:fde8:31fc:cb02%en0 prefixlen 64 secured scopeid 0x6
+	inet6 2600:8806:2907:8a00:14c8:a203:4bc2:9d99 prefixlen 64 autoconf secured
+	inet6 2600:8806:2907:8a00:f86a:2677:f8bd:58a2 prefixlen 64 autoconf temporary
+	inet6 2600:8806:2907:8a00::16c prefixlen 64 dynamic
 	inet 192.168.1.56 netmask 0xffffff00 broadcast 192.168.1.255
 	nd6 options=201<PERFORMNUD,DAD>
 	media: autoselect
@@ -1800,12 +1800,14 @@ Trivia: on macOS, devices are automatically mounted in the `/Volumes` directory
 You may want to format a removable storage device from a Linux terminal. To do so:
 
 1. Follow steps 1-2 from above
-1. Run `sudo umount /dev/sdXX`, using the same from step 2 above
+1. Run `sudo umount /dev/sdXX`, using the name from step 2 above
     - This removes OS access to the files and folders on the device, but still allows your computer hardware to communicate with the device itself
-1. Optional: run `sudo dd if=/dev/zero of=/dev/sdXX bs=4096 status=progress && sync`
+1. Optional: run `sudo dd if=/dev/zero of=/dev/sdXX bs=4M status=progress && sync`
     - This overwrites the entire device with zeros
     - This can take a really long time to complete
-1. Run `sudo mkfs.exfat /dev/sdXX`
+    - It's okay if it says `No space left on device` at the end
+1. Run `sudo mkfs.exfat /dev/sdXX -v`
+    - This may take a long time to complete
     - You may have to install `exfatprogs` with a [package manager](#second-honorable-mention-package-managers)
     - What follows `mkfs.` depends on which type of [file system](https://en.wikipedia.org/wiki/File_system) you want on your device
     - Each OS has a native file system:
@@ -1817,9 +1819,24 @@ You may want to format a removable storage device from a Linux terminal. To do s
 1. Run `sudo fsck /dev/sdXX` to verify that the device has been formatted
     - It should say that there are 0 files on the device (1 directory is ok)
 
+Alternatively, you may want to create a startup disk. To do so:
+
+1. Plug the flash drive into a USB port on your computer
+1. Run the `lsblk` command
+    - It is named something like `sda1`, `sdb1`, etc. Use this name for step 5
+    - Take note of the type. Look for the device of type `part` (partition), not `disk`!
+    - If there is confusion, run `sudo fdisk -l | grep -Iin -B 1 "company"` and replace `company` with the manufacturer of your flash drive
+        - This tells you if the name's prefix is `sda` or `sdb` or something else
+1. Run `sudo umount /dev/sdXX`, using the name from step 2
+1. Run `sudo dd if=/path/to/disk.iso of=/dev/sdX bs=4M status=progress && sync`
+    - `/path/to/disk.iso` is the location of the .iso file you want to install on the flash drive
+    - `sdX` is the name from step 2 but without the number
+    - This can take a really long time to complete
+    - It's okay if it says `No space left on device` at the end
+
 To unmount the device:
 
-1. Run `sudo eject /dev/sdXX`
+1. Run `sudo eject /dev/sdX`
 1. Run `sudo rm -rf /mnt/usb` if you ran `sudo mount` earlier
 1. Unplug the device from your computer
 
