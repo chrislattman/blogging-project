@@ -53,7 +53,7 @@ qemu-system-x86_64 -enable-kvm \
     -cpu host \
     -smp 4 \
     -m 4G \
-    -hda myvm.qcow2 \
+    -hda ~/qemu-vms/myvm.qcow2 \
     -device e1000e,netdev=net0 \
     -netdev user,id=net0,hostfwd=tcp::3022-:22
 ```
@@ -64,12 +64,22 @@ qemu-system-x86_64 -enable-kvm \
 
 ### Creating a snapshot
 
+Snapshots are useful when you want to test something that could potentially break your VM.
+
+Create a snapshot of a VM by running
+
 ```
-qemu-img create -f qcow2 -b myvm.qcow2 -F qcow2 mysnapshot.qcow2
+qemu-img create -f qcow2 -b ~/qemu-vms/myvm.qcow2 -F qcow2 ~/qemu-vms/mysnapshot.qcow2
 ```
 
-- This creates a snapshot in `mysnapshot.qcow2`
-- Any changes to `myvm.qcow2` will corrupt the snapshot file
+You can use the snapshot by running
+
+```
+qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/mysnapshot.qcow2
+```
+
+- Any changes to `mysnapshot.qcow2` will not affect `myvm.qcow2`
+- However, any changes to `myvm.qcow2` will corrupt `mysnapshot.qcow2`
 - Delete a snapshot when:
     - You are done using it
     - You want to use the regular VM again
