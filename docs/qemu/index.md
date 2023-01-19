@@ -38,7 +38,7 @@ Note: remove `sudo` when running these steps on macOS or Windows.
     - The installer may hang when trying to install security updates
         - If it says "Install complete!" on the top orange banner, you can close the QEMU window
     - On Windows and Linux, release the cursor from the QEMU window by pressing `Ctrl + Alt + G`
-        - On macOS, press `Cmd + Opt + Ctrl + G`
+        - On macOS, press `Cmd + Option + Ctrl + G`
 
 ### Running VM
 
