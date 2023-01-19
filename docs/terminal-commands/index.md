@@ -1803,7 +1803,7 @@ You may want to format a removable storage device from a Linux terminal. To do s
 1. Run `sudo umount /dev/sdXX`, using the name from step 2 above
     - This removes OS access to the files and folders on the device, but still allows your computer hardware to communicate with the device itself
 1. Optional: run `sudo dd if=/dev/zero of=/dev/sdXX bs=4M status=progress && sync`
-    - This overwrites the entire device with zeros
+    - This overwrites the entire partition with zeros
     - This can take a really long time to complete
     - It's okay if it says `No space left on device` at the end
 1. Run `sudo mkfs.exfat /dev/sdXX -v`
@@ -1830,13 +1830,13 @@ Alternatively, you may want to create a startup disk. To do so:
 1. Run `sudo umount /dev/sdXX`, using the name from step 2
 1. Run `sudo dd if=/path/to/disk.iso of=/dev/sdX bs=4M status=progress && sync`
     - `/path/to/disk.iso` is the location of the .iso file you want to install on the flash drive
-    - `sdX` is the name from step 2 but without the number
+    - `sdX` is the name from step 2 but without the number (i.e. the whole disk, not just a partition)
     - This can take a really long time to complete
     - It's okay if it says `No space left on device` at the end
 
 To unmount the device:
 
-1. Run `sudo eject /dev/sdX`
+1. Run `sudo eject /dev/sdX` (the whole disk, not just partition `sdXX`)
 1. Run `sudo rm -rf /mnt/usb` if you ran `sudo mount` earlier
 1. Unplug the device from your computer
 
