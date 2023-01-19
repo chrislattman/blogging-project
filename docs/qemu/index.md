@@ -10,8 +10,6 @@ Install QEMU using the link [here](https://www.qemu.org/download/), and select y
 
 ## Usage
 
-Note: remove `sudo` when running these steps on macOS or Windows.
-
 ### Installing VM
 
 1. If you haven't already done so, make a folder where all your QEMU VMs will reside, and navigate to it:
@@ -24,13 +22,13 @@ Note: remove `sudo` when running these steps on macOS or Windows.
 1. Create the file that will store your VM (I am giving it 25 GB of storage):
 
     ```
-    sudo qemu-img create -f qcow2 myvm.qcow2 25G
+    qemu-img create -f qcow2 myvm.qcow2 25G
     ```
 
 1. Install the operating system (I am giving it 4 CPUs and 4 GB of memory):
 
     ```
-    sudo qemu-system-x86_64 -enable-kvm -boot d -cdrom /path/to/your/disk.iso -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.qcow2
+    qemu-system-x86_64 -enable-kvm -boot d -cdrom /path/to/your/disk.iso -cpu host -smp 4 -m 4G -hda myvm.qcow2
     ```
 
     - `-enable-kvm` is a Linux-only feature
@@ -45,13 +43,13 @@ Note: remove `sudo` when running these steps on macOS or Windows.
 ### Running VM
 
 ```
-sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.qcow2
+qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.qcow2
 ```
 
 ### Port forwarding
 
 ```
-sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda myvm.qcow2 -device e1000e,netdev=net0 -netdev user,id=net0,hostfwd=tcp::3022-:22
+qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda myvm.qcow2 -device e1000e,netdev=net0 -netdev user,id=net0,hostfwd=tcp::3022-:22
 ```
 
 - This binds port 3022 of your host OS to port 22 (default SSH port) of the VM
@@ -61,7 +59,7 @@ sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda myvm.qcow2 -devi
 ### Creating a snapshot
 
 ```
-sudo qemu-img create -f qcow2 -b myvm.qcow2 -F qcow2 mysnapshot.qcow2
+qemu-img create -f qcow2 -b myvm.qcow2 -F qcow2 mysnapshot.qcow2
 ```
 
 - This creates a snapshot in `mysnapshot.qcow2`
