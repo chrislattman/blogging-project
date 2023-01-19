@@ -37,7 +37,8 @@ Note: remove `sudo` when running these steps on macOS or Windows.
     - A good rule of thumb is to give your VM a quarter of your computer's CPU and memory resources
     - The installer may hang when trying to install security updates
         - If it says "Install complete!" on the top orange banner, you can close the QEMU window
-    - On macOS, you can release the mouse from the QEMU window by entering `Cmd + Opt + Ctrl + G`, otherwise press `Ctrl + Alt + G`
+    - On Windows and Linux, release the cursor from the QEMU window by pressing `Ctrl + Alt + G`
+        - On macOS, press `Cmd + Opt + Ctrl + G`
 
 ### Running VM
 
