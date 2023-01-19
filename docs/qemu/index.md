@@ -22,13 +22,13 @@ Note: remove `sudo` when running these steps on macOS or Windows.
 1. Create the file that will store your VM (I am giving it 25 GB of storage):
 
     ```
-    sudo qemu-img create myvm.qcow2 25G
+    sudo qemu-img create -f qcow2 myvm.qcow2 25G
     ```
 
 1. Install the operating system (I am giving it 4 CPUs and 4 GB of memory):
 
     ```
-    sudo qemu-system-x86_64 -enable-kvm -boot d -cdrom /path/to/your/disk.iso -cpu host -smp 4 -m 4G -drive file=~/qemu-vms/myvm.qcow2,format=raw,index=0,media=disk
+    sudo qemu-system-x86_64 -enable-kvm -boot d -cdrom /path/to/your/disk.iso -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.qcow2
     ```
 
     - `-enable-kvm` is a Linux-only feature
@@ -45,5 +45,46 @@ Note: remove `sudo` when running these steps on macOS or Windows.
 ### Running VM
 
 ```
-sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -drive file=~/qemu-vms/ubuntuserver2204.qcow2,format=raw,index=0,media=disk
+sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/ubuntuserver2204.qcow2
 ```
+
+### Port forwarding
+
+```
+sudo qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/ubuntuserver2204.qcow2 -net user,hostfwd=tcp::3022-:22
+```
+
+- This binds port 3022 on your host OS to port 22 (default SSH port) on the VM
+- You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1`, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
+- You can save your login credentials by following [these](../ssh#saving-your-login-to-the-server) instructions
+
+### Creating a snapshot
+
+```
+sudo qemu-img create -f qcow2 -b myvm.qcow2 -F qcow2 mysnapshot.qcow2
+```
+
+- This creates a snapshot in `mysnapshot.qcow2`
+- Any changes to `myvm.qcow2` will corrupt the snapshot file
+- Delete a snapshot when:
+    - You are done using it
+    - You want to use the regular VM again
+    - You want to create another snapshot
+
+### Shared clipboard
+
+For Linux desktop VMs (i.e. not server environments), install `spice-vdagent` in the VM using a [package manager](../terminal-commands#second-honorable-mention-package-managers).
+
+For Windows VMs, install [this](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe) executable in the VM.
+
+You should now be able to copy and paste between your host OS and your VM.
+
+### Shared folders
+
+Unfortunately, shared folders are not easy to configure with QEMU.
+
+However, you can use [`scp`](../ssh#scp) from your host OS to copy files and directories to and from your VM. Make sure to have [port forwarding](#port-forwarding) set up first. Note: some OSes will require you to manually set up `openssh-server`.
+
+### Headless mode
+
+On QEMU, headless mode is only supported for kernel images.
