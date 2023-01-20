@@ -103,7 +103,7 @@ If you want to save the changes from your snapshot, run
 qemu-img commit ~/qemu-vms/mysnapshot.qcow2
 ```
 
-Now you can safely delete `mysnapshot.qcow2` with your changed persisted to `myvm.qcow2`.
+Now you can safely delete `mysnapshot.qcow2` with your changed persisted to `myvm.qcow2`
 
 ### Shared clipboard
 

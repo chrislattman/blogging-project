@@ -13,7 +13,7 @@ Note: on Linux desktops, a better alternative to VirtualBox is [Virtual Machine 
 
 On VirtualBox, the concept of snapshots can be confusing. Navigate to the Snapshots view (click bulleted list on selected VM), click "Take" to take a snapshot, then start your VM if you want to test changes that could corrupt your VM.
 
-When you're finished:
+When you are finished:
 
 - Click "Restore" if you want to discard the changes from your snapshot
 - Click "Delete" if you want to save the changes from your snapshot
