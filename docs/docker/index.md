@@ -93,7 +93,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - Creates a new volume named `volume-name`
 
 - `docker commit container-name snapshot-image-name`
-    - Creates a snapshot of container `container-name` and saves it as an image `snapshot-image-name`
+    - Creates a snapshot of container `container-name` and saves it as the image `snapshot-image-name`
     - Note: this does not save any data from volumes
 
 ## Interacting with containers
