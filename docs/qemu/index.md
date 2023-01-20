@@ -64,7 +64,7 @@ qemu-system-x86_64 -enable-kvm \
     -netdev user,id=net0,hostfwd=tcp::3022-:22
 ```
 
-- This binds port 3022 of your host OS to port 22 (default SSH port) of the VM
+- This binds port 3022 of your host OS to port 22 (default SSH port) of the VM over TCP (UDP is available too)
 - You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1` in another terminal window, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
 - You can save your login credentials by following [these](../ssh#saving-your-login-to-the-server) instructions
 - Advanced: forward another port by adding another `hostfwd` key-value pair, e.g.
