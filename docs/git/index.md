@@ -4,7 +4,7 @@ The stupid content tracker. Don't believe me? Run `man git` in your terminal.
 
 Git is a version control system (VCS) or source control management (SCM) system, depending on who you ask. It organizes the code collaboration process via code repositories (repos).
 
-On Linux, you might need to install `git` with a [package manager](../terminal-commands#second-honorable-mention-package-managers).
+On Linux, you might need to install `git` with a [package manager](../terminal-commands#package-managers).
 
 ## Table of Contents
 
@@ -355,6 +355,17 @@ git push -f
 ```
 
 ## Miscellaneous
+
+### Contents:
+
+- [Forking a repository](#forking-a-repository)
+- [Renaming a branch](#renaming-a-branch)
+- [Squashing commits on a branch](#squashing-commits-on-a-branch)
+- [Tagging](#tagging)
+- [Renaming files in Git](#renaming-files-in-git)
+- [Changing remote URL](#changing-remote-url)
+- [Git settings](#git-settings)
+- [Patches](#patches)
 
 ### Forking a repository
 

@@ -8,9 +8,16 @@ This page will go over how to use TShark. There are numerous videos available on
 
 - `tcpdump` is a similar command line tool, but TShark is more robust
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Capturing packets](#capturing-packets)
+    - [Analyzing packets](#analyzing-packets)
+
 ## Installation
 
-To install TShark on macOS or Linux, you need to install `tshark` with a [package manager](../terminal-commands#second-honorable-mention-package-managers).
+To install TShark on macOS or Linux, you need to install `tshark` with a [package manager](../terminal-commands#package-managers).
 
 If you are not comfortable with the terminal, Wireshark can be downloaded for Windows or macOS [here](https://www.wireshark.org/download.html). For Linux, `wireshark` can be installed with a package manager.
 
@@ -26,7 +33,7 @@ tshark -D
 
 You should see an indexed list of network interfaces. Pick the interface that corresponds to the connection you want to monitor. Reference [`ifconfig`](../terminal-commands#ifconfig) to verify the name of the Wi-Fi/Ethernet device.
 
-### Capturing Packets
+### Capturing packets
 
 To start capturing packets:
 
@@ -48,7 +55,7 @@ where `<interface>` can be either the name of the interface, or the numerical in
 
 To stop capturing packets, enter `Ctrl + C` (if TShark did not exit already).
 
-### Analyzing Packets
+### Analyzing packets
 
 To analyze a packet capture:
 

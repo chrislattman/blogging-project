@@ -127,7 +127,7 @@ Stands for "list." Use it to list files and directories.
 - `ls -lX` sorts results by type (not available on macOS)
 - Use the `-r` flag to reverse the results
 - `tree` is a similar command that displays directory and subdirectory contents in a tree
-    - You might need to install `tree` with a [package manager](#second-honorable-mention-package-managers)
+    - You might need to install `tree` with a [package manager](#package-managers)
     - `tree -L <depth>` outputs the first `depth` levels of the directory tree
 
 Examples:
@@ -982,7 +982,7 @@ It searches a file (or files) for a given phrase.
     - For a single file, run `sed -i "s/old_phrase/new_phrase/g" <file>`
     - Prefix any `/` in `old_phrase` or `new_phrase` of `sed -i "s/old_phrase/new_phrase/g"` with a `\`
     - `grep -Iirl "old_phrase" <directory> | xargs sed -i "s/old_phrase/new_phrase/gI"` performs a case-insensitive find and replace
-        - macOS requires `gnu-sed` to do this, which can be installed with [`brew`](#second-honorable-mention-package-managers)
+        - macOS requires `gnu-sed` to do this, which can be installed with [`brew`](#package-managers)
 - Once you've found matching results, you can filter out results containing an undesired phrase
     - `grep -Inr "phrase_wanted" <directory> | grep -v "phrase_unwanted"` filters out the results that include `phrase_unwanted` from all results containing `phrase_wanted`
 
@@ -1111,7 +1111,7 @@ Example (finds previous `wget` commands):
 
 Stands for "[world wide] web get." It downloads files from the Internet.
 
-- You might need to install `wget` with a [package manager](#second-honorable-mention-package-managers)
+- You might need to install `wget` with a [package manager](#package-managers)
 
 Example:
 
@@ -1168,7 +1168,7 @@ Example (go to this website to verify: https://releases.ubuntu.com/22.04.1/SHA25
 
 A command line interface offered by [speedtest.net](https://www.speedtest.net/) to calculate Internet upload speed, download speed, and ping.
 
-- You might need to install `speedtest-cli` with a [package manager](#second-honorable-mention-package-managers)
+- You might need to install `speedtest-cli` with a [package manager](#package-managers)
 - `speedtest` runs a speed test with default settings and provides verbose output
 - `speedtest --simple` removes verbose output and just outputs ping, download speed, and upload speed (with default settings)
 - `speedtest --list` outputs a list of nearby servers available
@@ -1201,7 +1201,7 @@ Upload: 8.39 Mbit/s
 
 Sends packets to a URL and listens for any responses.
 
-- You might need to install `ping` with a [package manager](#second-honorable-mention-package-managers)
+- You might need to install `ping` with a [package manager](#package-managers)
 - `ping -s 32 -c 4 <url>` sends 4 packets, each of size 32 bytes, to the provided URL (this is the default Windows ping)
 - The flags are different in Git Bash
     - `ping -l 32 -n 4 <url>` does the default Windows ping in Git Bash
@@ -1313,7 +1313,7 @@ bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 
 Endpoint that connects to a VPN service. This command only works for Linux.
 
-- You might need to install `openvpn` with a [package manager](#second-honorable-mention-package-managers)
+- You might need to install `openvpn` with a [package manager](#package-managers)
 - It is NOT a VPN service, it is used to _connect_ to VPN services like NordVPN, ExpressVPN, ProtonVPN, etc.
 - You need to already have an account with a VPN service (and you will probably need to pay for it)
 - Refer to your VPN service for specific instructions on using OpenVPN
@@ -1367,7 +1367,7 @@ A note on `clear`: it should work as expected in a VirtualBox virtual machine. H
 
 Used to display a scrollable windows of output.
 
-- You might need to install `less` with a [package manager](#second-honorable-mention-package-managers)
+- You might need to install `less` with a [package manager](#package-managers)
 - `ls -l ~ | less` outputs the contents of your home directory into a pane, in which the up and down arrow keys are used to navigate
 - Type `q` and press enter/return to exit `less`
 
@@ -1469,7 +1469,7 @@ drwxr-xr-x  6 Chris  staff        192 Sep 24  2021 taken from phone
 
 Improved version of `top` (table of processes). It lists process activity including CPU usage and memory usage.
 
-- You might need to install `htop` with a [package manager](#second-honorable-mention-package-managers)
+- You might need to install `htop` with a [package manager](#package-managers)
 - It is similar to Task Manager on Windows or Activity Monitor on macOS
 - Type `q` and press enter/return to exit `htop`
 - `uptime` outputs the amount of time the computer has been on for the current session, but `htop` includes this and much more
@@ -1505,14 +1505,14 @@ On macOS and Windows, you are most likely familiar with the [ZIP](https://en.wik
 
 Linux distributions also support ZIP with the `zip` and `unzip` commands, but you'll see a lot more `.tar.gz` files. Why? It is because the [`tar`](https://en.wikipedia.org/wiki/Tar_(computing)) and [`gzip`](https://en.wikipedia.org/wiki/Gzip) commands used to create such files are native to Linux (whereas `zip` and `unzip` are _not_).
 
-- You might need to install `zip` (and possibly `unzip`) with a [package manager](#second-honorable-mention-package-managers) if using Linux
+- You might need to install `zip` (and possibly `unzip`) with a [package manager](#package-managers) if using Linux
 - Note: `.tar` stands for "tape archive", and `.gz` means that it is _compressed_ with Gzip
 - However, you can archive and compress files at once (like `zip`) using just the `tar` command
 - `tar` can also be used to decompress and unarchive (a.k.a. extract) files at once (whereas `unzip` is needed for `.zip` files)
 
 You might see other compression algorithms used besides `.gz`, such as `.bz2`, the newer `.xz`, or even the old `.Z` format.
 
-- Due to its novelty, you might need to install `bzip2` and/or `xz` with a [package manager](#second-honorable-mention-package-managers) to compress or extract `.tar.bz2` and/or `.tar.xz` files
+- Due to its novelty, you might need to install `bzip2` and/or `xz` with a [package manager](#package-managers) to compress or extract `.tar.bz2` and/or `.tar.xz` files
 
 Usage:
 
@@ -1576,7 +1576,22 @@ tar -x[z|j|J]f archive.tar[.gz|.bz2|.xz] -C output-directory
 
 You do not have to run every single terminal command one at a time. You can aggregate your commands with [bash scripting](https://courses.cs.vt.edu/cs2505/spring2019/notes/T27_ShellScripting.pdf) (generally called "shell scripting").
 
-### Honorable mention: `Ctrl + C`
+### Contents:
+
+- [`Ctrl + C`](#ctrl--c)
+- [Package managers](#package-managers)
+- [More commands](#more-commands)
+- [`vim` - file editor](#vim)
+- [Aliasing](#aliasing)
+- [Pipes and redirection](#pipes-and-redirection)
+- [Run a command in the background](#run-in-background)
+- [Run sequential commands](#run-sequential-commmands)
+- [Split command over several lines](#split-command-over-several-lines)
+- [Add to path](#add-to-path)
+- [Mounting devices](#mounting-devices)
+- [`xclip` - clipboard](#xclip)
+
+### `Ctrl + C`
 
 `Ctrl + C` (for both macOS and Windows keyboards) cancels a running command in a terminal.
 
@@ -1597,7 +1612,7 @@ ubuntu-20.04.3-desk   1%[                    ]  33.01M  14.2MB/s               ^
 
 - The `^C` signifies that I entered Ctrl + C to the terminal, terminating the remainder of the download
 
-### Second honorable mention: package managers
+### Package managers
 
 Package managers are meant to make software installation easier, by providing a single source of up-to-date software. Every Linux distribution comes with its own built-in package manager.
 
@@ -1659,7 +1674,7 @@ I lied. There are actually a few more useful terminal commands, but they are mor
 
 It is one of the oldest (and most despised) editors in existence. However, it is useful when you need to make a quick change to a file from within a terminal.
 
-- You might need to install `vim` with a [package manager](#second-honorable-mention-package-managers)
+- You might need to install `vim` with a [package manager](#package-managers)
 - Make sure to place [this file](../macos-dot-files/.exrc) in your home directory
 - `vim <file>` opens an existing file or creates a new file, then opens up the editor
 - Vim opens up in Command Mode, which accepts values such as `:w` to save a file, `:q` to exit a blank file, and more
@@ -1814,7 +1829,7 @@ You may want to format a removable storage device from a Linux terminal. To do s
     - It's okay if you see `No space left on device`
 1. Run `sudo mkfs.exfat /dev/sdXX`
     - This sometimes takes a while to complete
-    - You may have to install `exfatprogs` with a [package manager](#second-honorable-mention-package-managers)
+    - You may have to install `exfatprogs` with a [package manager](#package-managers)
     - What follows `mkfs.` depends on which type of [file system](https://en.wikipedia.org/wiki/File_system) you want on your device
     - Each OS has a native file system:
         - Windows uses [NTFS](https://en.wikipedia.org/wiki/NTFS) which corresponds to `mkfs.ntfs`

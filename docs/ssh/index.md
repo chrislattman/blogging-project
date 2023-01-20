@@ -4,7 +4,7 @@ SSH stands for "secure shell."
 
 It is a program used to access remote servers, although "remote" can mean on the same computer. It works by utilizing SSH keys, which are based on cryptography.
 
-On Windows, use Git Bash to perform any commands on this page. On Linux, you might need to install `openssh-client` with a [package manager](../terminal-commands#second-honorable-mention-package-managers) to use `ssh` and `scp`.
+On Windows, use Git Bash to perform any commands on this page. On Linux, you might need to install `openssh-client` with a [package manager](../terminal-commands#package-managers) to use `ssh` and `scp`.
 
 ## Table of Contents
 
