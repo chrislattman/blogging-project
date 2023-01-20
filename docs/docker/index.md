@@ -78,7 +78,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - Optional: use `--cpus <num-cpus>` to specify how many CPUs the container can use
     - Optional: use `-m <memory>` to specify how much memory the container can use
 
-- `docker run -it [--name container-name] --mount src=volume-name,dst=/data image-name [/bin/bash]`
+- `docker run -it [--name container-name] -v volume-name:/data image-name [/bin/bash]`
     - starts up a container named `container-name` using the image `image-name` running a bash shell
     - mounts the volume `volume-name` to directory `/data` of the container
 
