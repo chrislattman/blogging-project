@@ -49,6 +49,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
     - e.g. `COPY file.txt .`
 - (optional) `EXPOSE` exposes a port to the host OS
     - e.g. `EXPOSE 80/tcp`
+    - This is made unecessary when using the `-p` flag for `docker run`
 - `RUN` specifies commands to run while building an image in the layer on top of it
     - e.g. `RUN apt update && apt install cmake protobuf-compiler -y`
 - `CMD` a single instruction that provides a default command to be executed in the container
@@ -58,58 +59,60 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
 
 ## Creating images, containers, and volumes
 
-- `docker pull image_name`
+- `docker pull image-name`
     - pulls a Docker image from [Docker Hub](https://hub.docker.com/)
 
-- `docker build -t image_name .`
-    - builds an image named `image_name` from a Dockerfile in the current directory
+- `docker build -t image-name .`
+    - builds an image named `image-name` from a Dockerfile in the current directory
 
-- `docker run -it [--name container_name] image_name [/bin/bash]`
-    - starts up a container named `container_name` using the image `image_name` and running a bash shell
+- `docker run -it [--name container-name] image-name [/bin/bash]`
+    - starts up a container named `container-name` using the image `image-name` and running a bash shell
     - if the image already includes a shell as specified in its Dockerfile, the `/bin/bash` command can be removed without any effect
     - replacing `-it` with `-d` makes the container run detached (runs in the background)
-        - use `-dt` instead of `-d` to prevent the container from shutting down upon exiting the terminal (it will need to be stopped by running `docker stop container_name`)
+        - use `-dt` instead of `-d` to prevent the container from shutting down upon exiting the terminal (it will need to be stopped by running `docker stop container-name`)
     - Optional: use `-p 8080:80` to bind port 8080 of the host computer to port 80 of the container
         - E.g. if the container is running a HTTP server (they use port 80 by [default](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers#Well-known_ports)), you would be able to access the server via 127.0.0.1:8080
         - The purpose of port binding is to not interfere with another service running on 127.0.0.1:80
     - Optional: use `--privileged` to run this container with extended privileges (e.g. to allow some syscalls to be executed)
     - Optional: use `--rm` to automatically remove the container when it exits
+    - Optional: use `--cpus <num-cpus>` to specify how many CPUs the container can use
+    - Optional: use `-m <memory>` to specify how much memory the container can use
 
-- `docker run -it [--name container_name] --mount src=volume_name,dst=/data image_name [/bin/bash]`
-    - starts up a container named `container_name` using the image `image_name` running a bash shell
-    - mounts the volume `volume_name` to directory `/data` of the container
+- `docker run -it [--name container-name] --mount src=volume-name,dst=/data image-name [/bin/bash]`
+    - starts up a container named `container-name` using the image `image-name` running a bash shell
+    - mounts the volume `volume-name` to directory `/data` of the container
 
-- `docker run -it [--name container_name] -v “$(pwd)”:/data image_name [/bin/bash]`
+- `docker run -it [--name container-name] -v “$(pwd)”:/data image-name [/bin/bash]`
     - like the previous command, except it mounts the current local directory as a bind mount (similar to a volume) to directory `/data` of the container
     - for Windows hosts using PowerShell, replace `$(pwd)` with `${PWD}`
     - for Windows hosts using Command Prompt (not recommended), replace `$(pwd)` with `%cd%`
     - Optional: use `-w "$(pwd)"` to set the working directory to the value of `pwd`
 
-- `docker volume create volume_name`
-    - creates a new volume named `volume_name`
+- `docker volume create volume-name`
+    - creates a new volume named `volume-name`
 
 ## Interacting with containers
 
-- `docker exec container_name ls`
+- `docker exec container-name ls`
     - runs the `ls` command in a container
 
-- `docker exec -it container_name /bin/bash`
+- `docker exec -it container-name /bin/bash`
     - runs a bash shell in a container, keeping the terminal open
 
-- `docker cp container_name:/path/to/file.txt .`
+- `docker cp container-name:/path/to/file.txt .`
     - copies `file.txt` from a container to the current local directory
     - works for both files and directories
 
-- `docker cp file.txt container_name:/path/to/dir`
+- `docker cp file.txt container-name:/path/to/dir`
     - copies `file.txt` from your current directory to the `/path/to/dir` directory in a container
     - works for both files and directories
 
 ## Stopping containers
 
-- `docker restart container_name`
+- `docker restart container-name`
     - restarts a running container, or starts up a previously stopped container
 
-- `docker stop container_name`
+- `docker stop container-name`
     - stops a running container
 
 ## Informational commands
@@ -125,14 +128,14 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
 - `docker volume ls`
     - shows all volumes
 
-- `docker logs -f container_name`
+- `docker logs -f container-name`
     - prints out the logs for a running container
 
 ## Removing images, containers, and volumes
 
-- `docker rmi image_name`
+- `docker rmi image-name`
     - removes an image
-    - instead of `image_name`, you can also reference an image by its image ID
+    - instead of `image-name`, you can also reference an image by its image ID
         - you can use as few characters as possible from the image ID that uniquely identifies the image you want to remove
         - run `docker images -a` to see all of the images and their corresponding image IDs
 
@@ -140,17 +143,17 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - removes unused images
     - `docker image prune -a` removes all unused images
 
-- `docker rm container_name`
+- `docker rm container-name`
     - removes a stopped container
-    - instead of `container_name`, you can also reference a container by its container ID
+    - instead of `container-name`, you can also reference a container by its container ID
         - you can use as few characters as possible from the container ID that uniquely identifies the container you want to remove
         - run `docker ps -a` to see all of the containers and their corresponding container IDs
-    - `docker rm -f container_name` stops a running container and then removes it
+    - `docker rm -f container-name` stops a running container and then removes it
 
 - `docker container prune`
     - removes all stopped containers
 
-- `docker volume rm volume_name`
+- `docker volume rm volume-name`
     - removes a volume
 
 - `docker volume prune`
