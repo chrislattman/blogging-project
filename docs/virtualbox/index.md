@@ -11,6 +11,13 @@ It also differs from Docker in that a virtual machine (or VM for short) is compl
 
 Note: on Linux desktops, a better alternative to VirtualBox is [Virtual Machine Manager](https://virt-manager.org/), also known as virt-manager. It runs on top of [QEMU](../qemu).
 
+On VirtualBox, the concept of snapshots can be confusing. Navigate to the Snapshots view (click bulleted list on selected VM), click "Take" to take a snapshot, then start your VM if you want to test changes that could corrupt your VM.
+
+When you're finished:
+
+- Click "Restore" if you want to discard the changes from your snapshot
+- Click "Delete" if you want to save the changes from your snapshot
+
 ## Installing Ubuntu
 
 Since VirtualBox isn't something we'll be using a lot in this project, I won't go into much detail. However, knowing how to install an OS on VirtualBox (or an alternative like VMware) is valuable knowledge to have. There are several tutorials online on how to install Ubuntu on VirtualBox. Here are a few:

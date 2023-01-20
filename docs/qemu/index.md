@@ -82,6 +82,8 @@ Create a snapshot of a VM by running
 qemu-img create -f qcow2 -b ~/qemu-vms/myvm.qcow2 -F qcow2 ~/qemu-vms/mysnapshot.qcow2
 ```
 
+- Despite the name, it is really `myvm.qcow2` file that becomes the "snapshot"
+
 You can use the snapshot by running
 
 ```
@@ -94,6 +96,14 @@ qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/mysnapshot
     - You are done using it
     - You want to use the regular VM again
     - You want to create another snapshot
+
+If you want to save the changes from your snapshot, run
+
+```
+qemu-img commit ~/qemu-vms/mysnapshot.qcow2
+```
+
+Now you can safely delete `mysnapshot.qcow2` with your changed persisted to `myvm.qcow2`.
 
 ### Shared clipboard
 
