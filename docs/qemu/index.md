@@ -30,7 +30,7 @@ Install QEMU using the link [here](https://www.qemu.org/download/), and select y
     ```
     qemu-system-x86_64 -enable-kvm \
         -boot d \
-        -cdrom /path/to/your/disk.iso \
+        -cdrom /path/to/your/startup-disk.iso \
         -cpu host \
         -smp 4 \
         -m 4G \

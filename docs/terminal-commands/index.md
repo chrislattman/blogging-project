@@ -1838,8 +1838,8 @@ Alternatively, you may want to create a startup disk. To do so:
     - Enter `n`, then accept the defaults by pressing enter until a new partition has been created
     - Enter `w` to save your changes and exit
 1. Run `sudo umount /dev/sdX1`, using the name from step 2
-1. Run `sudo dd if=/path/to/disk.iso of=/dev/sdX bs=4M status=progress && sync`
-    - `/path/to/disk.iso` is the location of the .iso file you want to install on the flash drive
+1. Run `sudo dd if=/path/to/startup-disk.iso of=/dev/sdX bs=4M status=progress && sync`
+    - `/path/to/startup-disk.iso` is the location of the startup disk you want to install on the flash drive
     - `sdX` is the name from step 2 but without the number (i.e. the whole disk, not just a partition)
     - This can take a really long time to complete
     - It's okay if you see `No space left on device`
