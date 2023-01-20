@@ -133,4 +133,20 @@ However, you can use [`scp`](../ssh#scp) from your host OS to copy files and dir
 
 ### Headless mode
 
-On QEMU, headless mode is only supported for kernel images.
+To run a VM in headless mode:
+
+```
+qemu-system-x86_64 -enable-kvm \
+    -cpu host \
+    -smp 4 \
+    -m 4G \
+    -hda myvm.qcow2 \
+    -device e1000e,netdev=net0 \
+    -netdev user,id=net0,hostfwd=tcp::3022-:22 \
+    -display none
+```
+
+- Append a [`&`](../terminal-commands#run-in-background) to the command to run it in the background
+- You will have to wait until the VM is ready
+- You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1`, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
+    - From there, you can shut it down (recommended), or you can [kill](../terminal-commands#kill) the `qemu-system-x86_64` process
