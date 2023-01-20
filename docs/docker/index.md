@@ -70,7 +70,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - If the image already includes a shell as specified in its Dockerfile, the `/bin/bash` command can be removed without any effect
     - Replacing `-it` with `-d` makes the container run detached (runs in the background)
         - Use `-dt` instead of `-d` to prevent the container from shutting down upon exiting the terminal (it will need to be stopped by running `docker stop container-name`)
-    - Optional: use `-p 8080:80` to bind port 8080 of the host computer to port 80 of the container
+    - Optional: use `-p 8080:80/tcp` to bind port 8080 of the host computer to port 80 of the container over TCP (UDP is available too)
         - E.g. if the container is running a HTTP server (they use port 80 by [default](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers#Well-known_ports)), you would be able to access the server via 127.0.0.1:8080
         - The purpose of port binding is to not interfere with another service running on 127.0.0.1:80
     - Optional: use `--privileged` to run this container with extended privileges (e.g. to allow some syscalls to be executed)
