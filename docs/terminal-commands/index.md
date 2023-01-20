@@ -1665,6 +1665,7 @@ It is one of the oldest (and most despised) editors in existence. However, it is
 - Vim opens up in Command Mode, which accepts values such as `:w` to save a file, `:q` to exit a blank file, and more
 - From Command Mode, press the `i` key to enter Insert Mode and start editing
     - Use the arrow keys to move the cursor around
+    - Hold the shift key while pressing the left or right arrow keys to move the cursor faster
 - When you're done, press the escape key to go back to Command Mode, then type `:wq` and press enter/return to save your changes and exit
     - If you did not mean to make any changes, press the escape key then type `:q!` and press enter/return to exit Vim
 - From Command Mode, press the `v` key to enter Visual Mode, which allows you to cut/copy and paste text
