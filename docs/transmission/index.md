@@ -21,7 +21,7 @@ Note: you should ALWAYS cross-reference the [SHA-256](../terminal-commands#shasu
 
 ## Installation
 
-To install Transmission on macOS or Linux, you need to install `transmission-cli` with a [package manager](../terminal-commands#second-honorable-mention-package-managers).
+To install Transmission on macOS or Linux, you need to install `transmission-cli` with a [package manager](../terminal-commands#package-managers).
 
 - For Linux, you also need to install `transmission-daemon` with a package manager
 
@@ -72,7 +72,7 @@ You can also have your terminal repeatedly update the status of your torrent by 
 watch -n 1 "transmission-remote -l"
 ```
 
-- You might need to install `watch` with a [package manager](../terminal-commands#second-honorable-mention-package-managers)
+- You might need to install `watch` with a [package manager](../terminal-commands#package-managers)
 - This will run `transmission-remote -l` every (1) second and refresh the terminal window with the latest results
 - When the download is done, you can exit by entering `Ctrl + C`
 

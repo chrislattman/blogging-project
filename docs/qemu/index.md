@@ -4,13 +4,25 @@ QEMU (Quick EMUlator) is a command line [hypervisor](https://en.wikipedia.org/wi
 
 Note: on Linux, you can use [Virtual Machine Manager](https://virt-manager.org/) (also called virt-manager) as a graphical interface to QEMU.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Installing a VM](#installing-a-vm)
+    - [Running a VM](#running-a-vm)
+    - [Port forwarding](#port-forwarding)
+    - [Creating a snapshot](#creating-a-snapshot)
+    - [Shared clipboard](#shared-clipboard)
+    - [Shared folders](#shared-folders)
+    - [Headless mode](#headless-mode)
+
 ## Installation
 
 Install QEMU using the link [here](https://www.qemu.org/download/), and select your operating system.
 
 ## Usage
 
-### Installing VM
+### Installing a VM
 
 1. If you haven't already done so, make a folder where all your QEMU VMs will reside, and navigate to it:
 
@@ -46,7 +58,7 @@ Install QEMU using the link [here](https://www.qemu.org/download/), and select y
         - On macOS, press `Cmd + Option + Ctrl + G`
     - When the installer finishes, close the QEMU window
 
-### Running VM
+### Running a VM
 
 ```
 qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.qcow2
@@ -107,7 +119,7 @@ Now you can safely delete `mysnapshot.qcow2` with your changed persisted to `myv
 
 ### Shared clipboard
 
-For Linux desktop VMs (i.e. not server environments), install `spice-vdagent` in the VM using a [package manager](../terminal-commands#second-honorable-mention-package-managers).
+For Linux desktop VMs (i.e. not server environments), install `spice-vdagent` in the VM using a [package manager](../terminal-commands#package-managers).
 
 For Windows VMs, install [this](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe) executable in the VM.
 
