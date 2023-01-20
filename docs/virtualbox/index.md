@@ -4,7 +4,7 @@ VirtualBox is a [hypervisor](https://en.wikipedia.org/wiki/Hypervisor), or a pro
 
 This is different from [dual-booting](https://www.howtogeek.com/187789/dual-booting-explained-how-you-can-have-multiple-operating-systems-on-your-computer/), which allows you to choose between two host OSes at boot time.
 
-It also differs from Docker in that a virtual machine (or VM for short) is completed isolated from the host OS, whereas Docker containers share the same underlying OS.
+It also differs from Docker in that a virtual machine (or VM for short) is completed isolated from the host OS, whereas Docker containers share the same underlying "OS" (container engine).
 
 - This makes Docker containers much more lightweight (they take up less storage) than VMs, which is why Docker is used a lot more in practice
 - VMs also tend to run slower if you have a high-resolution screen (i.e. modern Macs)
