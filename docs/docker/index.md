@@ -49,6 +49,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
     - e.g. `COPY file.txt .`
 - Optional: `EXPOSE` exposes a port to the host OS
     - e.g. `EXPOSE 80/tcp`
+    - This only allows other Docker containers to access this port on a given container
     - This is made unecessary when using the `-p` flag for `docker run`
 - `RUN` specifies commands to run while building an image in the layer on top of it
     - e.g. `RUN apt update && apt install cmake protobuf-compiler -y`
