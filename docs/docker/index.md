@@ -75,8 +75,8 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
         - The purpose of port binding is to not interfere with another service running on 127.0.0.1:80
     - Optional: use `--privileged` to run this container with extended privileges (e.g. to allow some syscalls to be executed)
     - Optional: use `--rm` to automatically remove the container when it exits
-    - Optional: use `--cpus <num-cpus>` to specify how many CPUs the container can use
-    - Optional: use `-m <memory>` to specify how much memory the container can use
+    - Optional: use `--cpus <num-cpus>` to specify how many CPUs the container can use, e.g. `--cpus 4`
+    - Optional: use `-m <memory>` to specify how much memory the container can use, e.g. `-m 4GB`
 
 - `docker run -it [--name container-name] -v volume-name:/data image-name [/bin/bash]`
     - Starts up a container named `container-name` using the image `image-name` running a bash shell
