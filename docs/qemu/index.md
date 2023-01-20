@@ -1,6 +1,6 @@
 # QEMU
 
-QEMU (Quick EMUlator) is a command line hypervisor. Like [VirtualBox](../virtualbox), you can use it to create virtual machines.
+QEMU (Quick EMUlator) is a command line [hypervisor](https://en.wikipedia.org/wiki/Hypervisor). Like [VirtualBox](../virtualbox), you can use it to create virtual machines (VMs).
 
 Note: on Linux, you can use [Virtual Machine Manager](https://virt-manager.org/) (also called virt-manager) as a graphical interface to QEMU.
 
