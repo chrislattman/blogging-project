@@ -87,6 +87,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - for Windows hosts using PowerShell, replace `$(pwd)` with `${PWD}`
     - for Windows hosts using Command Prompt (not recommended), replace `$(pwd)` with `%cd%`
     - Optional: use `-w "$(pwd)"` to set the working directory to the value of `pwd`
+    - If instead of `"$(pwd)`, you specify another directory that does not exist yet, Docker will create it for you
 
 - `docker volume create volume-name`
     - creates a new volume named `volume-name`
