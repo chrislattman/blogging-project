@@ -741,7 +741,7 @@ Stands for "move." It can be used to move _or rename_ a file or directory.
 
 - `mv <old-name> <new-name>` for renaming
 - `mv <file-or-directory> <new-location>` for moving
-- `mv <source-directory>/* <destination-directory>` moves all contents within `<source-directory>` to `<destination-directory>`
+- `mv <source-directory>/* <destination-directory>` moves all contents _within_ `<source-directory>` to `<destination-directory>`
 
 Example:
 
