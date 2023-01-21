@@ -557,6 +557,7 @@ Stands for "copy." Use it to copy files or subdirectories from one directory to 
 - `cp <source1> [source2] ... [sourceN] <destination>`
 - Use the `-r` flag to copy over a directory (the r stands for recursive)
     - `cp -r <source-directory> <destination-directory>`
+    - `cp -r <source-directory>/* <destination-directory>` copies everything _within_ `<source-directory>` and places the contents in `<destination-directory>`
 - You can copy one or more files and/or directories to a destination directory
 - Remember, this does not work like copy and paste on a GUI - there is no inherent "clipboard"
     - Therefore, you must specify a destination
@@ -740,6 +741,7 @@ Stands for "move." It can be used to move _or rename_ a file or directory.
 
 - `mv <old-name> <new-name>` for renaming
 - `mv <file-or-directory> <new-location>` for moving
+- `mv <source-directory>/* <destination-directory>` moves all contents within `<source-directory>` to `<destination-directory>`
 
 Example:
 

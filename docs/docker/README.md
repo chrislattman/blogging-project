@@ -97,6 +97,15 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - Creates a snapshot of container `container-name` and saves it as the image `snapshot-image-name`
     - Note: this does not save any data from volumes
 
+Unfortunately, there is currently no `docker volume` command to clone a volume. However, you can accomplish this by running the following commands:
+
+```
+docker volume create clone-volume
+docker run --rm -v test-volume:/data -v clone-volume:/data2 ubuntu sh -c 'cp -r /data/* /data2'
+```
+
+- This creates a clone of some existing Docker volume `test-volume` in `clone-volume`
+
 ## Interacting with containers
 
 - `docker exec container-name ls`
