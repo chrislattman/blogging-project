@@ -978,13 +978,13 @@ It searches a file (or files) for a given phrase.
     - These include/exclude options can be combined in a single command
 - `grep -Inw "phrase" <directory>` matches whole words, e.g. `onephrase` or `phrases` will not be matched
 - By default, `grep` is case-sensitive. To perform a case-insensitive search, add the lowercase `-i` flag.
-- `grep -Irl "old_phrase" <directory> | xargs sed -i "s/old_phrase/new_phrase/g"` finds and replaces all instances of `old_phrase` with `new_phrase` for all files within a directory (and its subdirectories)
-    - For a single file, run `sed -i "s/old_phrase/new_phrase/g" <file>`
-    - Prefix any `/` in `old_phrase` or `new_phrase` of `sed -i "s/old_phrase/new_phrase/g"` with a `\`
-    - `grep -Iirl "old_phrase" <directory> | xargs sed -i "s/old_phrase/new_phrase/gI"` performs a case-insensitive find and replace
+- `grep -Irl "old-phrase" <directory> | xargs sed -i "s/old-phrase/new-phrase/g"` finds and replaces all instances of `old-phrase` with `new-phrase` for all files within a directory (and its subdirectories)
+    - For a single file, run `sed -i "s/old-phrase/new-phrase/g" <file>`
+    - Prefix any `/` in `old-phrase` or `new-phrase` of `sed -i "s/old-phrase/new-phrase/g"` with a `\`
+    - `grep -Iirl "old-phrase" <directory> | xargs sed -i "s/old-phrase/new-phrase/gI"` performs a case-insensitive find and replace
         - macOS requires `gnu-sed` to do this, which can be installed with [`brew`](#package-managers)
 - Once you've found matching results, you can filter out results containing an undesired phrase
-    - `grep -Inr "phrase_wanted" <directory> | grep -v "phrase_unwanted"` filters out the results that include `phrase_unwanted` from all results containing `phrase_wanted`
+    - `grep -Inr "phrase-wanted" <directory> | grep -v "phrase-unwanted"` filters out the results that include `phrase-unwanted` from all results containing `phrase-wanted`
 
 Examples:
 
@@ -1029,6 +1029,7 @@ It searches the file system for files and directories that match the input phras
 - `find` can also be used to copy, move, or rename files and directories (and more) with the `-exec` flag
     - `find . -iname "file*.txt" -exec cp {} {}_1 \;` makes a copy of each matching file with `_1` appended to the filename
     - `find . -iname "file*.txt" -exec mv {} {}_1 \;` appends `_1` to the filename of each matching file
+    - `find . -name "*.txt" -exec sh -c 'f="{}"; mv -- "$f" "${f%.txt}.pdf"' \;` changes the file extension of all text files found to .pdf
 - `find . -iname "file*.txt" | xargs rm` removes all matching files
 
 Example:

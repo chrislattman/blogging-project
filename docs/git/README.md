@@ -132,7 +132,7 @@ git clone https://gitlab.com/owner/repository.git
 or
 
 ```
-git clone https://your_username:your_PAT@gitlab.com/owner/repository.git
+git clone https://your-username:your-PAT@gitlab.com/owner/repository.git
 ```
 - For a private repo that you have access to
 
