@@ -26,6 +26,15 @@ git config --global alias.lg "log --pretty=format:'%C(yellow)%h%Creset %C(blue)%
 git config --global advice.detachedHead false
 ```
 
+### Optional: use an anonymous commit email address
+
+Git associates your name and your email address with each commit.
+
+- GitLab offers an anonymous commit email address that you can use for your commits, which hides your real email address
+- From [here](https://gitlab.com/-/profile), scroll to Main settings, look for the Commit email field, and click the dropdown menu to view the anonymous commit email
+- Use that email address in `git config --global user.email "your email address"`
+    - You can also just use that email address for one repository by replacing `--global` with `--local` when running `git config` inside of an initialized repository folder
+
 For Windows:
 
 - Run these commands as well:
@@ -54,7 +63,7 @@ gpg --full-gen-key
 
 Press enter/return, then enter 4096 for the key size, press enter/return two more times, then press y and hit enter/return to finalize the key.
 
-You will then be asked to enter your name and email address. The email address must match the email address you used to create your GitLab account.
+You will then be asked to enter your name and email address. The email address must match either the email address you used to create your GitLab account, or an [anonymous commit email address](#optional-use-an-anonymous-commit-email-address).
 
 Then, you will be asked to enter and confirm a passphrase for your new GPG key. Once this is done, run the following command to print out the metadata for your GPG key:
 

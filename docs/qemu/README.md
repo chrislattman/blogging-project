@@ -18,9 +18,13 @@ Note: on Linux, you can use [Virtual Machine Manager](https://virt-manager.org/)
 
 ## Installation
 
-Install QEMU using the link [here](https://www.qemu.org/download/), and select your operating system.
+Linux: install `qemu-utils` and `qemu-system-x86` with a [package manager](../terminal-commands#package-managers)
 
-Note: QEMU for Windows is experimental software. It has bugs and will probably not work.
+macOS: install `qemu` with `brew`
+
+Windows: install the .exe from [this](https://qemu.weilnetz.de/w64/) page
+
+- Note: QEMU for Windows is experimental software. It has bugs and will probably not work.
 
 ## Usage
 

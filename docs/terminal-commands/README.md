@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 36 most important terminal commands (plus symbols and compression)](#the-36-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 37 most important terminal commands (plus symbols and compression)](#the-37-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -14,7 +14,9 @@ Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals inclu
 - Linux uses the terms "folder" and "directory" interchangeably
 - Windows is NOT a Unix-like operating system
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
-- Git Bash allows you to run most of these commands (except `man`, `wget`, `speedtest`, `openvpn`, `htop`, `zip`, or any package manager)
+- Git Bash allows you to run most of these commands (except `tree`, `man`, `wget`, `speedtest`, `host`, `ifconfig`, `openvpn`, `htop`, `zip`, or any package manager)
+- Note: if you are using Windows PowerShell, clicking on a PowerShell window will cause the shell to enter "Select mode"
+    - Press the escape key or right-click on the window to exit this mode
 
 Knowing these commands by heart will make you a "power user" on any Unix-like OS.
 
@@ -64,7 +66,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 36 most important terminal commands (plus symbols and compression):
+## The 37 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -90,6 +92,7 @@ To save your changes, quit Terminal and restart it.
 - [`history` - outputs your previous terminal commands](#history)
 - [`wget` - downloads files from the Internet](#wget)
 - [`shasum` - outputs the SHA-2 hash of a file](#shasum)
+- [`openssl` - encrypts and decrypts files](#openssl)
 - [`speedtest` - calculates Internet speed](#speedtest)
 - [`ping` - pings a URL for connectivity](#ping)
 - [`ifconfig` - outputs network interface information](#ifconfig)
@@ -1158,6 +1161,8 @@ Used to show the [SHA-2](https://en.wikipedia.org/wiki/SHA-2) cryptographic hash
 - In general, it is easy to get the cryptographic hash of a file, but hard/impossible to get the file from a cryptographic hash
 - Cryptographic hashes are often used to verify that a file has not been tampered with, e.g. Internet downloads
 - `shasum -a 256 <file>` outputs the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash of a file
+- On Linux, you may also see the `sha256sum` command, which does the exact same thing as `shasum -a 256`
+- [`openssl`](#openssl) also has an identical SHA-256 command
 
 Example (go to this website to verify: https://releases.ubuntu.com/22.04.1/SHA256SUMS):
 
@@ -1166,6 +1171,60 @@ Example (go to this website to verify: https://releases.ubuntu.com/22.04.1/SHA25
 10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb  ubuntu-22.04.1-live-server-amd64.iso
 [Chris@Chris-MBP-16 VM images]$
 ```
+
+## `openssl`
+
+OpenSSL is a cryptography toolkit used, among other things, to encrypt and decrypt files.
+
+- You might need to install `openssl` with a [package manager](#package-managers)
+- `openssl` is organized into subcommands:
+    - `openssl rand <num-bytes>` is used to generate random bytes of data
+    - `openssl enc -aes-256-cbc -pass file:<file> -pbkdf2 -P` is used to securely generate a private key for the [AES-256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) cipher in [CBC](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)) mode, where `<file>` is a file containing random bytes
+        - This will output a salt, key, and iv (initialization vector) used for encryption
+    - `openssl enc -aes-256-cbc -in <plaintext-file> -out <ciphertext-file> -S <salt> -K <key> -iv <iv>` is used to encrypt a file `<plaintext-file>`, and stores the encrypted file in `<ciphertext-file>`
+    - `openssl enc -aes-256-cbc -in <ciphertext-file> -out <decrypted-file> -d -S <salt> -K <key> -iv <iv>` decrypts a file, and stores the decrypted file in `<decrypted-file>`
+        - Don't forget the `-d` flag
+    - `openssl dgst -sha256 <file>` can be used to output the SHA-256 hash of a file
+
+The following example creates a text file and shows how to properly encrypt a file, decrypt it, and prove that the decryption process was correct.
+
+- Despite the names "plaintext" and "ciphertext", any type of file (not just text files) can be encrypted using this procedure
+- The `.bin` extension is meant to imply that the file consists of raw bytes
+
+```
+[Chris@Chris-MBP-16 crypto]$ touch plain.txt
+[Chris@Chris-MBP-16 crypto]$ echo "Hello world!" >> plain.txt
+[Chris@Chris-MBP-16 crypto]$ cat plain.txt
+Hello world!
+[Chris@Chris-MBP-16 crypto]$ openssl rand 32 > rand.bin
+[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -pass file:rand.bin -pbkdf2 -P
+salt=E6B1C7C1A26E13DB
+key=86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7
+iv =DE64D1654EF1C92E92B3BA9FFEE0123A
+[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin -S E6B1C7C1A26E13DB -K 86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7 -iv DE64D1654EF1C92E92B3BA9FFEE0123A
+[Chris@Chris-MBP-16 crypto]$ ls -l
+total 24
+-rw-r--r--  1 Chris  staff  16 Jan 22 13:00 encrypted.bin
+-rw-r--r--  1 Chris  staff  13 Jan 22 12:59 plain.txt
+-rw-r--r--  1 Chris  staff  32 Jan 22 12:59 rand.bin
+[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -in encrypted.bin -out decrypted.txt -d -S E6B1C7C1A26E13DB -K 86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7 -iv DE64D1654EF1C92E92B3BA9FFEE0123A
+[Chris@Chris-MBP-16 crypto]$ ls -l
+total 32
+-rw-r--r--  1 Chris  staff  13 Jan 22 13:06 decrypted.txt
+-rw-r--r--  1 Chris  staff  16 Jan 22 13:00 encrypted.bin
+-rw-r--r--  1 Chris  staff  13 Jan 22 12:59 plain.txt
+-rw-r--r--  1 Chris  staff  32 Jan 22 12:59 rand.bin
+[Chris@Chris-MBP-16 crypto]$ cat decrypted.txt
+Hello world!
+[Chris@Chris-MBP-16 crypto]$ openssl dgst -sha256 decrypted.txt
+SHA256(decrypted.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391dd8
+[Chris@Chris-MBP-16 crypto]$ openssl dgst -sha256 plain.txt
+SHA256(plain.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391dd8
+[Chris@Chris-MBP-16 crypto]$
+```
+
+- In this example, the "password" is the 3-tuple (salt, key, iv)
+- The identical SHA-256 hashes for `plain.txt` and `decrypted.txt` prove that the two files are identical
 
 ### `speedtest`
 
@@ -1207,7 +1266,7 @@ Sends packets to a URL and listens for any responses.
 - You might need to install `ping` with a [package manager](#package-managers)
 - `ping -s 32 -c 4 <url>` sends 4 packets, each of size 32 bytes, to the provided URL (this is the default Windows ping)
 - The flags are different in Git Bash
-    - `ping -l 32 -n 4 <url>` does the default Windows ping in Git Bash
+    - `ping -l 32 -n 4 <url>` or simply `ping <url>` does the default Windows ping in Git Bash
 - `host` can be used to just query DNS instead of pinging the website server
     - It outputs the IP address(es) associated with a domain name
 
@@ -1263,6 +1322,7 @@ www.google.com has IPv6 address 2607:f8b0:4004:c08::68
 
 Outputs information about your network interfaces, e.g. Wi-Fi and Ethernet.
 
+- You might need to install `net-utils` with a [package manager](#package-managers)
 - `ifconfig` shows your local IP address and MAC address
     - You will see multiple network devices when you run `ifconfig`
     - The one corresponding to your active device (either a Wi-Fi antenna or an Ethernet port) will have an inet address that is not 127.0.0.1 and multiple inet6 address that are not ::1
@@ -1836,7 +1896,7 @@ You may want to format a removable storage device from a Linux terminal. To do s
     - It's okay if you see `No space left on device`
 1. Run `sudo mkfs.exfat /dev/sdXX`
     - This sometimes takes a while to complete
-    - You may have to install `exfatprogs` with a [package manager](#package-managers)
+    - You might need to install `exfatprogs` with a [package manager](#package-managers)
     - What follows `mkfs.` depends on which type of [file system](https://en.wikipedia.org/wiki/File_system) you want on your device
     - Each OS has a native file system:
         - Windows uses [NTFS](https://en.wikipedia.org/wiki/NTFS) which corresponds to `mkfs.ntfs`
