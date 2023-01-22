@@ -66,6 +66,7 @@ Check out the [getting started](docker#getting-started) section of the Docker fo
 ## General (any OS)
 
 - Docker Desktop: https://www.docker.com/products/docker-desktop
+    - For Windows: go to `Turn Windows features on or off` and make sure Hyper-V is unchecked (restart your computer if necessary)
     - **If you already have Docker Desktop installed:** open it and click on the settings gear, go to Software Updates, click "Check for updates" and install any updates
     - Once installed, make sure to open it, click on the settings gear, uncheck "Show weekly tips," check "Use Docker Compose V2," then click on Apply & Restart
     - Linux instructions are available [here](https://docs.docker.com/desktop/install/ubuntu/) (can be done from a terminal)
@@ -172,8 +173,9 @@ Make sure to install:
 https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse#install-openssh-using-windows-settings
 
 - Git: https://git-scm.com/download/win
-    - **If you already have Git installed:** uninstall it from Settings -> Apps -> Apps & features
-    - Download the 64-bit Git for Windows Setup
+    - **If you already have Git installed:** run `git-update-git-for-windows` in Git Bash
+
+Some programs cause problems on Windows when installed without administrator privileges. To fix this, right-click on the installer you want to run and click "Run as administrator".
 
 ### Optional for Windows
 
@@ -183,19 +185,3 @@ https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_i
     - It is a free and open source archive utility that works with pretty much every archive format you'll ever encounter
     - It makes WinRAR useless (for unpacking `.rar` files), and provides enough of WinZip's features for free
         - You will still need WinRAR to _create_ `.rar` files (i.e. you are a Russian malware developer)
-
-- Ubuntu (not recommended): https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6
-    - This installs the latest release of Ubuntu for the Windows Subsystem for Linux (WSL)
-    - It is neither a Docker image nor a virtual machine
-    - For this to work, you might need to run the following in Windows PowerShell in Administrator Mode beforehand:
-        ```
-        wsl --install
-        wsl --set-default-version 2
-        bcdedit /set hypervisorlaunchtype auto
-        ```
-    - You'll also need to go to `Turn Windows features on or off` and make sure the following are checked:
-        - Virtual Machine Platform
-        - Windows Hypervisor Platform
-        - Windows Subsystem for Linux
-    - Then restart your computer and open the Ubuntu app, or run `wsl` in a PowerShell terminal
-    - This is basically a way to do a lot of work to achieve partial functionality of Docker

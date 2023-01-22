@@ -20,6 +20,8 @@ Note: on Linux, you can use [Virtual Machine Manager](https://virt-manager.org/)
 
 Install QEMU using the link [here](https://www.qemu.org/download/), and select your operating system.
 
+Note: QEMU for Windows is experimental software. It has bugs and will probably not work.
+
 ## Usage
 
 ### Installing a VM
@@ -51,8 +53,9 @@ Install QEMU using the link [here](https://www.qemu.org/download/), and select y
 
     - `-enable-kvm` is a Linux-only feature
         - For macOS, replace `-enable-kvm` with `-accel hvf`
-        - For Windows, replace `-enable-kvm` with `-accel whpx`
-            - If that doesn't work, try following [these instructions](https://www.qemu.org/2017/11/22/haxm-usage-windows/)
+        - For Windows, remove `-cpu host` and replace `-enable-kvm` with `-accel whpx,kernel-irqchip=off`
+            - If you're having trouble, go to `Turn Windows features on or off` and make sure Windows Hypervisor Platform is checked (restart your computer if necessary)
+            - If you're still having trouble, it just means that QEMU is buggy on Windows (use [VirtualBox](../virtualbox) instead)
     - A good rule of thumb is to give your VM a quarter of your computer's CPU and memory resources
     - On Windows and Linux, release the cursor from the QEMU window by pressing `Ctrl + Alt + G`
         - On macOS, press `Cmd + Option + Ctrl + G`

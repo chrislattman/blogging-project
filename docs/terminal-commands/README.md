@@ -1790,6 +1790,10 @@ You can add directories to this `$PATH` variable by modifying your `~/.bashrc` f
 - Run `source ~/.bashrc` to save your changes.
 - Now, any executable in `/path/to/directory` will be visible in the terminal without having to specify its location
 
+To view and modify the path for Windows PowerShell, go to `Edit the system environment variables`, click on "Environment Variables...", select the Path User variable, and click "Edit...". Add a directory by clicking "New".
+
+- There is also the Path System variable, which is shared by all users
+
 ### Mounting devices
 
 Most modern operating systems abstract away the process of mounting a removable storage device, such as a USB flash drive or SD card, to a computer. For Linux on some platforms, you may have to manually mount a device from the terminal.
