@@ -1184,12 +1184,10 @@ OpenSSL is a cryptography toolkit used, among other things, to encrypt and decry
     - `openssl enc -aes-256-cbc -in <plaintext-file> -out <ciphertext-file> -S <salt> -K <key> -iv <iv>` is used to encrypt a file `<plaintext-file>`, and stores the encrypted file in `<ciphertext-file>`
     - `openssl enc -aes-256-cbc -in <ciphertext-file> -out <decrypted-file> -d -S <salt> -K <key> -iv <iv>` decrypts a file, and stores the decrypted file in `<decrypted-file>`
         - Don't forget the `-d` (decrypt) flag
+    - Despite the names "plaintext" and "ciphertext", any type of file (not just text files) can be encrypted using `openssl`
     - `openssl dgst -sha256 <file>` can be used to output the SHA-256 hash of a file
 
 The following example creates a text file and shows how to properly encrypt a file, decrypt it, and prove that the decryption process was correct.
-
-- Despite the names "plaintext" and "ciphertext", any type of file (not just text files) can be encrypted using this procedure
-- The `.bin` extension is meant to imply that the file consists of raw bytes
 
 ```
 [Chris@Chris-MBP-16 crypto]$ touch plain.txt
@@ -1223,7 +1221,8 @@ SHA256(plain.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391
 [Chris@Chris-MBP-16 crypto]$
 ```
 
-- In this example, the "password" is the 3-tuple (salt, key, iv)
+- The `.bin` extension is meant to imply that the file consists of raw bytes
+- The "password" in this example is the three values (salt, key, iv)
 - The identical SHA-256 hashes for `plain.txt` and `decrypted.txt` prove that the two files are identical
 
 ### `speedtest`
