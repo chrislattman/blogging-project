@@ -22,7 +22,7 @@ Linux: install `qemu-utils` and `qemu-system-x86` with a [package manager](../te
 
 macOS: install `qemu` with `brew`
 
-Windows: install the .exe from [this](https://qemu.weilnetz.de/w64/) page
+Windows: install the .exe file from [this](https://qemu.weilnetz.de/w64/) page
 
 - Note: QEMU for Windows is experimental software. It has bugs and will probably not work.
 

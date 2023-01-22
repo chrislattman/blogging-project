@@ -26,15 +26,6 @@ git config --global alias.lg "log --pretty=format:'%C(yellow)%h%Creset %C(blue)%
 git config --global advice.detachedHead false
 ```
 
-### Optional: use an anonymous commit email address
-
-Git associates your name and your email address with each commit.
-
-- GitLab offers an anonymous commit email address that you can use for your commits, which hides your real email address
-- From [here](https://gitlab.com/-/profile), scroll to Main settings, look for the Commit email field, and click the dropdown menu to view the anonymous commit email
-- Use that email address in `git config --global user.email "your email address"`
-    - You can also just use that email address for one repository by replacing `--global` with `--local` when running `git config` inside of an initialized repository folder
-
 For Windows:
 
 - Run these commands as well:
@@ -52,6 +43,15 @@ Sometimes you may want one repository to have separate settings that differ from
 git config --local user.email "a different email address"
 git config --local commit.gpgsign false
 ```
+
+### Optional: use an anonymous commit email address
+
+Git associates your name and your email address with each commit.
+
+- GitLab offers an anonymous commit email address that you can use for your commits, which hides your real email address
+- From [here](https://gitlab.com/-/profile), scroll down to Main settings, look for the Commit email field, and click the dropdown menu to view the anonymous commit email
+- Use that email address in `git config --global user.email "your email address"`
+    - You can also just use that email address for one repository by replacing `--global` with `--local` when running this command inside of an initialized repository folder
 
 ### Optional: sign your commits with a GPG key:
 

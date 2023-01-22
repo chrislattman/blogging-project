@@ -1183,7 +1183,7 @@ OpenSSL is a cryptography toolkit used, among other things, to encrypt and decry
         - This will output a salt, key, and iv (initialization vector) used for encryption
     - `openssl enc -aes-256-cbc -in <plaintext-file> -out <ciphertext-file> -S <salt> -K <key> -iv <iv>` is used to encrypt a file `<plaintext-file>`, and stores the encrypted file in `<ciphertext-file>`
     - `openssl enc -aes-256-cbc -in <ciphertext-file> -out <decrypted-file> -d -S <salt> -K <key> -iv <iv>` decrypts a file, and stores the decrypted file in `<decrypted-file>`
-        - Don't forget the `-d` flag
+        - Don't forget the `-d` (decrypt) flag
     - `openssl dgst -sha256 <file>` can be used to output the SHA-256 hash of a file
 
 The following example creates a text file and shows how to properly encrypt a file, decrypt it, and prove that the decryption process was correct.
