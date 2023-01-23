@@ -1321,7 +1321,7 @@ www.google.com has IPv6 address 2607:f8b0:4004:c08::68
 
 Outputs information about your network interfaces, e.g. Wi-Fi and Ethernet.
 
-- You might need to install `net-utils` with a [package manager](#package-managers)
+- You might need to install `net-tools` with a [package manager](#package-managers)
 - `ifconfig` shows your local IP address and MAC address
     - You will see multiple network devices when you run `ifconfig`
     - The one corresponding to your active device (either a Wi-Fi antenna or an Ethernet port) will have an inet address that is not 127.0.0.1 and multiple inet6 address that are not ::1
@@ -1936,6 +1936,7 @@ To unmount the device:
 
 Linux command that copies output from a command and stores it in the clipboard.
 
+- You might need to install `xclip` with a [package manager](#package-managers)
 - This command isn't really necessary, since it's only useful on Linux desktop environments, where you presumably have a mouse/touchpad available to right-click and copy or paste text
 
 Usage: `command | xclip -sel clip`
