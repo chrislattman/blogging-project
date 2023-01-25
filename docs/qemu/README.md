@@ -4,9 +4,9 @@ QEMU (Quick EMUlator) is a command line [hypervisor](https://en.wikipedia.org/wi
 
 There are graphical interfaces available for QEMU, which can help you if you are not experienced/comfortable with the various QEMU flags:
 
-- On Linux, there is [Virtual Machine Manager](https://virt-manager.org/) (also called virt-manager)
-- On macOS, there is [UTM](https://mac.getutm.app/)
-- On Windows, there is [QtEmu](https://carlavilla.es/qtemu/qtemu_setup_x86_64.exe) (direct download link)
+- For Linux host OSes (hosts), there is [Virtual Machine Manager](https://virt-manager.org/) (also called virt-manager)
+- For macOS hosts, there is [UTM](https://mac.getutm.app/)
+- For Windows hosts, there is [QtEmu](https://carlavilla.es/qtemu/qtemu_setup_x86_64.exe) (direct download link)
 
 ## Table of Contents
 
@@ -22,11 +22,11 @@ There are graphical interfaces available for QEMU, which can help you if you are
 
 ## Installation
 
-Linux: install `qemu-utils` and `qemu-system-x86` with a [package manager](../terminal-commands#package-managers)
+Linux hosts: install `qemu-utils` and `qemu-system-x86` with a [package manager](../terminal-commands#package-managers)
 
-macOS: install `qemu` with `brew`
+macOS hosts: install `qemu` with `brew`
 
-Windows: install the .exe file from [this](https://qemu.weilnetz.de/w64/) page
+Windows hosts: install the .exe file from [this](https://qemu.weilnetz.de/w64/) page
 
 - Note: QEMU for Windows is experimental software and may not work
 
@@ -59,14 +59,14 @@ Windows: install the .exe file from [this](https://qemu.weilnetz.de/w64/) page
         -hda myvm.qcow2
     ```
 
-    - `-enable-kvm` is a Linux-only feature
-        - For macOS, replace `-enable-kvm` with `-machine type=q35,accel=hvf`
-        - For Windows, remove `-cpu host` and replace `-enable-kvm` with `-machine type=q35,accel=whpx,kernel_irqchip=off`
+    - `-enable-kvm` is for Linux hosts only
+        - For macOS hosts, replace `-enable-kvm` with `-machine type=q35,accel=hvf`
+        - For Windows hosts, remove `-cpu host` and replace `-enable-kvm` with `-machine type=q35,accel=whpx,kernel_irqchip=off`
             - If you're having trouble, go to `Turn Windows features on or off` and make sure Windows Hypervisor Platform is checked (restart your computer if necessary)
-            - If you're still having trouble, it just means that QEMU is buggy on Windows (use [VirtualBox](../virtualbox) instead)
+            - If you're still having trouble, it just means that QEMU for Windows is buggy (use [VirtualBox](../virtualbox) instead)
     - A good rule of thumb is to give your VM a quarter of your computer's CPU and memory resources
-    - On Windows and Linux, release the cursor from the QEMU window by pressing `Ctrl + Alt + G`
-        - On macOS, press `Cmd + Option + Ctrl + G`
+    - On Windows and Linux hosts, release the cursor from the QEMU window by pressing `Ctrl + Alt + G`
+        - On macOS hosts, press `Cmd + Option + Ctrl + G`
     - When the installer finishes, close the QEMU window
 
 ### Running a VM
@@ -145,7 +145,7 @@ You should now be able to copy and paste between your host OS and your VM.
 
 Unfortunately, shared folders are not easy to configure with QEMU.
 
-However, you can use [`scp`](../ssh#scp) from your host OS to copy files and directories to and from your VM. Make sure to have [port forwarding](#port-forwarding) set up first. Note: some OSes will require you to manually set up `openssh-server`.
+However, you can use [`scp`](../ssh#scp) from your host OS to copy files and directories to and from your VM. Make sure to have [port forwarding](#port-forwarding) set up first. Note: some VMs will require you to manually set up `openssh-server`.
 
 ### Headless mode
 
