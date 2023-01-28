@@ -21,6 +21,7 @@ There are graphical interfaces available for QEMU, which can help you if you are
     - [Headless mode](#headless-mode)
     - [Convert file format](#convert-file-format)
     - [Resizing a VM](#resizing-a-vm)
+    - [Importing a VM](#importing-a-vm)
 
 ## Installation
 
@@ -88,7 +89,7 @@ qemu-system-x86_64 -enable-kvm \
     -smp 4 \
     -m 4G \
     -hda ~/qemu-vms/myvm.qcow2 \
-    -device e1000e,netdev=net0 \
+    -device e1000,netdev=net0 \
     -netdev user,id=net0,hostfwd=tcp::3022-:22
 ```
 
@@ -160,7 +161,7 @@ qemu-system-x86_64 -enable-kvm \
     -smp 4 \
     -m 4G \
     -hda myvm.qcow2 \
-    -device e1000e,netdev=net0 \
+    -device e1000,netdev=net0 \
     -netdev user,id=net0,hostfwd=tcp::3022-:22 \
     -display none
 ```
@@ -181,8 +182,8 @@ qemu-img convert -f qcow2 -O vdi myvm.qcow2 myvboxdisk.vdi
 
 - The `-O` has an uppercase letter O, not a zero
 - In this example, you can use `myvboxdisk.vdi` in a new VirtualBox VM as the virtual hard disk, and without needing to specify an `.iso` file
-- VirtualBox uses the `.vdi` format
-- VMware uses the `.vmdk` format
+- VirtualBox uses the `.vdi` format for running VMs, and the `.vmdk` format for exporting VMs
+- VMware uses the `.vmdk` format within its `.vmwarevm` directory format
 
 ### Resizing a VM
 
@@ -195,3 +196,22 @@ qemu-img resize -f qcow2 myvm.qcow2 +10G
 - Here I am adding 10 GB of storage to `myvm.qcow2` (you can add any amount you want)
 - You will need to use file system partitioning software within your VM to actually use this extra space
 - You can also use this command with the `--shrink` flag and replacing the `+` with a `-` to shrink the storage space, but this may corrupt your VM (not recommended)
+
+### Importing a VM
+
+Note: this assumes the VM you are importing is stored in one `.vmdk` file.
+
+You may run into files with the `.ova` extension, which refers to the Open Virtual Appliance format.
+
+- They are simply [tar archives](../terminal-commands#compression-zip-and-tar) that contain at least two files about an exported VM:
+    - An `.ovf` file, which is an [XML](https://en.wikipedia.org/wiki/XML) file containing metadata about the VM
+        - Namely, this file will tell you how many CPUs and how much memory this VM should use, as well as any port forwarding rules
+    - A `.vmdk` file, which is the actual VM itself
+    - Optional: a `.mf` manifest file which contains the SHA-256 hashes of the above two files
+    - Optional: the `.iso` file used to create the VM
+- It is the default format that hypervisors like VirtualBox and VMware use to export VMs
+    - Not surprisingly, `.ova` files can be easily imported with VirtualBox and VMware
+- For QEMU, you need to do the following steps:
+    1. Unarchive the `.ova` file, e.g. `tar -xf myexportedvm.ova`
+    1. [Convert](#convert-file-format) the `.vmdk` file to a `.qcow2` file
+    1. [Run](#running-a-vm) the newly-created `.qcow2` file with the arguments specified in the `.ovf` file

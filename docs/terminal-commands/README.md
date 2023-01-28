@@ -1161,6 +1161,11 @@ Used to show the [SHA-2](https://en.wikipedia.org/wiki/SHA-2) cryptographic hash
 - In general, it is easy to get the cryptographic hash of a file, but hard/impossible to get the file from a cryptographic hash
 - Cryptographic hashes are often used to verify that a file has not been tampered with, e.g. Internet downloads
 - `shasum -a 256 <file>` outputs the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash of a file
+- If you have the SHA-256 hash available from a website, and you want to compare it with the file, run
+    ```
+    echo "<sha256-hash> *<file>" | shasum -a 256 --check
+    ```
+    - You should get an "OK" message if the provided hash matches the calculated hash
 - On Linux, you may also see the `sha256sum` command, which does the exact same thing as `shasum -a 256`
 - [`openssl`](#openssl) also has an identical SHA-256 command
 
@@ -1169,6 +1174,8 @@ Example (go to this website to verify: https://releases.ubuntu.com/22.04.1/SHA25
 ```
 [Chris@Chris-MBP-16 VM images]$ shasum -a 256 ubuntu-22.04.1-live-server-amd64.iso
 10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb  ubuntu-22.04.1-live-server-amd64.iso
+[Chris@Chris-MBP-16 VM images]$ echo "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb *ubuntu-22.04.1-live-server-amd64.iso" | shasum -a 256 --check
+ubuntu-22.04.1-live-server-amd64.iso: OK
 [Chris@Chris-MBP-16 VM images]$
 ```
 
@@ -1569,6 +1576,7 @@ Linux distributions also support ZIP with the `zip` and `unzip` commands, but yo
 
 - You might need to install `zip` (and possibly `unzip`) with a [package manager](#package-managers) if using Linux
 - Note: `.tar` stands for "tape archive", and `.gz` means that it is _compressed_ with Gzip
+    - Trivia: `.tar` files are often referred to as "tarballs"
 - However, you can archive and compress files at once (like `zip`) using just the `tar` command
 - `tar` can also be used to decompress and unarchive (a.k.a. extract) files at once (whereas `unzip` is needed for `.zip` files)
 
