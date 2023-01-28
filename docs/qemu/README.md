@@ -179,7 +179,7 @@ You may want to export a VM for use with another hypervisor, i.e. VirtualBox or 
 qemu-img convert -f qcow2 -O vdi myvm.qcow2 myvboxdisk.vdi
 ```
 
-- The `-O` is the letter O, not a zero
+- The `-O` has an uppercase letter O, not a zero
 - In this example, you can use `myvboxdisk.vdi` in a new VirtualBox VM as the virtual hard disk, and without needing to specify an `.iso` file
 - VirtualBox uses the `.vdi` format
 - VMware uses the `.vmdk` format
