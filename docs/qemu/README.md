@@ -20,7 +20,7 @@ There are graphical interfaces available for QEMU, which can help you if you are
     - [Shared folders](#shared-folders)
     - [Headless mode](#headless-mode)
     - [Convert file format](#convert-file-format)
-    - [Resize VM](#resize-vm)
+    - [Resizing a VM](#resizing-a-vm)
 
 ## Installation
 
@@ -184,7 +184,7 @@ qemu-img convert -f qcow2 -O vdi myvm.qcow2 myvboxdisk.vdi
 - VirtualBox uses the `.vdi` format
 - VMware uses the `.vmdk` format
 
-### Resize VM
+### Resizing a VM
 
 You can increase the size of a VM's storage space by running
 
