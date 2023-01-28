@@ -12,13 +12,15 @@ There are graphical interfaces available for QEMU, which can help you if you are
 
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Installing a VM](#installing-a-vm)
+    - [Creating a VM](#creating-a-vm)
     - [Running a VM](#running-a-vm)
     - [Port forwarding](#port-forwarding)
     - [Creating a snapshot](#creating-a-snapshot)
     - [Shared clipboard](#shared-clipboard)
     - [Shared folders](#shared-folders)
     - [Headless mode](#headless-mode)
+    - [Convert file format](#convert-file-format)
+    - [Resize VM](#resize-vm)
 
 ## Installation
 
@@ -32,7 +34,7 @@ Windows hosts: install the .exe file from [this](https://qemu.weilnetz.de/w64/) 
 
 ## Usage
 
-### Installing a VM
+### Creating a VM
 
 1. If you haven't already done so, make a folder where all your QEMU VMs will reside, and navigate to it:
 
@@ -94,6 +96,7 @@ qemu-system-x86_64 -enable-kvm \
 - This binds port 3022 of your host OS to port 22 (default SSH port) of the VM over TCP (UDP is available too)
 - You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1` in another terminal window, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
 - You can save your login credentials by following [these](../ssh#saving-your-login-to-the-server) instructions
+- Long commands like this are suitable targets for an [alias](../terminal-commands#aliasing)
 - Advanced: forward another port by adding another `hostfwd` key-value pair, e.g.
     ```
     -netdev user,id=net0,hostfwd=tcp::3022-:22,hostfwd=tcp::2159-:2159
@@ -167,3 +170,28 @@ qemu-system-x86_64 -enable-kvm \
 - You will have to wait until the VM is ready
 - You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1`, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
     - From there, you can shut it down (recommended), or you can [kill](../terminal-commands#kill) the `qemu-system-x86_64` process
+
+### Convert file format
+
+You may want to export a VM for use with another hypervisor, i.e. VirtualBox or VMware. You can do this by running
+
+```
+qemu-img convert -f qcow2 -O vdi myvm.qcow2 myvboxdisk.vdi
+```
+
+- The `-O` is the letter O, not a zero
+- In this example, you can use `myvboxdisk.vdi` in a new VirtualBox VM as the virtual hard disk, and without needing to specify an `.iso` file
+- VirtualBox uses the `.vdi` format
+- VMware uses the `.vmdk` format
+
+### Resize VM
+
+You can increase the size of a VM's storage space by running
+
+```
+qemu-img resize -f qcow2 myvm.qcow2 +10G
+```
+
+- Here I am adding 10 GB of storage to `myvm.qcow2` (you can add any amount you want)
+- You will need to use file system partitioning software within your VM to actually use this extra space
+- You can also use this command with the `--shrink` flag and replacing the `+` with a `-` to shrink the storage space, but this may corrupt your VM (not recommended)
