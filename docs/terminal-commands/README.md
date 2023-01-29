@@ -1270,14 +1270,13 @@ Upload: 8.39 Mbit/s
 Sends packets to a URL and listens for any responses.
 
 - You might need to install `ping` with a [package manager](#package-managers)
-- `ping -s 32 -c 4 <url>` sends 4 packets, each of size 32 bytes, to the provided URL (this is the default Windows ping)
-- The flags are different in Git Bash
-    - `ping -l 32 -n 4 <url>` or simply `ping <url>` does the default Windows ping in Git Bash
+- On Linux and macOS, `ping -s 32 -c 4 <url>` sends 4 packets, each of size 32 bytes, to the provided URL (this is the default Windows/Git Bash ping)
 - `host` can be used to just query DNS instead of pinging the website server
     - It outputs the IP address(es) associated with a domain name
 - `traceroute` is like `ping` except it shows the IP addresses of all servers encountered en route to the destination URL
+    - You might need to install `traceroute` with a [package manager](#package-managers)
     - `traceroute -m 30 <url> 60` does the default Linux traceroute on macOS
-    - `tracert` is the Windows (and Git Bash) equivalent of `traceroute`
+    - `tracert` is the Windows/Git Bash equivalent of `traceroute`
 
 Examples:
 
