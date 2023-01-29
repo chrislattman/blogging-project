@@ -27,7 +27,7 @@ There are graphical interfaces available for QEMU, which can help you if you are
 
 Linux hosts: install `qemu-utils` and `qemu-system-x86` with a [package manager](../terminal-commands#package-managers)
 
-macOS hosts: install `qemu` with `brew`
+macOS hosts: run `brew install qemu` in Terminal
 
 Windows hosts: install the .exe file from [this](https://qemu.weilnetz.de/w64/) page
 
@@ -50,14 +50,14 @@ Windows hosts: install the .exe file from [this](https://qemu.weilnetz.de/w64/) 
     qemu-img create -f qcow2 myvm.qcow2 25G
     ```
 
-1. Install the operating system (I am giving it 4 CPUs and 4 GB of memory):
+1. Install the operating system (I am giving it 2 CPUs and 4 GB of memory):
 
     ```
     qemu-system-x86_64 -enable-kvm \
         -boot d \
         -cdrom /path/to/your/startup-disk.iso \
         -cpu host \
-        -smp 4 \
+        -smp 2 \
         -m 4G \
         -hda myvm.qcow2
     ```
@@ -75,7 +75,7 @@ Windows hosts: install the .exe file from [this](https://qemu.weilnetz.de/w64/) 
 ### Running a VM
 
 ```
-qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.qcow2
+qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda ~/qemu-vms/myvm.qcow2
 ```
 
 - Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Installing a VM](#installing-a-vm))
@@ -86,7 +86,7 @@ qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/myvm.qcow2
 ```
 qemu-system-x86_64 -enable-kvm \
     -cpu host \
-    -smp 4 \
+    -smp 2 \
     -m 4G \
     -hda ~/qemu-vms/myvm.qcow2 \
     -device e1000,netdev=net0 \
@@ -118,7 +118,7 @@ qemu-img create -f qcow2 -b ~/qemu-vms/myvm.qcow2 -F qcow2 ~/qemu-vms/mysnapshot
 You can use the snapshot by running
 
 ```
-qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -hda ~/qemu-vms/mysnapshot.qcow2
+qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda ~/qemu-vms/mysnapshot.qcow2
 ```
 
 - Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Installing a VM](#installing-a-vm))
@@ -158,7 +158,7 @@ To run a VM in headless mode:
 ```
 qemu-system-x86_64 -enable-kvm \
     -cpu host \
-    -smp 4 \
+    -smp 2 \
     -m 4G \
     -hda myvm.qcow2 \
     -device e1000,netdev=net0 \
