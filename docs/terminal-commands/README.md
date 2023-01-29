@@ -1191,7 +1191,7 @@ OpenSSL is a cryptography toolkit used, among other things, to encrypt and decry
     - `openssl enc -aes-256-cbc -in <plaintext-file> -out <ciphertext-file> -S <salt> -K <key> -iv <iv>` is used to encrypt a file `<plaintext-file>`, and stores the encrypted file in `<ciphertext-file>`
     - `openssl enc -aes-256-cbc -in <ciphertext-file> -out <decrypted-file> -d -S <salt> -K <key> -iv <iv>` decrypts a file, and stores the decrypted file in `<decrypted-file>`
         - Don't forget the `-d` (decrypt) flag
-    - Despite the names "plaintext" and "ciphertext", any type of file (not just text files) can be encrypted using `openssl`
+    - Despite the names "plaintext" and "ciphertext" any type of file (not just text files) can be encrypted using `openssl`
     - `openssl dgst -sha256 <file>` can be used to output the SHA-256 hash of a file
 
 The following example creates a text file and shows how to properly encrypt a file, decrypt it, and prove that the decryption process was correct.
@@ -1275,6 +1275,9 @@ Sends packets to a URL and listens for any responses.
     - `ping -l 32 -n 4 <url>` or simply `ping <url>` does the default Windows ping in Git Bash
 - `host` can be used to just query DNS instead of pinging the website server
     - It outputs the IP address(es) associated with a domain name
+- `traceroute` is like `ping` except it shows the IP addresses of all servers encountered en route to the destination URL
+    - `traceroute -m 30 <url> 60` does the default Linux traceroute on macOS
+    - `tracert` is the Windows (and Git Bash) equivalent of `traceroute`
 
 Examples:
 
@@ -1575,7 +1578,7 @@ On macOS and Windows, you are most likely familiar with the [ZIP](https://en.wik
 Linux distributions also support ZIP with the `zip` and `unzip` commands, but you'll see a lot more `.tar.gz` files. Why? It is because the [`tar`](https://en.wikipedia.org/wiki/Tar_(computing)) and [`gzip`](https://en.wikipedia.org/wiki/Gzip) commands used to create such files are native to Linux (whereas `zip` and `unzip` are _not_).
 
 - You might need to install `zip` (and possibly `unzip`) with a [package manager](#package-managers) if using Linux
-- Note: `.tar` stands for "tape archive", and `.gz` means that it is _compressed_ with Gzip
+- Note: `.tar` stands for "tape archive" and `.gz` means that it is _compressed_ with Gzip
     - Trivia: `.tar` files are often referred to as "tarballs"
 - However, you can archive and compress files at once (like `zip`) using just the `tar` command
 - `tar` can also be used to decompress and unarchive (a.k.a. extract) files at once (whereas `unzip` is needed for `.zip` files)
