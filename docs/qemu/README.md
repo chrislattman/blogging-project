@@ -201,7 +201,7 @@ qemu-img resize -f qcow2 myvm.qcow2 +10G
 
 Note: this assumes the VM you are importing is stored in one `.vmdk` file.
 
-You may run into files with the `.ova` extension, which refers to the Open Virtual Appliance format.
+You may run into files with the `.ova` extension, which refers to an [Open Virtualization Format](https://en.wikipedia.org/wiki/Open_Virtualization_Format) archive.
 
 - They are simply [tar archives](../terminal-commands#compression-zip-and-tar) that contain at least two files about an exported VM:
     - An `.ovf` file, which is an [XML](https://en.wikipedia.org/wiki/XML) file containing metadata about the VM
