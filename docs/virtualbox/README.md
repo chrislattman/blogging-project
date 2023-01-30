@@ -18,6 +18,10 @@ When you are finished:
 - Click "Restore" if you want to discard the changes from your snapshot
 - Click "Delete" if you want to save the changes from your snapshot
 
+Advanced: VirtualBox offers a command line interface through the `VBoxManage` command
+
+- More information can be found [here](https://www.oracle.com/technical-resources/articles/it-infrastructure/admin-manage-vbox-cli.html)
+
 ## Installing Ubuntu
 
 Since VirtualBox isn't something we'll be using a lot in this project, I won't go into much detail. However, knowing how to install an OS on VirtualBox (or an alternative like VMware) is valuable knowledge to have. There are several tutorials online on how to install Ubuntu on VirtualBox. Here are a few:
