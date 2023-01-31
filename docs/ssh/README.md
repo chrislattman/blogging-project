@@ -214,7 +214,7 @@ sftp>
 - If file sending failed, this will continue where `sftp` left off
 - `reput -R <directory>` does the same thing for directories
 
-While `sftp` is more complex, the advantage of using `sftp` over `scp` is the ability to continue a failed `get`/`put`, as well as the features below.
+While `sftp` is more complex, the advantage of using `sftp` over `scp` is the ability to continue a failed `get` or `put`, as well as the features below.
 
 ### Extras
 
@@ -255,7 +255,7 @@ You can also run commands that operate _within your local computer_:
 - `lpwd`
 - `lcd`
 
-These correspond to the commands after the first `l`, e.g. `lls` does `ls`
+These correspond to the commands after the first `l`, e.g. `lls` does `ls` on your local current directory
 
 Example:
 
