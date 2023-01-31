@@ -1774,8 +1774,8 @@ Command aliasing is a common practice used to provide a shortcut alias to a long
 
 There are two ways to create an alias:
 
-1. Use [`vim`](#vim) to edit `~/.bashrc` and manually type in an alias (see [here](../macos-dot-files/.bashrc) for examples)
-1. Append an alias to `~/.bashrc` in a command
+- Use [`vim`](#vim) to edit `~/.bashrc` and manually type in an alias (see [here](../macos-dot-files/.bashrc) for examples)
+- Append an alias to `~/.bashrc` in a command
     - Example: `echo "alias shortcut='ls -l /home/user/me'" >> ~/.bashrc`
     - This appends the alias `shortcut` to the end of the `.bashrc` file in your home directory
 
