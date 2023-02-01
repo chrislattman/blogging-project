@@ -80,6 +80,7 @@ qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda ~/qemu-vms/myvm.qcow2
 
 - Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Installing a VM](#installing-a-vm))
 - On macOS, the QEMU window is not resizable
+- Advanced: adding `-D <log-file>` will output logging information to the specified file
 
 ### Port forwarding
 
@@ -206,6 +207,7 @@ You may run into files with the `.ova` extension, which refers to an [Open Virtu
 - They are simply [tar archives](../terminal-commands#compression-zip-and-tar) that contain at least two files about an exported VM:
     - An `.ovf` file, which is an [XML](https://en.wikipedia.org/wiki/XML) file containing metadata about the VM
         - Namely, this file will tell you how many CPUs and how much memory this VM should use, as well as any port forwarding rules
+        - This is the QEMU equivalent of `.vbox` files for VirtualBox or `.vmx` files for VMware
     - A `.vmdk` file, which is the actual VM itself
     - Optional: a `.mf` manifest file which contains the SHA-256 hashes of the above two files
     - Optional: the `.iso` file used to create the VM
