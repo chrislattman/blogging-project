@@ -150,7 +150,7 @@ You should now be able to copy and paste between your host OS and your VM.
 
 Unfortunately, shared folders are not easy to configure with QEMU.
 
-However, you can use [`scp`](../ssh#scp) from your host OS to copy files and directories to and from your VM. Make sure to have [port forwarding](#port-forwarding) set up first. Note: some VMs will require you to manually set up `openssh-server`.
+However, you can use [`scp`](../ssh#scp) or [`sftp`](../ssh#sftp) from your host OS to copy files and directories to and from your VM. Make sure to have [port forwarding](#port-forwarding) set up first. Note: some VMs will require you to manually set up `openssh-server`.
 
 ### Headless mode
 
