@@ -17,7 +17,9 @@ This page will go over how to use TShark. There are numerous videos available on
 
 ## Installation
 
-To install TShark on macOS or Linux, you need to install `tshark` with a [package manager](../terminal-commands#package-managers).
+To install TShark on Linux, you need to install `tshark` with a [package manager](../terminal-commands#package-managers).
+
+To install TShark on macOS, run `brew install wireshark`
 
 If you are not comfortable with the terminal, Wireshark can be downloaded for Windows or macOS [here](https://www.wireshark.org/download.html). For Linux, `wireshark` can be installed with a package manager.
 

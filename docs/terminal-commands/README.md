@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 37 most important terminal commands (plus symbols and compression)](#the-37-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 41 most important terminal commands (plus symbols and compression)](#the-41-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -66,7 +66,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 37 most important terminal commands (plus symbols and compression):
+## The 41 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -95,6 +95,10 @@ To save your changes, quit Terminal and restart it.
 - [`openssl` - encrypts and decrypts files](#openssl)
 - [`speedtest` - calculates Internet speed](#speedtest)
 - [`ping` - pings a URL for connectivity](#ping)
+- [`traceroute` - shows IP addresses of all servers encountered during a ping](#traceroute)
+- [`host` - resolves the IP address of a website](#host)
+- [`nmap` - scans a website for open ports](#nmap)
+- [`netstat` - shows active network connections](#netstat)
 - [`ifconfig` - outputs network interface information](#ifconfig)
 - [`openvpn` - connects to a VPN service](#openvpn)
 - [`date` - outputs the current date and time](#date)
@@ -987,7 +991,7 @@ It searches a file (or files) for a given phrase.
     - For a single file, run `sed -i "s/old-phrase/new-phrase/g" <file>`
     - Prefix any `/` in `old-phrase` or `new-phrase` of `sed -i "s/old-phrase/new-phrase/g"` with a `\`
     - `grep -Iirl "old-phrase" <directory> | xargs sed -i "s/old-phrase/new-phrase/gI"` performs a case-insensitive find and replace
-        - macOS requires `gnu-sed` to do this, which can be installed with [`brew`](#package-managers)
+        - macOS requires `gsed` to do this, which can be installed by running `brew install gnu-sed`
 - Once you've found matching results, you can filter out results containing an undesired phrase
     - `grep -Inr "phrase-wanted" <directory> | grep -v "phrase-unwanted"` filters out the results that include `phrase-unwanted` from all results containing `phrase-wanted`
 
@@ -1271,14 +1275,8 @@ Sends packets to a URL and listens for any responses.
 
 - You might need to install `ping` with a [package manager](#package-managers)
 - On Linux and macOS, `ping -s 32 -c 4 <url>` sends 4 packets, each of size 32 bytes, to the provided URL (this is the default Windows/Git Bash ping)
-- `host` can be used to just query DNS instead of pinging the website server
-    - It outputs the IP address(es) associated with a domain name
-- `traceroute` is like `ping` except it shows the IP addresses of all servers encountered en route to the destination URL
-    - You might need to install `traceroute` with a [package manager](#package-managers)
-    - `traceroute -m 30 <url> 60` does the default Linux traceroute on macOS
-    - `tracert` is the Windows/Git Bash equivalent of `traceroute`
 
-Examples:
+Example:
 
 ```
 [Chris@Chris-MBP-16 ~]$ ping -s 32 -c 4 google.com
@@ -1304,6 +1302,22 @@ round-trip min/avg/max/stddev = 14.221/19.026/20.811/2.776 ms
 [Chris@Chris-MBP-16 ~]$
 ```
 
+### `traceroute`
+
+Works like `ping`, except it shows the IP addresses of all servers encountered en route to the destination URL.
+
+- You might need to install `traceroute` with a [package manager](#package-managers)
+    - `traceroute -m 30 <url> 60` does the default Linux traceroute on macOS
+    - `tracert` is the Windows/Git Bash equivalent of `traceroute`
+
+### `host`
+
+Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
+
+- It outputs the IP address(es) associated with a website
+
+Example:
+
 ```
 [Chris@Chris-MBP-16 ~]$ host google.com
 google.com has address 172.217.2.110
@@ -1324,6 +1338,58 @@ www.google.com has IPv6 address 2607:f8b0:4004:c08::6a
 www.google.com has IPv6 address 2607:f8b0:4004:c08::69
 www.google.com has IPv6 address 2607:f8b0:4004:c08::68
 [Chris@Chris-MBP-16 ~]$
+```
+
+### `nmap`
+
+Stands for "network mapper." It is used to scan a website for open ports.
+
+- You might need to install `nmap` with a [package manager](#package-managers)
+- `nmap -T4 <url>` shows the open ports and services running on those ports
+    - Remove `-T4` if your Internet connection is slow
+    - There are many more flags you can use with `nmap`
+        - Run `man nmap` or read [here](https://linux.die.net/man/1/nmap) for more information
+
+Example:
+
+```
+[Chris@Chris-MBP-16 ~]$ nmap -T4 google.com
+Starting Nmap 7.92 ( https://nmap.org ) at 2023-02-05 14:07 EST
+Nmap scan report for google.com (172.253.62.100)
+Host is up (0.013s latency).
+Other addresses for google.com (not scanned): 2607:f8b0:4004:c1b::71 2607:f8b0:4004:c1b::64 2607:f8b0:4004:c1b::8b 2607:f8b0:4004:c1b::65 172.253.62.138 172.253.62.101 172.253.62.139 172.253.62.102 172.253.62.113
+rDNS record for 172.253.62.100: bc-in-f100.1e100.net
+Not shown: 997 filtered tcp ports (no-response)
+PORT    STATE SERVICE
+53/tcp  open  domain
+80/tcp  open  http
+443/tcp open  https
+
+Nmap done: 1 IP address (1 host up) scanned in 42.41 seconds
+[Chris@Chris-MBP-16 ~]$
+```
+
+### `netstat`
+
+Stands for "network statistics." It is used to show all active network connections from your computer.
+
+- You might need to install `net-tools` with a [package manager](#package-managers)
+
+Example (I am excluding most results):
+
+```
+[Chris@Chris-MBP-16 ~]$ netstat
+Active Internet connections
+Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)
+tcp6       0      0  2605:ad80:20:1cd.51110 ack.nmap.org.https     CLOSE_WAIT
+tcp6      31      0  2605:ad80:20:1cd.51109 ack.nmap.org.https     CLOSE_WAIT
+tcp6      31      0  2605:ad80:20:1cd.51108 ack.nmap.org.https     CLOSE_WAIT
+tcp6      31      0  2605:ad80:20:1cd.51107 ack.nmap.org.https     CLOSE_WAIT
+tcp6      31      0  2605:ad80:20:1cd.51106 ack.nmap.org.https     CLOSE_WAIT
+tcp6      31      0  2605:ad80:20:1cd.51105 ack.nmap.org.https     CLOSE_WAIT
+.
+.
+.
 ```
 
 ### `ifconfig`
