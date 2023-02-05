@@ -1,10 +1,12 @@
 # SSH
 
-SSH stands for "secure shell." It replaces the insecure [`telnet`](https://en.wikipedia.org/wiki/Telnet) command.
+SSH stands for "secure shell." It replaces the insecure [`telnet`](https://en.wikipedia.org/wiki/Telnet) / [`rlogin`](https://en.wikipedia.org/wiki/Berkeley_r-commands#rlogin) commands.
 
 It is a program used to access remote servers, although "remote" can mean on the same computer. It works by utilizing SSH keys, which are based on cryptography.
 
 On Windows, use Git Bash to perform any commands on this page. On Linux, you might need to install `openssh-client` with a [package manager](../terminal-commands#package-managers) to use `ssh`, `scp`, and `sftp`.
+
+To access a remote server using any of the commands on this page, `sshd` (the SSH daemon) must be running on the server. You might need to install `openssh-server` on the server.
 
 ## Table of Contents
 
@@ -172,6 +174,36 @@ Stands for "secure copy." It is similar to [`cp`](../terminal-commands#cp), but 
 
 - This copies over `/directory` from the remote server to your computer's current directory
 - With the `seed` SSH configuration: `scp -r seed:/directory .`
+
+### `rsync`
+
+A faster, more efficient alternative to `scp` is `rsync`.
+
+- You might need to install `rsync` with a [package manager](../terminal-commands#package-managers)
+- It also uses SSH by default, but is more complex than `scp`
+- It is ideal for updating large files and directories between two servers
+    - It only transmits the differences between the source file or directory and destination file or directory
+    - `scp` transmits the whole file or directory, regardless of any similarities
+
+`rsync -Pz [-e 'ssh -p <port-number>'] <file> user@hostname:/directory`
+
+- This copies a file from your computer to the remote server, and stores it in `/directory`
+- With the `seed` SSH configuration: `rsync -Pz <file> seed:/directory`
+
+`rsync -Pzr [-e 'ssh -p <port-number>'] <directory> user@hostname:/directory`
+
+- This copies a directory from your computer to the remote server, and stores it in `/directory`
+- With the `seed` SSH configuration: `rsync -Pzr <directory> seed:/directory`
+
+`rsync -Pz [-e 'ssh -p <port-number>'] user@hostname:/directory/file.txt .`
+
+- This copies `file.txt` from the remote server in `/directory` to the your computer's current directory
+- With the `seed` SSH configuration: `rsync -Pz seed:/directory/file.txt .`
+
+`rsync -Pzr [-e 'ssh -p <port-number>'] user@hostname:/directory .`
+
+- This copies over `/directory` from the remote server to your computer's current directory
+- With the `seed` SSH configuration: `rsync -Pzr seed:/directory .`
 
 ## `sftp`
 
