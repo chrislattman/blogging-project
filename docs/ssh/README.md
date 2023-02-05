@@ -151,59 +151,63 @@ Read more about VirtualBox [here](../virtualbox).
 Stands for "secure copy." It is similar to [`cp`](../terminal-commands#cp), but allows you to copy files and directories over the Internet between your computer and a remote server (or directly to a virtual machine on your computer).
 
 - It is installed with `ssh` because it uses the SSH protocol for security
+- You can specify a different SSH port to use with the `-P` flag if port 22 is not used by the remote server for SSH connections
+- It can compress data before transmission (with the optional `-C` flag)
+    - This will take a little longer to initialize, but is worthwhile for large transfers over slow Internet connections
 
 ### Usage
 
-`scp [-P <port-number>] <file> user@hostname:/directory`
+`scp [-C] [-P <port-number>] <file> user@hostname:/directory`
 
 - This copies a file from your computer to the remote server, and stores it in `/directory`
 - Can optionally specify a port number (in this case, port `port-number` of user@hostname)
 - With the `seed` SSH configuration: `scp <file> seed:/directory`
 
-`scp [-P <port-number>] -r <directory> user@hostname:/directory`
+`scp [-C] [-P <port-number>] -r <directory> user@hostname:/directory`
 
 - This copies a directory from your computer to the remote server, and stores it in `/directory`
 - With the `seed` SSH configuration: `scp -r <directory> seed:/directory`
 
-`scp [-P <port-number>] user@hostname:/directory/file.txt .`
+`scp [-C] [-P <port-number>] user@hostname:/directory/file.txt .`
 
 - This copies `file.txt` from the remote server in `/directory` to the your computer's current directory
 - With the `seed` SSH configuration: `scp seed:/directory/file.txt .`
 
-`scp [-P <port-number>] -r user@hostname:/directory .`
+`scp [-C] [-P <port-number>] -r user@hostname:/directory .`
 
 - This copies over `/directory` from the remote server to your computer's current directory
 - With the `seed` SSH configuration: `scp -r seed:/directory .`
 
 ### `rsync`
 
-A faster, more efficient alternative to `scp` is `rsync`.
+A more efficient alternative to `scp` is `rsync`.
 
 - You might need to install `rsync` with a [package manager](../terminal-commands#package-managers)
 - It also uses SSH by default, but is more complex than `scp`
-- It is ideal for updating large files and directories between two servers
+- It is ideal for consistently updating files and directories between two servers
     - It only transmits the differences between the source file or directory and destination file or directory
-    - `scp` transmits the whole file or directory, regardless of any similarities
+    - `scp` on the other hand transmits the whole file or directory, regardless of any similarities (inefficient)
+    - Like `scp`, you can specify a different SSH port to use (with `-e`) and compress data before sending it (with `-z`)
 
-`rsync -Pz [-e 'ssh -p <port-number>'] <file> user@hostname:/directory`
+`rsync -P [-z] [-e 'ssh -p <port-number>'] <file> user@hostname:/directory`
 
 - This copies a file from your computer to the remote server, and stores it in `/directory`
-- With the `seed` SSH configuration: `rsync -Pz <file> seed:/directory`
+- With the `seed` SSH configuration: `rsync -P [-z] <file> seed:/directory`
 
-`rsync -Pzr [-e 'ssh -p <port-number>'] <directory> user@hostname:/directory`
+`rsync -P [-z] [-e 'ssh -p <port-number>'] -r <directory> user@hostname:/directory`
 
 - This copies a directory from your computer to the remote server, and stores it in `/directory`
-- With the `seed` SSH configuration: `rsync -Pzr <directory> seed:/directory`
+- With the `seed` SSH configuration: `rsync -Pr [-z] <directory> seed:/directory`
 
-`rsync -Pz [-e 'ssh -p <port-number>'] user@hostname:/directory/file.txt .`
+`rsync -P [-z] [-e 'ssh -p <port-number>'] user@hostname:/directory/file.txt .`
 
 - This copies `file.txt` from the remote server in `/directory` to the your computer's current directory
-- With the `seed` SSH configuration: `rsync -Pz seed:/directory/file.txt .`
+- With the `seed` SSH configuration: `rsync -P [-z] seed:/directory/file.txt .`
 
-`rsync -Pzr [-e 'ssh -p <port-number>'] user@hostname:/directory .`
+`rsync -P [-z] [-e 'ssh -p <port-number>'] -r user@hostname:/directory .`
 
 - This copies over `/directory` from the remote server to your computer's current directory
-- With the `seed` SSH configuration: `rsync -Pzr seed:/directory .`
+- With the `seed` SSH configuration: `rsync -Pr [-z] seed:/directory .`
 
 ## `sftp`
 
