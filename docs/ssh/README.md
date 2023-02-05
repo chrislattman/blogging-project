@@ -4,7 +4,7 @@ SSH stands for "secure shell." It replaces the insecure [`telnet`](https://en.wi
 
 It is a program used to access remote servers, although "remote" can mean on the same computer. It works by utilizing SSH keys, which are based on cryptography.
 
-On Windows, use Git Bash to perform any commands on this page. On Linux, you might need to install `openssh-client` with a [package manager](../terminal-commands#package-managers) to use `ssh`, `scp`, and `sftp`.
+On Windows, use Git Bash to perform any commands on this page except `rsync`. On Linux, you might need to install `openssh-client` with a [package manager](../terminal-commands#package-managers) to use `ssh`, as well as the bundled `scp` and `sftp` file transfer commands.
 
 To access a remote server using any of the commands on this page, `sshd` (the SSH daemon) must be running on the server. You might need to install `openssh-server` on the server.
 
