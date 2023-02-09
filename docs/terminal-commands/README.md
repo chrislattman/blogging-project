@@ -499,7 +499,7 @@ Useful utility that echoes any input back out.
 - It can be used to check which shell you are using: `echo $0`
 - It is also used to quickly add text to a file: `echo [-e] "text" > <file>`
     - The `-e` flag allows you to write characters such as the newline character, `\n`
-        - Special characters such as `$` will need to be prefixed with a `\`
+        - Special characters such as `$` need to be prefixed with a `\`
     - You can append to the end of a file (instead of overwriting its contents) by running `echo [-e] "text" >> <file>`
         - Appending to a file automatically adds a newline character before any text
 - You can use `echo` to see the exit code of the last command executed: `echo $?`
