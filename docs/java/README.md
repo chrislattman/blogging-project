@@ -161,7 +161,7 @@ To build and run a Java project from the command line, you have two options:
     ```
     Manifest-Version: 1.0
     Main-Class: pkg.YourMainClassName
-
+    
     ```
 
     Then run:
