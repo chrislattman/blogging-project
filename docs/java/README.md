@@ -51,12 +51,12 @@ Each of your test classes have 5 example functions:
 ```
 @BeforeAll
 static void initAll() {
-    
+
 }
 
 @BeforeEach
 void init() {
-    
+
 }
 
 @Test
@@ -66,12 +66,12 @@ void test() {
 
 @AfterEach
 void tearDown() {
-    
+
 }
 
 @AfterAll
 static void tearDownAll() {
-    
+
 }
 ```
 
@@ -152,20 +152,23 @@ To build and run a Java project from the command line, you have two options:
     ```
     javac -d out src/pkg/*.java
     cd out
+    mkdir META-INF
+    cd META-INF
     ```
 
-    - Create a `manifest.mf` file (note the blank third line):
+    - Create a `MANIFEST.MF` file in the `META-INF` directory with the following contents (note the blank third line):
 
     ```
     Manifest-Version: 1.0
     Main-Class: pkg.YourMainClassName
-     
+
     ```
 
     Then run:
-    
+
     ```
-    jar -cmf manifest.mf archive.jar pkg/*.class
+    cd ..
+    jar -cmf META-INF/MANIFEST.MF archive.jar pkg/*.class
     java -jar archive.jar
     ```
 
