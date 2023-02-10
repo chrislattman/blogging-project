@@ -1123,6 +1123,7 @@ Example (finds previous `wget` commands):
 Stands for "[world wide] web get." It downloads files from the Internet.
 
 - You might need to install `wget` with a [package manager](#package-managers)
+- `wget -c <url>` will continue a dropped download where it left off
 
 Example:
 
@@ -1157,6 +1158,7 @@ total 6030984
 - `curl wttr.in` outputs a 3-day weather forecast for your current IP address location
     - `curl wttr.in/<city>` outputs a 3-day weather forecast for the given city
     - You can also specify a state to narrow down the right city, e.g. `curl wttr.in/manhattan,ks`
+- `curl -S - <url>` will continue a dropped download where it left off
 
 ### `shasum`
 
