@@ -131,8 +131,9 @@ jobs:
       - name: Script
         run: |
           cd bin
-          echo -e "Manifest-Version":" 1.0\nMain-Class":" app.Driver\n" > manifest.mf
-          jar -cmf manifest.mf ../blogging-project.jar app/*.class
+          mkdir META-INF
+          echo -e "Manifest-Version":" 1.0\nMain-Class":" app.Driver\n" > META-INF/MANIFEST.MF
+          jar -cmf META-INF/MANIFEST.MF ../blogging-project.jar app/*.class
       - name: Upload jar
         uses: actions/upload-artifact@v2
         with:

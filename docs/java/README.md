@@ -12,27 +12,27 @@ Java is a cross-platform programming language used for many applications.
 
 ## Development
 
-You will want to reference the `java.util` package. This documentation is freely available, and can be accessed [here](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/package-summary.html#class-summary).
+You will want to reference the `java.util` package. This documentation is freely available, and can be accessed [here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/package-summary.html#class-summary).
 
 - Make sure to click on the "Classes" tab
 - The most commonly used data structures are:
     - Basic arrays, i.e. `int[] arr = new int[10];`
-    - [`ArrayDeque`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/ArrayDeque.html)
-    - [`ArrayList`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/ArrayList.html)
-    - [`HashMap`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/HashMap.html)
-    - [`HashSet`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/HashSet.html)
-    - [`LinkedList`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/LinkedList.html)
-    - [`PriorityQueue`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/PriorityQueue.html)
-    - [`Stack`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/Stack.html)
-- Use the [`Scanner`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/Scanner.html) class to read from standard input
+    - [`ArrayDeque`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayDeque.html)
+    - [`ArrayList`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html)
+    - [`HashMap`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html)
+    - [`HashSet`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html)
+    - [`LinkedList`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html)
+    - [`PriorityQueue`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/PriorityQueue.html)
+    - [`Stack`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Stack.html)
+- Use the [`Scanner`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html) class to read from standard input
 
-You will also want to reference the `java.lang` package. It can be accessed [here](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/lang/package-summary.html).
+You will also want to reference the `java.lang` package. It can be accessed [here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/package-summary.html).
 
 - You might find these classes to be helpful:
-    - [`Math`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/lang/Math.html)
-    - [`String`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/lang/String.html)
-    - [`StringBuilder`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/lang/StringBuilder.html) (used to concatenate Strings efficiently)
-    - [`System`](https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/lang/System.html)
+    - [`Math`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Math.html)
+    - [`String`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html)
+    - [`StringBuilder`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html) (used to concatenate Strings efficiently)
+    - [`System`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html)
 
 Some more helpful info:
 - [Java Primitive Data Types](https://www.baeldung.com/java-primitives)
@@ -153,7 +153,6 @@ To build and run a Java project from the command line, you have two options:
     javac -d out src/pkg/*.java
     cd out
     mkdir META-INF
-    cd META-INF
     ```
 
     - Create a `MANIFEST.MF` file in the `META-INF` directory with the following contents (note the blank third line):
@@ -167,7 +166,6 @@ To build and run a Java project from the command line, you have two options:
     Then run:
 
     ```
-    cd ..
     jar -cmf META-INF/MANIFEST.MF archive.jar pkg/*.class
     java -jar archive.jar
     ```
