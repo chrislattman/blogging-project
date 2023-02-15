@@ -1289,11 +1289,12 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
         ```
         -----END PGP PUBLIC KEY BLOCK-----
         ```
+    - [Here](https://github.com/chrislattman/chrislattman/blob/master/public.asc) is an example of a GPG public key
 - Optional: `gpg --sign-key <email-address>` signs a public key corresponding to a specified email address with your private key
     - It will get rid of any warning messages about this public key not being trusted by anyone
 - `gpg --delete-key <email-address>` deletes a public key from your keyring
 
-Sign without encrypting:
+#### Sign without encrypting:
 
 - Do this if you want anyone to see your message/file, but be able to verify it was you who signed that message/file
     - E.g. [signed Git commits](../git#optional-sign-your-commits-with-a-gpg-key)
@@ -1321,7 +1322,7 @@ Sign without encrypting:
     gpg: Good signature from "name <email-address>" [...]
     ```
 
-Sign and encrypt:
+#### Sign and encrypt:
 
 - Do this if you want to send an encrypted message/file to someone, who can verify that you signed the message/file
 - As a sender, you need to import the recipient's public key; see [Key management](#key-management)
@@ -1350,10 +1351,10 @@ Sign and encrypt:
     gpg: Good signature from "name <email-address>" [...]
     ```
 
-Encrypt without signing:
+#### Encrypt without signing:
 
 - Do this if you want to send an encrypted message/file to someone without them needing to verify that you signed it
-- The only difference between signing and not signing a message/file is the presence of the `-s` flag in the encryption command
+- The only difference between signing and not signing an encrypted message/file is the presence of the `-s` flag in the encryption step
     - As a sender, you still need to import the recipient's public key; see [Key management](#key-management)
     - As a recipient, however, since the message is not signed (and thus no signature is verified), you don't need to import the sender's public key
 
