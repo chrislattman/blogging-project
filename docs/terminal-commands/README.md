@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 41 most important terminal commands (plus symbols and compression)](#the-41-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 42 most important terminal commands (plus symbols and compression)](#the-42-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -66,7 +66,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 41 most important terminal commands (plus symbols and compression):
+## The 42 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -93,6 +93,7 @@ To save your changes, quit Terminal and restart it.
 - [`wget` - downloads files from the Internet](#wget)
 - [`shasum` - outputs the SHA-2 hash of a file](#shasum)
 - [`openssl` - encrypts and decrypts files](#openssl)
+- [`gpg` - encrypts and signs files for communication](#gpg)
 - [`speedtest` - calculates Internet speed](#speedtest)
 - [`ping` - pings a URL for connectivity](#ping)
 - [`traceroute` - shows IP addresses of all servers encountered during a ping](#traceroute)
@@ -1238,6 +1239,100 @@ SHA256(plain.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391
 - The `.bin` extension is meant to imply that the file consists of raw bytes
 - The "password" in this example is the three values (salt, key, iv)
 - The identical SHA-256 hashes for `plain.txt` and `decrypted.txt` prove that the two files are identical
+
+### `gpg`
+
+Stands for "GNU Privacy Guard" and also referred to as "GnuPG." It is a free and open source implementation of the OpenPGP standard, which is used by proprietary software such as [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
+
+Some background (feel free to skip to [usage](#usage)):
+
+Why would someone need to use GPG when there is already software like OpenSSL? OpenSSL, as demonstrated above, is great for encrypting local files, but a major problem arises when trying to share encrypted files with other people on the Internet:
+
+- For someone else to decrypt the encrypted file, they would need to know the password (salt, key, iv)
+- But how can that password be shared with them over the Internet without anyone else being able to use it?
+    - One would have to encrypt the password itself, but then how does one share the password for the password?
+    - This becomes a never-ending loop when only using private-key algorithms, such as AES-256 in the above example
+
+The solution is **public-key** encryption. Each person has two keys:
+
+- A public key, which can be shared with the whole world
+- A private key, which must be kept secret
+
+A sender encrypts their file with the recipient's public key, which the recipient decrypts with their private key. A cryptosystem like [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) (which GPG uses by default) is used for this purpose.
+
+- This may seem impossible (or magical) using intuition
+- It is worth noting that it took over 2000 years to get from the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) (Julius Caesar died in 44 BC), one of the earliest forms of private-key encryption, to RSA, which was published in 1977
+
+In practice, protocols like [HTTPS](https://en.wikipedia.org/wiki/HTTPS), which are used to encrypt Internet traffic, employ a cryptographic protocol like [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security), which utilizes both public-key and private-key encryption.
+
+- TLS starts by using the [Diffie-Hellman key exchange](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange) to securely generate a shared secret key between the client (you) and the server (the website you are visiting)
+- After that, TLS encrypts all subsequent communications between the client and the server with AES-256 using the shared secret key as the password
+- The reason why TLS doesn't use something like RSA for all communications is because public-key encryption is generally slower than private-key encryption
+
+#### Usage:
+
+To generate a GPG keypair, follow the instructions [here](../git#optional-sign-your-commits-with-a-gpg-key), but ignore all the Git/GitLab stuff.
+
+#### Key management:
+
+- `gpg -k` outputs all public keys saved in your GPG keyring
+    - The GPG keyring is where your GPG public and private keys are stored (kind of like the key ring for your keys)
+- `gpg --import <publickey>` imports someone else's public key into your keyring
+    - `<publickey>` should be a text file (sometimes ends with `.key` or `.asc`) whose contents begin with
+        ```
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        ```
+        and end with
+        ```
+        -----END PGP PUBLIC KEY BLOCK-----
+        ```
+- Optional: `gpg --sign-key <email-address>` signs a public key corresponding to a specified email address with your private key
+    - It will get rid of any warning messages about this public key not being trusted by anyone
+- `gpg --delete-key <email-address>` deletes a public key from your keyring
+
+Sign without encrypting:
+
+- Do this if you want anyone to see your message/file, but be able to verify it was you who signed that message/file
+- To verify someone else's signature, you need to import their public key; see [Key management](#key-management)
+- Option 1: sign a text file
+    - `gpg --clearsign -o <output-text-file> <text-file>`
+        - This stores both the contents of the text file and your signature in the output text file
+    - `gpg --verify <output-text-file>`
+        - Verifies the signature using the signer's public key
+- Option 2: sign any kind of file
+    - `gpg -b -o <output-signature> <file>`
+        - This stores only your signature in the output signature file
+    - `gpg --verify <output-signature> <file>`
+        - Verifies the signature using the signer's public key
+- For either option, look for output of the form
+    ```
+    gpg: Good signature from "name <email-address>" [...]
+    ```
+
+Encrypt without signing:
+
+- Do this if you want to send an encrypted message/file to someone without them needing to verify that you signed it
+- You will need to import the recipient's public key; see [Key management](#key-management)
+- To encrypt: `gpg -e -r <email-address> <input-file>`
+    - The email address is the recipient's email address associated with their public key
+    - This will create an encrypted file of the form `<input-file>.gpg`
+- To decrypt: `gpg <input-file>.gpg`
+    - This will produce the decrypted file `<input-file>`
+
+Encrypt and sign:
+
+- Do this if you want to send an encrypted message/file to someone, who can verify that you signed the message/file
+- You will need to import the recipient's public key; see [Key management](#key-management)
+- To encrypt and sign: `gpg -es -r <email-address> <input-file>`
+    - The email address is the recipient's email address associated with their public key
+    - This will create an encrypted file of the form `<input-file>.gpg`
+- To decrypt and verify signature: `gpg <input-file>.gpg`
+    - This will produce the decrypted file `<input-file>`
+    - You will need to import the sender's public key to verify their signature; see [Key management](#key-management)
+    - Look for output of the form
+        ```
+        gpg: Good signature from "name <email-address>" [...]
+        ```
 
 ### `speedtest`
 

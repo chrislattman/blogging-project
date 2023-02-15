@@ -61,7 +61,7 @@ Create the GPG key:
 gpg --full-gen-key
 ```
 
-Press enter/return, then enter 4096 for the key size, press enter/return two more times, then press y and hit enter/return to finalize the key.
+Press enter/return, then type 4096 for the key size, press enter/return two more times, then press y and hit enter/return to finalize the key.
 
 You will then be asked to enter your name and email address. The email address must match either the email address you used to create your GitLab account, or an [anonymous commit email address](#optional-use-an-anonymous-commit-email-address).
 
@@ -83,7 +83,7 @@ ssb   4096R/4BB6D45482678BE3 2016-03-10
 
 Then copy your GPG key ID. In the above example, it is `3AA5C34371567BD2`
 
-Run the following command to output your GPG public key (with your own GPG key ID):
+Run the following command to output your GPG public key (replace `3AA5C34371567BD2` with your own GPG key ID):
 
 ```
 gpg -a --export 3AA5C34371567BD2
