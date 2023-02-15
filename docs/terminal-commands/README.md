@@ -1253,7 +1253,7 @@ Why would someone need to use GPG when there is already software like OpenSSL? O
     - One would have to encrypt the password itself, but then how does one share the password for the password?
     - This becomes a never-ending loop when only using private-key algorithms, such as AES-256 in the above example
 
-The solution is **public-key** encryption. Each person has two keys:
+The solution is public-key encryption. Each person has two keys:
 
 - A public key, which can be shared with the whole world
 - A private key, which must be kept secret
@@ -1261,7 +1261,7 @@ The solution is **public-key** encryption. Each person has two keys:
 A sender encrypts their file with the recipient's public key, which the recipient decrypts with their private key. A cryptosystem like [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) (which GPG uses by default) is used for this purpose.
 
 - This may seem impossible (or magical) using intuition
-- It is worth noting that it took over 2000 years to get from the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) (Julius Caesar died in 44 BC), one of the earliest forms of private-key encryption, to RSA, which was published in 1977
+- It's worth noting that it took over 2000 years to get from the [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) (Julius Caesar died in 44 BC), one of the earliest forms of private-key encryption, to RSA, which was published in 1977
 
 In practice, protocols like [HTTPS](https://en.wikipedia.org/wiki/HTTPS), which are used to encrypt Internet traffic, employ a cryptographic protocol like [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security), which utilizes both public-key and private-key encryption.
 
@@ -1271,7 +1271,9 @@ In practice, protocols like [HTTPS](https://en.wikipedia.org/wiki/HTTPS), which 
 
 #### Usage:
 
-To generate a GPG keypair, follow the instructions [here](../git#optional-sign-your-commits-with-a-gpg-key), but ignore all the Git/GitLab stuff.
+To generate a GPG key, follow the instructions [here](../git#optional-sign-your-commits-with-a-gpg-key), but ignore all the Git/GitLab stuff.
+
+- Technically, you are generating a keypair (a public GPG key and a private GPG key)
 
 #### Key management:
 
@@ -1294,6 +1296,7 @@ To generate a GPG keypair, follow the instructions [here](../git#optional-sign-y
 Sign without encrypting:
 
 - Do this if you want anyone to see your message/file, but be able to verify it was you who signed that message/file
+    - E.g. [signed Git commits](../git#optional-sign-your-commits-with-a-gpg-key)
 - To verify someone else's signature, you need to import their public key; see [Key management](#key-management)
 - Option 1: sign a text file
     - `gpg --clearsign <text-file>`
@@ -1321,8 +1324,8 @@ Sign without encrypting:
 Sign and encrypt:
 
 - Do this if you want to send an encrypted message/file to someone, who can verify that you signed the message/file
-- You will need to import the recipient's public key; see [Key management](#key-management)
-- To verify a sender's signature (when decrypting), you need to import their public key; see [Key management](#key-management)
+- As a sender, you need to import the recipient's public key; see [Key management](#key-management)
+- As a recipient, you need to import the sender's public key to verify their signature
 - Option 1: encrypt and sign a text file
     - `gpg -esa -r <email-address> <text-file>`
         - The email address is the recipient's email address associated with their public key
@@ -1339,7 +1342,7 @@ Sign and encrypt:
 - Option 2: encrypt and sign any file
     - `gpg -es -r <email-address> <file>`
         - The email address is the recipient's email address associated with their public key
-        - This will create an encrypted file of the form `<file>.gpg`
+        - This creates an encrypted file of the form `<file>.gpg`
     - `gpg <file>.gpg`
         - Produces the decrypted file `<file>` and verifies the signature
 - For either option, when verifying a signature (during decryption), look for output of the form
@@ -1350,8 +1353,9 @@ Sign and encrypt:
 Encrypt without signing:
 
 - Do this if you want to send an encrypted message/file to someone without them needing to verify that you signed it
-- You will need to import the recipient's public key; see [Key management](#key-management)
 - The only difference between signing and not signing a message/file is the presence of the `-s` flag in the encryption command
+    - As a sender, you still need to import the recipient's public key; see [Key management](#key-management)
+    - As a recipient, however, since the message is not signed (and thus no signature is verified), you don't need to import the sender's public key
 
 ### `speedtest`
 

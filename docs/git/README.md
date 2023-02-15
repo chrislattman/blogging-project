@@ -124,6 +124,8 @@ gpg-connect-agent reloadagent /bye
 
 If you see the message `OK`, then your passphrase has been cached. Quit your current terminal and open a new terminal, and your changes will take effect.
 
+Note: you can do more with a GPG key than just signing Git commits. See [here](../terminal-commands#gpg) for more details.
+
 ## Initializing a Git repository
 
 ### To download an existing repo using SSH (recommended):
