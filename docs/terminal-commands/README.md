@@ -1244,7 +1244,7 @@ SHA256(plain.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391
 
 Stands for "GNU Privacy Guard" and also referred to as "GnuPG." It is a free and open source implementation of the OpenPGP standard, which is used by proprietary software such as [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
 
-Some background (feel free to skip to [usage](#usage)):
+Some background (feel free to skip to [Usage](#usage)):
 
 Why would someone need to use GPG when there is already software like OpenSSL? OpenSSL, as demonstrated above, is great for encrypting local files, but a major problem arises when trying to share encrypted files with other people on the Internet:
 
