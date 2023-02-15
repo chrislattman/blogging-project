@@ -1277,6 +1277,7 @@ To generate a GPG keypair, follow the instructions [here](../git#optional-sign-y
 
 - `gpg -k` outputs all public keys saved in your GPG keyring
     - The GPG keyring is where your GPG public and private keys are stored (kind of like the key ring for your keys)
+    - This is where you can see the email address associated with a public key
 - `gpg --import <publickey>` imports someone else's public key into your keyring
     - `<publickey>` should be a text file (sometimes ends with `.key` or `.asc`) whose contents begin with
         ```
@@ -1296,7 +1297,14 @@ Sign without encrypting:
 - To verify someone else's signature, you need to import their public key; see [Key management](#key-management)
 - Option 1: sign a text file
     - `gpg --clearsign -o <output-text-file> <text-file>`
-        - This stores both the contents of the text file and your signature in the output text file
+        - This stores both the contents of the text file and your signature in the output text file, whose contents will begin with
+            ```
+            -----BEGIN PGP SIGNED MESSAGE-----
+            ```
+            and will end with
+            ```
+            -----END PGP SIGNATURE-----
+            ```
     - `gpg --verify <output-text-file>`
         - Verifies the signature using the signer's public key
 - Option 2: sign any kind of file
@@ -1304,7 +1312,7 @@ Sign without encrypting:
         - This stores only your signature in the output signature file
     - `gpg --verify <output-signature> <file>`
         - Verifies the signature using the signer's public key
-- For either option, look for output of the form
+- For either option, when verifying a signature, look for output of the form
     ```
     gpg: Good signature from "name <email-address>" [...]
     ```
@@ -1313,26 +1321,54 @@ Encrypt without signing:
 
 - Do this if you want to send an encrypted message/file to someone without them needing to verify that you signed it
 - You will need to import the recipient's public key; see [Key management](#key-management)
-- To encrypt: `gpg -e -r <email-address> <input-file>`
-    - The email address is the recipient's email address associated with their public key
-    - This will create an encrypted file of the form `<input-file>.gpg`
-- To decrypt: `gpg <input-file>.gpg`
-    - This will produce the decrypted file `<input-file>`
+- Option 1: encrypt a text file
+    - `gpg -ea -r <email-address> <text-file>`
+        - The email address is the recipient's email address associated with their public key
+        - This stores the encrypted message in a file of the form `<text-file>.asc`, whose contents will begin with
+            ```
+            -----BEGIN PGP MESSAGE-----
+            ```
+            and will end with
+            ```
+            -----END PGP MESSAGE-----
+            ```
+    - `gpg <text-file>.asc`
+        - Produces the decrypted file `<text-file>`
+- Option 2: encrypt any kind of file
+    - `gpg -e -r <email-address> <file>`
+        - The email address is the recipient's email address associated with their public key
+        - This will create an encrypted file of the form `<file>.gpg`
+    - `gpg <file>.gpg`
+        - Produces the decrypted file `<file>`
 
 Encrypt and sign:
 
 - Do this if you want to send an encrypted message/file to someone, who can verify that you signed the message/file
 - You will need to import the recipient's public key; see [Key management](#key-management)
-- To encrypt and sign: `gpg -es -r <email-address> <input-file>`
-    - The email address is the recipient's email address associated with their public key
-    - This will create an encrypted file of the form `<input-file>.gpg`
-- To decrypt and verify signature: `gpg <input-file>.gpg`
-    - This will produce the decrypted file `<input-file>`
-    - You will need to import the sender's public key to verify their signature; see [Key management](#key-management)
-    - Look for output of the form
-        ```
-        gpg: Good signature from "name <email-address>" [...]
-        ```
+- Option 1: encrypt and sign a text file
+    - `gpg -esa -r <email-address> <text-file>`
+        - The email address is the recipient's email address associated with their public key
+        - This stores the encrypted and signed message in a file of the form `<text-file>.asc`, whose contents will begin with
+            ```
+            -----BEGIN PGP MESSAGE-----
+            ```
+            and will end with
+            ```
+            -----END PGP MESSAGE-----
+            ```
+    - `gpg <text-file>.asc`
+        - Produces the decrypted file `<text-file>`
+- Option 2: encrypt and sign any file
+    - `gpg -es -r <email-address> <file>`
+        - The email address is the recipient's email address associated with their public key
+        - This will create an encrypted file of the form `<file>.gpg`
+    - `gpg <file>.gpg`
+        - This will produce the decrypted file `<file>`
+        - You will need to import the sender's public key to verify their signature; see [Key management](#key-management)
+        - Look for output of the form
+            ```
+            gpg: Good signature from "name <email-address>" [...]
+            ```
 
 ### `speedtest`
 
