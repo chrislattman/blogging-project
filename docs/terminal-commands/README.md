@@ -1311,7 +1311,7 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
             ```
     - `gpg --verify <text-file>.asc`
         - Verifies the signature using the signer's public key
-        - Note: this will not work if `<text-file>.asc` is encrypted
+        - Note: this will not work if `<text-file>.asc` is [encrypted](#sign-and-encrypt)
 - Option 2: sign any kind of file
     - `gpg -b <file>`
         - This stores only your signature in a file of the form `<file>.sig`
@@ -1324,7 +1324,7 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
 
 #### Sign and encrypt:
 
-- Do this if you want to send an encrypted message/file to someone, who can verify that you signed the message/file
+- Do this if you want to send an encrypted message/file to someone, who can verify that you signed it
 - As a sender, you need to import the recipient's public key; see [Key management](#key-management)
 - As a recipient, you need to import the sender's public key to verify their signature
 - Option 1: encrypt and sign a text file
@@ -1346,10 +1346,13 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
         - This creates an encrypted file of the form `<file>.gpg`
     - `gpg <file>.gpg`
         - Produces the decrypted file `<file>` and verifies the signature
-- For either option, when verifying a signature (during decryption), look for output of the form
-    ```
-    gpg: Good signature from "name <email-address>" [...]
-    ```
+- For either option:
+    - When you encrypt anything with the recipient's public key, you won't be able to recover the original contents from the `.asc` or `.gpg` file alone
+        - Don't delete the original message/file until the recipient confirms that they've received your `.asc` or `.gpg` file
+    - When verifying a signature (during decryption), look for output of the form
+        ```
+        gpg: Good signature from "name <email-address>" [...]
+        ```
 
 #### Encrypt without signing:
 
