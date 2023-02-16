@@ -1312,7 +1312,7 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
     - `gpg --verify <text-file>.asc`
         - Verifies the signature using the signer's public key
         - Note: this will not work if `<text-file>.asc` is [encrypted](#sign-and-encrypt)
-- Option 2: sign any kind of file
+- Option 2: sign any type of file
     - `gpg -b <file>`
         - This stores only your signature in a file of the form `<file>.sig`
     - `gpg --verify <file>.sig <file>`
@@ -1339,13 +1339,13 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
             -----END PGP MESSAGE-----
             ```
     - `gpg <text-file>.asc`
-        - Produces the decrypted file `<text-file>` and verifies the signature
-- Option 2: encrypt and sign any file
+        - Produces the decrypted file `<text-file>` and verifies the signature using the sender's public key
+- Option 2: encrypt and sign any type of file
     - `gpg -es -r <email-address> <file>`
         - The email address is the recipient's email address associated with their public key
         - This creates an encrypted file of the form `<file>.gpg`
     - `gpg <file>.gpg`
-        - Produces the decrypted file `<file>` and verifies the signature
+        - Produces the decrypted file `<file>` and verifies the signature using the sender's public key
 - For either option:
     - When you encrypt anything with the recipient's public key, you won't be able to recover the original contents from the `.asc` or `.gpg` file alone
         - Don't delete the original message/file until the recipient confirms that they've received your `.asc` or `.gpg` file
