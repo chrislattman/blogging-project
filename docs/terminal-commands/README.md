@@ -1853,6 +1853,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Add to path](#add-to-path)
 - [Mounting devices](#mounting-devices)
 - [`xclip` - clipboard](#xclip)
+- [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
 
 ### `Ctrl + C`
 
@@ -2160,3 +2161,18 @@ source ~/.bashrc
 ```
 
 Now you can use `pbcopy` and `pbpaste` in Git Bash like you would on macOS.
+
+### `iwlist`
+
+Used to scan for Wi-Fi access points. This command only works on Linux.
+
+To output a list of distinct access points, run
+
+```
+sudo iwlist <interface> scan | grep "ESSID" | sort -u
+```
+
+where `<interface>` is the name of the Wi-Fi interface from [ifconfig](#ifconfig)
+
+- It is usually either `wlan0` or `wlp4so`, but run `ifconfig` to be sure
+- This is another good command to [alias](#aliasing)
