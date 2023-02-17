@@ -99,7 +99,7 @@ and end with
 
 and paste it [here](https://gitlab.com/-/profile/gpg_keys) in the Key box, and add the key to your account.
 
-Back in your terminal, run the following commands (with your GPG key ID):
+Back in your terminal, run the following commands (replace `3AA5C34371567BD2` with your own GPG key ID):
 
 ```
 git config --global user.signingkey 3AA5C34371567BD2

@@ -1269,6 +1269,11 @@ In practice, protocols like [HTTPS](https://en.wikipedia.org/wiki/HTTPS), which 
 - After that, TLS encrypts all subsequent communications between the client and the server with AES-256 using the shared secret key as the password
 - The reason why TLS doesn't use something like RSA for all communications is because public-key encryption is generally slower than private-key encryption
 
+Cryptosystems like RSA also allow you to [digitally sign](https://en.wikipedia.org/wiki/Digital_signature) a message. The signer signs their message with their private key, and the recipient (who can be anyone if the message isn't encrypted) can verify that signature with the signer's public key.
+
+- In practice, a message is first hashed using SHA-256, and then that hash is signed
+- This is perfectly safe, since SHA-256 is a one-to-one function for inputs up to 2^64 - 1 bits long, or roughly 2.3 million terabytes!
+
 #### Usage:
 
 To generate a GPG key, follow the instructions [here](../git#optional-sign-your-commits-with-a-gpg-key), but ignore all the Git/GitLab stuff.
@@ -1327,10 +1332,10 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
 - Do this if you want to send an encrypted message/file to someone, who can verify that you signed it
 - As a sender, you need to import the recipient's public key; see [Key management](#key-management)
 - As a recipient, you need to import the sender's public key to verify their signature
-- Option 1: encrypt and sign a text file
+- Option 1: sign and encrypt a text file
     - `gpg -esa -r <email-address> <text-file>`
         - The email address is the recipient's email address associated with their public key
-        - This stores the encrypted and signed message in a file of the form `<text-file>.asc`, whose contents will begin with
+        - This stores both the contents of the text file and your signature in an encrypted file of the form `<text-file>.asc`, whose contents will begin with
             ```
             -----BEGIN PGP MESSAGE-----
             ```
@@ -1340,10 +1345,10 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
             ```
     - `gpg <text-file>.asc`
         - Produces the decrypted file `<text-file>` and verifies the signature using the sender's public key
-- Option 2: encrypt and sign any type of file
+- Option 2: sign and encrypt any type of file
     - `gpg -es -r <email-address> <file>`
         - The email address is the recipient's email address associated with their public key
-        - This creates an encrypted file of the form `<file>.gpg`
+        - This stores the file and your signature in an encrypted file of the form `<file>.gpg`
     - `gpg <file>.gpg`
         - Produces the decrypted file `<file>` and verifies the signature using the sender's public key
 - For either option:
