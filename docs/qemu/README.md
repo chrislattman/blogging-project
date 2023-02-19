@@ -152,6 +152,22 @@ Unfortunately, shared folders are not easy to configure with QEMU.
 
 However, you can use [`scp`](../ssh#scp) or [`sftp`](../ssh#sftp) from your host OS to copy files and directories to and from your VM. Make sure to have [port forwarding](#port-forwarding) set up first. Note: some VMs will require you to manually set up `openssh-server`.
 
+**Pro tip:** if you just want to share a folder's contents from your host OS to your VM, run [`ifconfig`](../terminal-commands#ifconfig) (or `ipconfig` on Windows) to see your computer's local IP address. Take note of this IP address.
+
+Then run the following commands in your host OS:
+
+```
+cd <folder-you-want-to-share>
+python3 -m http.server 8000
+```
+
+Now, in the VM, visit `http://<local-ip-address>:8000` from a web browser, using the IP address from earlier, and now you should be able to see those files from your VM.
+
+- This works not only for VMs but for _any device_ on your local network!
+- This also works the other way around (sharing a folder's contents from your VM to your host OS)
+    - Make sure to use the VM's local IP address in this scenario
+    - The VM's folder will not be accessible to other devices on your local network (only your host OS knows about your VM)
+
 ### Headless mode
 
 To run a VM in headless mode:

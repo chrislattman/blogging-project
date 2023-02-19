@@ -32,6 +32,7 @@ For Windows:
     ```
     git config --global core.autocrlf false
     git config --global core.eol lf
+    git config --global init.defaultBranch main
     ```
 - This ensures compatibility with Unix-like OSes, which use Unix (LF) rather than Windows (CRLF) line endings
 
@@ -128,38 +129,19 @@ Note: you can do more with a GPG key than just signing Git commits. See [here](.
 
 ## Initializing a Git repository
 
-### To download an existing repo using SSH (recommended):
+### To download an existing repository:
 
-```
-git clone git@gitlab.com:owner/repository.git
-```
-
-### To download an existing repo using HTTPS:
-
-```
-git clone https://gitlab.com/owner/repository.git
-```
-
-or
-
-```
-git clone https://your-username:your-PAT@gitlab.com/owner/repository.git
-```
-- For a private repo that you have access to
-
-### To shallow clone an existing repo using SSH (for very large repos):
-
-```
-git clone --depth 1 git@gitlab.com:owner/repository.git
-```
+- Using SSH (recommended): `git clone git@gitlab.com:owner/repository.git`
+- Using HTTPS:
+    - `git clone https://gitlab.com/owner/repository.git`
+        - For a public repo
+    - `git clone https://your-username:your-PAT@gitlab.com/owner/repository.git`
+        - For a private repo that you have access to
+- Add `--depth 1` to any of these to shallow clone a repo (for very large repos)
 
 ### To initialize your current directory as a new Git repo:
 
-Run
-
-```
-git init
-```
+- Run `git init` first
 
 Optional:
 - Create a `.gitattributes` file to format line endings for Git
@@ -175,9 +157,10 @@ These instructions should be similar to the following:
 git remote add origin <url>
 git add .
 git commit -m "Initial commit"
-git branch -m main
 git push -u origin main
 ```
+
+- `<url>` is the SSH or HTTPS Git URL used to clone the repo
 
 ## Committing to a repository
 

@@ -14,7 +14,7 @@ Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals inclu
 - Linux uses the terms "folder" and "directory" interchangeably
 - Windows is NOT a Unix-like operating system
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
-- Git Bash allows you to run most of these commands (except `tree`, `man`, `wget`, `speedtest`, `host`, `nmap`, `ifconfig`, `openvpn`, `htop`, `zip`, or any package manager)
+- Git Bash allows you to run most of these commands (except `tree`, `man`, `wget`, `speedtest`, `host`, `nmap`, `openvpn`, `htop`, `zip`, or any package manager)
 - Note: if you are using Windows PowerShell, clicking on a PowerShell window will cause the shell to enter "Select mode"
     - Press the escape key or right-click on the window to exit this mode
 
@@ -123,7 +123,8 @@ Stands for "list." Use it to list files and directories.
     - Add the name of a directory after `ls` to list the files/directories in that specific directory
     - e.g. `ls ~/Downloads` outputs the contents of your Downloads directory regardless of your current directory
 - Use the `-l` flag to list details of the files/directories
-    - The first 'd' in front of a result means it is a directory
+    - A 'd' in front of a result means it is a directory
+    - An 'l' in front of a result means it is a link/shortcut
 - Use the `-a` flag to list all files/directories in your current directory (including hidden files/directories)
 - Flags can be combined, e.g. `-al` or `-la` (order does not matter)
 - For macOS:
@@ -1437,8 +1438,8 @@ round-trip min/avg/max/stddev = 14.221/19.026/20.811/2.776 ms
 Works like `ping`, except it shows the IP addresses of all servers encountered en route to the destination URL.
 
 - You might need to install `traceroute` with a [package manager](#package-managers)
-    - `traceroute -m 30 <url> 60` does the default Linux traceroute on macOS
-    - `tracert` is the Windows/Git Bash equivalent of `traceroute`
+- `traceroute -m 30 <url> 60` does the default Linux traceroute on macOS
+- `tracert` is the Windows/Git Bash equivalent of `traceroute`
 
 ### `host`
 
@@ -1531,6 +1532,7 @@ Outputs information about your network interfaces, e.g. Wi-Fi and Ethernet.
     - You will see multiple network devices when you run `ifconfig`
     - The one corresponding to your active device (either a Wi-Fi antenna or an Ethernet port) will have an inet address that is not 127.0.0.1 and multiple inet6 address that are not ::1
     - The MAC address of a device is denoted by "ether" (even for a Wi-Fi antenna)
+- `ipconfig` is the Windows/Git Bash equivalent of `ifconfig`
 
 Example:
 
@@ -1574,7 +1576,7 @@ bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 	status: inactive
 ```
 
-- In this example, `en0` is the Wi-Fi device for my Mac, and its MAC address is 01:23:45:67:89:0a
+- In this example, `en0` is the Wi-Fi device for my Mac, its MAC address is 01:23:45:67:89:0a (I made this up for demonstration purposes), and my local IP address is 192.168.1.56
 
 ### `openvpn`
 
