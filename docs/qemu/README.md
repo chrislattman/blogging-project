@@ -163,7 +163,7 @@ python3 -m http.server 8000
 
 - Python 3 comes pre-installed with macOS
 - To install Python 3 on Windows, [download](https://www.microsoft.com/store/productId/9PJPW5LDXLZ5) it from the Microsoft Store
-- On Windows, make sure to run these commands from PowerShell
+- On Windows, make sure to run these commands in Windows PowerShell
 
 Now, in the VM, visit `http://<local-ip-address>:8000` from a web browser, using the IP address from earlier, and now you should be able to see those files from your VM.
 
