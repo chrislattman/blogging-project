@@ -1043,6 +1043,9 @@ It searches the file system for files and directories that match the input phras
     - `find . -iname "file*.txt" -exec mv {} {}_1 \;` appends `_1` to the filename of each matching file
     - `find . -name "*.txt" -exec sh -c 'f="{}"; mv -- "$f" "${f%.txt}.pdf"' \;` changes the file extension of all text files found to .pdf
 - `find . -iname "file*.txt" | xargs rm` removes all matching files
+    - To ignore spaces in file names, run:
+        - `find . -iname "file*.txt" | xargs -d '\n' rm` (on Linux and Git Bash)
+        - `find . -iname "file*.txt" | tr \\n \\0 | xargs -0 rm` (on macOS)
 
 Example:
 
