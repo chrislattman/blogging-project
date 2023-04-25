@@ -66,7 +66,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
 - `docker build -t image-name .`
     - Builds an image named `image-name` from a Dockerfile in the current directory
 
-- `docker run -it [--name container-name] image-name [/bin/bash]`
+- `docker run -it [--name container-name] [other flags] image-name [/bin/bash]`
     - Starts up a container named `container-name` using the image `image-name` and running a bash shell
     - If the image already includes a shell as specified in its Dockerfile, the `/bin/bash` command can be removed without any effect
     - Replacing `-it` with `-d` makes the container run detached (runs in the background)
