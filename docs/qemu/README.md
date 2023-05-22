@@ -78,7 +78,7 @@ Windows hosts: install the .exe file from [this](https://qemu.weilnetz.de/w64/) 
 qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda ~/qemu-vms/myvm.qcow2
 ```
 
-- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Installing a VM](#installing-a-vm))
+- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
 - On macOS, the QEMU window is not resizable
 - Advanced: adding `-D <log-file>` will output logging information to the specified file
 
@@ -94,7 +94,7 @@ qemu-system-x86_64 -enable-kvm \
     -netdev user,id=net0,hostfwd=tcp::3022-:22
 ```
 
-- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Installing a VM](#installing-a-vm))
+- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
 - This binds port 3022 of your host OS to port 22 (default SSH port) of the VM over TCP (UDP is available too)
 - You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1` in another terminal window, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
 - You can save your login credentials by following [these](../ssh#saving-your-login-to-the-server) instructions
@@ -122,7 +122,7 @@ You can use the snapshot by running
 qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda ~/qemu-vms/mysnapshot.qcow2
 ```
 
-- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Installing a VM](#installing-a-vm))
+- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
 - Any changes to `mysnapshot.qcow2` will not affect `myvm.qcow2`
 - However, any changes to `myvm.qcow2` will corrupt `mysnapshot.qcow2`
 - Delete a snapshot when:
@@ -187,7 +187,7 @@ qemu-system-x86_64 -enable-kvm \
     -display none
 ```
 
-- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Installing a VM](#installing-a-vm))
+- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
 - Append a [`&`](../terminal-commands#run-in-background) to the command to run it in the background
 - You will have to wait until the VM is ready
 - You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1`, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname

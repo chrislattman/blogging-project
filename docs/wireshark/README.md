@@ -74,8 +74,8 @@ tshark -r capture.pcapng -Y "read-filter"
 where `read-filter` is replaced with a display filter. Examples include:
 
 - `ip.addr == 192.168.1.1`
-- `tcp.port 80`
+- `tcp.port == 80`
 - `dns`
-- `tcp.port 80 or tcp.port == 443`
+- `tcp.port == 80 or tcp.port == 443`
 
 More information can be found [here](https://www.wireshark.org/docs/man-pages/wireshark-filter.html).

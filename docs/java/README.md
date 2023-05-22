@@ -24,6 +24,8 @@ You will want to reference the `java.util` package. This documentation is freely
     - [`LinkedList`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html)
     - [`PriorityQueue`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/PriorityQueue.html)
     - [`Stack`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Stack.html)
+    - [`TreeMap`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
+    - [`TreeSet`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html)
 - Use the [`Scanner`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html) class to read from standard input
 
 You will also want to reference the `java.lang` package. It can be accessed [here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/package-summary.html).
