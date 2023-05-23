@@ -41,7 +41,9 @@ You will also want to reference the `java.lang` package. It can be accessed [her
 Some more helpful info:
 - [Java Primitive Data Types](https://www.baeldung.com/java-primitives)
 - [Overriding the `toString()` method in Java](https://www.geeksforgeeks.org/overriding-tostring-method-in-java/)
-- [java.util.concurrent](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/package-summary.html) (package with useful multithreading classes)
+- [java.util.concurrent](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/package-summary.html) (package with useful concurrent data structures)
+    - [`java.util.concurrent.locks`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/locks/package-summary.html)
+    - [`java.util.concurrent.atomic`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/atomic/package-summary.html)
 
 ## Testing
 
