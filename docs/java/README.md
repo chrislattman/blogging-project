@@ -26,16 +26,17 @@ You will want to reference the `java.util` package. This documentation is freely
     - [`Stack`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Stack.html)
     - [`TreeMap`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
     - [`TreeSet`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html)
-- Use the [`Scanner`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html) class to read from standard input
+- [`Arrays`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Arrays.html) and [`Collections`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collections.html) can be used for binary search/sorting of arrays and List objects, respectively
+- Use the [`Scanner`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html) class to read data from the command line (stdin) or for file I/O
+    - The classes in [`java.io`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/package-summary.html) are another option
 
-You will also want to reference the `java.lang` package. It can be accessed [here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/package-summary.html).
+You will also want to reference the [`java.lang`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/package-summary.html) package.
 
 - You might find these classes to be helpful:
     - [`Math`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Math.html)
     - [`String`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html)
     - [`StringBuilder`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html) (used to concatenate Strings efficiently)
     - [`System`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html)
-    - [`Arrays`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Arrays.html) and [`Collections`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collections.html) (used for binary search or sorting of arrays and List objects, respectively)
     - [`Thread`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Thread.html)
 
 Some more helpful info:
