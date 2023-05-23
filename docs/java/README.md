@@ -35,10 +35,13 @@ You will also want to reference the `java.lang` package. It can be accessed [her
     - [`String`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html)
     - [`StringBuilder`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html) (used to concatenate Strings efficiently)
     - [`System`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html)
+    - [`Arrays`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Arrays.html) and [`Collections`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collections.html) (used for binary search or sorting of arrays and List objects, respectively)
+    - [`Thread`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Thread.html)
 
 Some more helpful info:
 - [Java Primitive Data Types](https://www.baeldung.com/java-primitives)
 - [Overriding the `toString()` method in Java](https://www.geeksforgeeks.org/overriding-tostring-method-in-java/)
+- [java.util.concurrent](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/package-summary.html) (package with useful multithreading classes)
 
 ## Testing
 
