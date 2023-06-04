@@ -58,7 +58,7 @@ ssh <instance-user-name>@<instance-public-dns-name>
 - `<instance-user-name>` is `ec2-user` for most OSes, `admin` for Debian, and `ubuntu` for Ubuntu
 - `<instance-public-dns-name>` can be found by going to the [EC2 Console](https://console.aws.amazon.com/ec2#Instances)
     - It should be located under the "Public IPv4 DNS" column
-- You can also use [`scp`](../ssh#scp) and [`sftp`](../ssh#sftp) (both will require the `-i` flag like `ssh` does if using the AWS-generated key pair)
+- You can also use [`scp`](../ssh#scp) and [`sftp`](../ssh#sftp) (both will require the `-i` flag like `ssh` does, if using the AWS-generated key pair)
 
 ## Using ECS
 

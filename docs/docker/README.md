@@ -184,7 +184,7 @@ These instructions will vary depending on what image library you're pushing to. 
 
 1. If you don't already have an account, create an account on [Docker Hub](https://hub.docker.com/) and set up 2FA
 1. Create a Docker Hub [repository](https://hub.docker.com/repository/create) for the image you want to push
-1. After you [built](#creating-images-containers-and-volumes) your image, run
+1. After you have [built](#creating-images-containers-and-volumes) your image, run
     ```
     docker tag image-name <docker-hub-username>/<docker-hub-repository-name>:<version>
     ```
