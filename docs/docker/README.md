@@ -12,6 +12,7 @@ Docker is a tool used to containerize operating systems. It facilitates software
 - [Stopping containers](#stopping-containers)
 - [Informational commands](#informational-commands)
 - [Removing images, containers, and volumes](#removing-images-containers-and-volumes)
+- [Pushing images to a Docker image library](#pushing-images-to-a-docker-image-library)
 - [Docker Compose](#docker-compose)
 
 ## Getting Started
@@ -61,7 +62,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
 ## Creating images, containers, and volumes
 
 - `docker pull image-name`
-    - Pulls a Docker image from [Docker Hub](https://hub.docker.com/)
+    - Pulls the latest version of a Docker image from [Docker Hub](https://hub.docker.com/)
 
 - `docker build -t image-name .`
     - Builds an image named `image-name` from a Dockerfile in the current directory
@@ -174,6 +175,26 @@ docker run --rm -v test-volume:/data -v clone-volume:/data2 image-name sh -c 'cp
 
 - `docker volume prune`
     - Removes all unused volumes
+
+## Pushing images to a Docker image library
+
+You may want to share your image on Docker Hub or some other Docker image library. This will allow others to use your image (and is the whole point of containerization).
+
+These instructions will vary depending on what image library you're pushing to. If you're using Docker Hub, here are the instructions:
+
+1. If you don't already have an account, create an account on [Docker Hub](https://hub.docker.com/) and set up 2FA
+1. Create a Docker Hub [repository](https://hub.docker.com/repository/create) for the image you want to push
+1. After you [built](#creating-images-containers-and-volumes) your image, run
+    ```
+    docker tag image-name <docker-hub-username>/<docker-hub-repository-name>:<version>
+    ```
+    This will tag the image you just built in a format that is acceptable to Docker Hub.
+1. Push the image by running
+    ```
+    docker push <docker-hub-username>/<docker-hub-repository-name>:<version>
+    ```
+
+The latest version of an image should be tagged with version `latest` and pushed.
 
 ## Docker Compose
 
