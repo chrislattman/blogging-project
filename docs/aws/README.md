@@ -6,8 +6,8 @@ Some major AWS services (some of which are described below):
 
 - [Amazon Elastic Cloud Compute (EC2)](#using-ec2): virtual machines available for rent
     - Amazon Linux 2 is the official Linux distribution for AWS
-- [Amazon Elastic Container Service (ECS)](#using-ecs): AWS-managed Docker container service that runs containers within a "cluster" in an EC2 instance
-    - Related services include Amazon Elastic Container Registry (ECR) which is similar to Docker Hub
+- [Amazon Elastic Container Service (ECS)](#using-ecs): AWS-managed Docker container service that runs containers within a cluster of EC2 instances
+    - Related services include Amazon Elastic Container Registry (ECR) which is similar to Docker Hub and Amazon Elastic Kubernetes Service (EKS) which is an AWS-managed Kubernetes service
 - [Amazon Simple Storage Service (S3)](#using-s3): storage "buckets" used to persist data
     - They do not have to be associated with an EC2 instance (serverless)
     - Alernative services include high-performance Amazon Elastic Block Storage (EBS) for individual EC2 instances and dynamically-sizing Amazon Elastic File System (EFS) for multiple EC2 instances
