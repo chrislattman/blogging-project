@@ -2,7 +2,7 @@
 
 Amazon Web Services (AWS) is a major cloud provider, offering services used by companies worldwide to host web applications.
 
-Some major AWS services (some of which are described below):
+Here are some major AWS services (some of which are described below):
 
 - [Amazon Elastic Cloud Compute (EC2)](#using-ec2): virtual machines available for rent
     - Amazon Linux 2 is the official Linux distribution for AWS
@@ -10,7 +10,7 @@ Some major AWS services (some of which are described below):
     - Related services include Amazon Elastic Container Registry (ECR) which is similar to Docker Hub and Amazon Elastic Kubernetes Service (EKS) which is an AWS-managed Kubernetes service
 - [Amazon Simple Storage Service (S3)](#using-s3): storage "buckets" used to persist data
     - They do not have to be associated with an EC2 instance (serverless)
-    - Alernative services include high-performance Amazon Elastic Block Storage (EBS) for individual EC2 instances and dynamically-sizing Amazon Elastic File System (EFS) for multiple EC2 instances
+    - Alternative services include high-performance Amazon Elastic Block Storage (EBS) for individual EC2 instances and dynamically-sizing Amazon Elastic File System (EFS) for multiple EC2 instances
 - Amazon Relational Database Service (RDS): AWS-managed distributed SQL database service
     - Amazon Aurora is the official RDBMS for AWS
 - AWS Lambda: serverless computing service
@@ -34,7 +34,7 @@ First, create an AWS account [here](https://portal.aws.amazon.com/billing/signup
 
 - This creates a root AWS user
 - Make sure to set up 2FA for the root user [here](https://console.aws.amazon.com/iam/home#security_credential)
-    - AWS calls it multifactor authentication (MFA), but you can still use a traditional authenticator app like Duo, Google Authenticator, etc.
+    - AWS calls it multi-factor authentication (MFA), but you can still use a traditional authenticator app like Duo, Google Authenticator, etc.
     - More details are available [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable_virtual.html#enable-virt-mfa-for-root)
 
 Then create an IAM user. It is strongly recommended that you only use your root user account to change account settings (i.e., not everyday use).
@@ -51,11 +51,11 @@ The first thing you should try out for free with a new account (under the [AWS F
 Connect to an EC2 instance via SSH by running
 
 ```
-ssh <instance-user-name>@<instance-public-dns-name>
+ssh <instance-username>@<instance-public-dns-name>
 ```
 
-- If you didn't import your own SSH key to AWS, add `-i <ssh-private-key>.pem` to the command, specifying the .pem file downloaded to your computer
-- `<instance-user-name>` is `ec2-user` for most OSes, `admin` for Debian, and `ubuntu` for Ubuntu
+- If you didn't import your own SSH key to AWS, add `-i <ssh-private-key>.pem` to the command, specifying the `.pem` file downloaded to your computer
+- `<instance-username>` is `ec2-user` for most OSes, `admin` for Debian, and `ubuntu` for Ubuntu
 - `<instance-public-dns-name>` can be found by going to the [EC2 Console](https://console.aws.amazon.com/ec2#Instances)
     - It should be located under the "Public IPv4 DNS" column
 - You can also use [`scp`](../ssh#scp) and [`sftp`](../ssh#sftp) (both will require the `-i` flag like `ssh` does, if using the AWS-generated key pair)
@@ -71,7 +71,7 @@ Here are helpful videos on how to use ECS to run Docker containers in AWS:
 
 ### Using the AWS Management Console
 
-Follow [this guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html) starting at Step 1 to try out S3 using the AWS Management Console.
+Follow [this guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html), starting at Step 1 to try out S3 using the AWS Management Console.
 
 ### Using the AWS CLI
 

@@ -136,7 +136,7 @@ If you want to save the changes from your snapshot, run
 qemu-img commit ~/qemu-vms/mysnapshot.qcow2
 ```
 
-Now you can safely delete `mysnapshot.qcow2` with your changed persisted to `myvm.qcow2`
+Now you can safely delete `mysnapshot.qcow2` with your changes persisted to `myvm.qcow2`.
 
 ### Shared clipboard
 
@@ -167,10 +167,10 @@ python3 -m http.server 8000
 
 Now, in the VM, visit `http://<local-ip-address>:8000` from a web browser, using the IP address from earlier, and now you should be able to see those files from your VM.
 
-- This works not only for VMs but for _any device_ on your local network!
+- This works not only for VMs but for _any device_ on your local area network (LAN)!
 - This also works the other way around (sharing a folder's contents from your VM to your host OS)
     - Make sure to use the VM's local IP address in this scenario
-    - The VM's folder will not be accessible to other devices on your local network (only your host OS knows about your VM)
+    - The VM's folder will not be accessible to other devices on your LAN (only your host OS knows about your VM)
 
 ### Headless mode
 
