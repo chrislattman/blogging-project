@@ -10,11 +10,11 @@ Here are some major AWS services (some of which are described below):
     - Related services include Amazon Elastic Container Registry (ECR) which is similar to Docker Hub and Amazon Elastic Kubernetes Service (EKS) which is an AWS-managed Kubernetes service
 - [Amazon Simple Storage Service (S3)](#using-s3): storage "buckets" used to persist data
     - They do not have to be associated with an EC2 instance (serverless)
-    - Alternative services include high-performance Amazon Elastic Block Storage (EBS) for individual EC2 instances and dynamically-sizing Amazon Elastic File System (EFS) for multiple EC2 instances
+    - Alternative services include high-performance Amazon Elastic Block Storage (EBS) for individual EC2 instances and dynamically-sizing [Amazon Elastic File System (EFS)](#using-efs) for multiple EC2 instances
 - Amazon Relational Database Service (RDS): AWS-managed distributed SQL database service
-    - Amazon Aurora is the official RDBMS for AWS
+    - Amazon Aurora is the official RDBMS for AWS (compatible with PostgreSQL or MySQL)
 - AWS Lambda: serverless computing service
-    - Just upload code to Lambda without needing to host it on an EC2 instance, since it will only run when triggered (good for short-running functions that would need their own EC2 instances)
+    - Just upload code to Lambda without needing to host it on an EC2 instance, since it will only run when triggered (good for short-running functions that would need their own EC2 instances when running)
 
 Software development services:
 
@@ -159,3 +159,7 @@ Remove files and folders:
     ```
 
 In order to access private S3 buckets from an EC2 instance, you will need to run `aws configure sso` (or `aws sso login` if that was already done) within the EC2 instance to save your AWS credentials.
+
+## Using EFS
+
+[Here](https://aws.amazon.com/getting-started/tutorials/create-network-file-system/?pg=ln&sec=hs) is a tutorial on how to create a file system on AWS and mount it to an EC2 instance running Linux.

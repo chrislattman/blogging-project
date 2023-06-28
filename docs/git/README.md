@@ -6,6 +6,8 @@ Git is a version control system (VCS) or source control management (SCM) system,
 
 On Linux, you might need to install `git` with a [package manager](../terminal-commands#package-managers).
 
+The workflow described on this page is known in industry as [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow).
+
 ## Table of Contents
 
 - [First time usage](#first-time-usage)

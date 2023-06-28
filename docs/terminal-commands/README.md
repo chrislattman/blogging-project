@@ -1449,8 +1449,10 @@ Works like `ping`, except it shows the IP addresses of all servers encountered e
 Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
 
 - It outputs the IP address(es) associated with a website
+- Add `-v` to see verbose output
+- You can also specify which DNS server to query, for example `host google.com 1.1.1.1` (this uses [Cloudflare's DNS server](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/))
 
-Example:
+Examples:
 
 ```
 [Chris@Chris-MBP-16 ~]$ host google.com
@@ -1471,6 +1473,57 @@ www.google.com has IPv6 address 2607:f8b0:4004:c08::63
 www.google.com has IPv6 address 2607:f8b0:4004:c08::6a
 www.google.com has IPv6 address 2607:f8b0:4004:c08::69
 www.google.com has IPv6 address 2607:f8b0:4004:c08::68
+[Chris@Chris-MBP-16 ~]$
+```
+
+```
+[Chris@Chris-MBP-16 ~]$ host -v google.com 1.1.1.1
+Trying "google.com"
+Using domain server:
+Name: 1.1.1.1
+Address: 1.1.1.1#53
+Aliases:
+
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 54000
+;; flags: qr rd ra; QUERY: 1, ANSWER: 6, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;google.com.                    IN      A
+
+;; ANSWER SECTION:
+google.com.             123     IN      A       142.251.163.101
+google.com.             123     IN      A       142.251.163.100
+google.com.             123     IN      A       142.251.163.113
+google.com.             123     IN      A       142.251.163.102
+google.com.             123     IN      A       142.251.163.138
+google.com.             123     IN      A       142.251.163.139
+
+Received 124 bytes from 1.1.1.1#53 in 20 ms
+Trying "google.com"
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 36648
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;google.com.                    IN      AAAA
+
+;; ANSWER SECTION:
+google.com.             61      IN      AAAA    2607:f8b0:4004:c08::8b
+google.com.             61      IN      AAAA    2607:f8b0:4004:c08::71
+google.com.             61      IN      AAAA    2607:f8b0:4004:c08::8a
+google.com.             61      IN      AAAA    2607:f8b0:4004:c08::66
+
+Received 140 bytes from 1.1.1.1#53 in 10 ms
+Trying "google.com"
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 61832
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;google.com.                    IN      MX
+
+;; ANSWER SECTION:
+google.com.             300     IN      MX      10 smtp.google.com.
+
+Received 49 bytes from 1.1.1.1#53 in 10 ms
 [Chris@Chris-MBP-16 ~]$
 ```
 
