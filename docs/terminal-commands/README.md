@@ -1038,6 +1038,7 @@ It searches the file system for files and directories that match the input phras
 - By default, `find` outputs matching files
     - This is formally represented by the `-print` flag
     - `find . -iname "file*.txt` does the same thing as `find . -iname "file*.txt" -print`
+    - To discard output from folders giving "permission denied" errors, run `find . -iname "file*.txt" -print 2>/dev/null`
 - `find` can also be used to copy, move, or rename files and directories (and more) with the `-exec` flag
     - `find . -iname "file*.txt" -exec cp {} {}_1 \;` makes a copy of each matching file with `_1` appended to the filename
     - `find . -iname "file*.txt" -exec mv {} {}_1 \;` appends `_1` to the filename of each matching file
