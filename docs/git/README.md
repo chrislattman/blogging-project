@@ -390,6 +390,7 @@ If the branch had a MR, you will need to create a new MR.
 To squash _all_ commits on a branch _tracking_ `main`, run the following code:
 
 ```
+git checkout <branch>
 git pull origin <branch>
 git reset --soft main
 git commit -m "squash commits"
@@ -399,6 +400,7 @@ git push -f
 To squash _the last n_ commits on a branch (except the `main` branch, which is protected), run the following code:
 
 ```
+git checkout <branch>
 git pull origin <branch>
 git reset --soft HEAD~n
 git commit -m "squash [last n] commits"
