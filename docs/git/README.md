@@ -296,7 +296,7 @@ PS: on GitHub and Bitbucket, Merge Requests are known as Pull Requests (PRs), an
 - This is when your branch is behind the main branch
 - You will know when this happens (clicking the blue Rebase button on GitLab won't work)
 
-**Note: [Squash](#squashing-commits-on-a-branch) all of your commits first!**
+**Note: [Squash](#squashing-commits-on-a-branch) all n commits (# in the Commits tab of your MR) first!**
 
 ### Pull the most recent version of the main branch, then begin the rebase process:
 
@@ -401,7 +401,7 @@ To squash _the last n_ commits on a branch (except the `main` branch, which is p
 ```
 git pull origin <branch>
 git reset --soft HEAD~n
-git commit -m "squash last n commits"
+git commit -m "squash [last n] commits"
 git push -f
 ```
 
