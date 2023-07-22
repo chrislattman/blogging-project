@@ -6,7 +6,7 @@ While Wireshark is a GUI application, there is also TShark (terminal Wireshark),
 
 This page will go over how to use TShark. There are numerous videos available on YouTube on how to use Wireshark.
 
-- `tcpdump` is a similar command line tool, but TShark is more robust
+- `tcpdump` is a similar command line tool, and is mostly compatible with `tshark` flags
 
 ## Table of Contents
 
@@ -40,20 +40,24 @@ You should see an indexed list of network interfaces. Pick the interface that co
 To start capturing packets:
 
 ```
-tshark -i <interface> [options]
+tshark -i <interface> <flags> "capture filter"
 ```
 
-where `<interface>` can be either the name of the interface, or the numerical index of the interface from `tshark -D`.
+where `<interface>` can be either the name of the interface or the numerical index of the interface from `tshark -D`.
 
-`[options]` can be any combination of:
+`<flags>` can be any combination of:
 
-- `[-P] -w capture.pcapng`, which saves the captured packets into a file named `capture.pcapng`
-    - `-P` optionally outputs packet data to the terminal
+- `-c <num-packets>`, which limits how many packets are captured
+- `-s0`, which captures each packet in its entirety
+- `[--print] -w capture.pcapng`, which saves the captured packets into a file named `capture.pcapng`
+    - `--print` optionally outputs packet data to the terminal
     - The `capture` in `capture.pcapng` can be anything, but make sure to keep the `.pcapng` file extension
         - You may see `.pcap` elsewhere, which indicates an older format
-- `-c <num-packets>`, which limits how many packets are captured
-- `-f "capture-filter"`, which filters the packets to capture
-    - Replace `capture-filter` with the actual filter you want to use; examples can be found [here](https://gitlab.com/wireshark/wireshark/-/wikis/CaptureFilters#examples)
+- If printing to console:
+    - `-nn` doesn't resolve IP addresses and port numbers to hostnames and services, respectively (this makes TShark run faster)
+    - `-tad` displays human-readable timestamps (`-tttt` in `tcpdump`)
+
+Replace `capture filter` with the actual filter you want to use; examples can be found [here](https://gitlab.com/wireshark/wireshark/-/wikis/CaptureFilters#examples)
 
 To stop capturing packets, enter `Ctrl + C` (if TShark did not exit already).
 
@@ -62,16 +66,12 @@ To stop capturing packets, enter `Ctrl + C` (if TShark did not exit already).
 To analyze a packet capture:
 
 ```
-tshark -r capture.pcapng
+tshark -r capture.pcapng "read filter"
 ```
 
-You can filter packets by running
+- You can use the `-nn` and `-tad` flags here as well
 
-```
-tshark -r capture.pcapng -Y "read-filter"
-```
-
-where `read-filter` is replaced with a display filter. Examples include:
+Replace `read filter` with a valid display filter. Examples include:
 
 - `ip.addr == 192.168.1.1`
 - `tcp.port == 80`
