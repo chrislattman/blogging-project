@@ -52,7 +52,7 @@ where `<interface>` can be either the name of the interface or the numerical ind
 - `[--print] -w capture.pcapng`, which saves the captured packets into a file named `capture.pcapng`
     - `--print` optionally outputs packet data to the terminal
     - The `capture` in `capture.pcapng` can be anything, but make sure to keep the `.pcapng` file extension
-        - You may see `.pcap` elsewhere, which indicates an older format
+        - You may see `.pcap` elsewhere, which indicates an older format (`tcpdump` uses .pcap)
 - If printing to console:
     - `-nn` doesn't resolve IP addresses and port numbers to hostnames and services, respectively (this makes TShark run faster)
     - `-tad` displays human-readable timestamps (`-tttt` in `tcpdump`)
@@ -69,7 +69,7 @@ To analyze a packet capture:
 tshark -r capture.pcapng "read filter"
 ```
 
-- You can use the `-nn` and `-tad` flags here as well
+- You can use the `-nn` and `-tad` (`-tttt` in `tcpdump`) flags here as well
 
 Replace `read filter` with a valid display filter. Examples include:
 
@@ -79,3 +79,5 @@ Replace `read filter` with a valid display filter. Examples include:
 - `tcp.port == 80 or tcp.port == 443`
 
 More information can be found [here](https://www.wireshark.org/docs/man-pages/wireshark-filter.html).
+
+- `tcpdump` display filters are the same as its capture filters
