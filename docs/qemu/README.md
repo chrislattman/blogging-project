@@ -69,7 +69,7 @@ Windows hosts: install the .exe file from [this](https://qemu.weilnetz.de/w64/) 
             - If you're still having trouble, it just means that QEMU for Windows is buggy (use [VirtualBox](../virtualbox) instead)
     - A good rule of thumb is to give your VM a quarter of your computer's CPU and memory resources
     - On Windows and Linux hosts, release the cursor from the QEMU window by pressing `Ctrl + Alt + G`
-        - On macOS hosts, press `Cmd + Option + Ctrl + G`
+        - On macOS hosts, press `Cmd + Option + Ctrl + G` (`Windows key + Alt + Ctrl + G` on a Windows keyboard)
     - When the installer finishes, close the QEMU window
 
 ### Running a VM
