@@ -11,7 +11,8 @@ To access a remote server using any of the commands on this page, `sshd` (the SS
 ## Table of Contents
 
 - [Generating a SSH key](#generating-a-ssh-key)
-- [Usage](#usage)
+- [Basic usage](#basic-usage)
+- [Tunneling](#tunneling)
 - [SSH configurations](#ssh-configurations)
 - [`scp` - copies a file or directory to a remote server](#scp)
 - [`sftp` - interactive version of `scp`](#sftp)
@@ -44,7 +45,7 @@ You might get a message about the authenticity of the GitLab host. Make sure to 
 
 You should then see a message like this: `Welcome to GitLab, @username!`
 
-## Usage
+## Basic usage
 
 `ssh user@hostname`
 
@@ -68,6 +69,32 @@ Run the following command in Terminal or Git Bash to cache your login details on
 ```
 ssh-copy-id -i ~/.ssh/id_ed25519.pub [-p <port-number>] user@hostname
 ```
+
+## Tunneling
+
+In SSH there are ways to "tunnel" or redirect network traffic.
+
+- Local (often called "forward") tunneling allows the host computer to use a local port to listen to traffic on the remote server's local port
+- Remote (often called "reverse") tunneling allows the remote server to use one of its local ports to listen to traffic on the host computer's local port
+    - Remote tunneling is often used in the event where the host computer is behind a firewall and/or a router's [NAT](https://en.wikipedia.org/wiki/Network_address_translation)
+- You can additionally specify `-p <port-number>` if the remote server's SSH is listening on a different port than port 22
+- [This](https://youtube.com/watch?v=Wp7boqm3Xts) is a helpful video explaining the concepts of local and remote tunneling
+
+Local tunnel command:
+
+```
+ssh -L 127.0.0.1:<your-local-port>:127.0.0.1:<remote-local-port> <user>@<remote-host>
+```
+
+- This connects to the remote server via SSH on port 22, and maps your local port to their local port
+
+Remote tunnel command:
+
+```
+ssh -R 127.0.0.1:<remote-local-port>:127.0.0.1:<your-local-port> <user>@<remote-host>
+```
+
+- This also connects to the remote server via SSH on port 22, but maps _their_ local port to your local port
 
 ## SSH configurations
 

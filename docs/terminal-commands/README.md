@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 42 most important terminal commands (plus symbols and compression)](#the-42-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 43 most important terminal commands (plus symbols and compression)](#the-43-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -66,7 +66,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 42 most important terminal commands (plus symbols and compression):
+## The 43 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -95,6 +95,7 @@ To save your changes, quit Terminal and restart it.
 - [`openssl` - encrypts and decrypts files](#openssl)
 - [`gpg` - encrypts and signs files for communication](#gpg)
 - [`speedtest` - calculates Internet speed](#speedtest)
+- [`nc` - troubleshoots connections](#nc)
 - [`ping` - pings a URL for connectivity](#ping)
 - [`traceroute` - shows IP addresses of all servers encountered during a ping](#traceroute)
 - [`host` - resolves the IP address of a website](#host)
@@ -1404,6 +1405,47 @@ Ping: 15.469 ms
 Download: 421.14 Mbit/s
 Upload: 8.39 Mbit/s
 [Chris@Chris-MBP-16 Downloads]$
+```
+
+## `nc`
+
+Stands for "netcat." It's a handy utility that is used to test connections between devices on a network.
+
+- Telnet is a similar tool (which should only be used for diagnostic purposes)
+- `nc` can also be used for file transfers and port scanning
+    - For file transfers, it's more secure to use [`scp`](../ssh#scp) or [`sftp`](../ssh#sftp)
+    - For port scanning, a more sophisticated alternative is [`nmap`](#nmap)
+- `nc -zv <host> <port>` is used to ping a specific port at a host, whereas [`ping`](#ping) is not port-specific
+    - `-v` means verbose output and `-z` means do not persist connection
+- For testing connections between devices:
+    - Run `nc -lv <port>` on the listening device
+        - `-l` means listen on specified port
+    - Run `nc -v <host> <port>` on the sending device
+        - If these are both running on one computer, `<host>` would be `127.0.0.1` (localhost)
+    - Once a connection is established, you can type and enter text into one terminal, which will appear in the other terminal
+    - You can also add `-z` to the sending device command to drop the connection once it has been established
+
+Examples:
+
+In one terminal:
+
+```
+[Chris@Chris-MBP-16 ~]$ nc -lv 1234
+
+```
+
+In another terminal:
+
+```
+[Chris@Chris-MBP-16 ~]$ nc -v 127.0.0.1 1234
+Connection to 127.0.0.1 port 1234 [tcp/search-agent] succeeded!
+
+```
+
+```
+[Chris@Chris-MBP-16 ~]$ nc -zv google.com 443
+Connection to google.com port 443 [tcp/https] succeeded!
+[Chris@Chris-MBP-16 ~]$
 ```
 
 ### `ping`
