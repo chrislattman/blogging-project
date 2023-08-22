@@ -320,7 +320,7 @@ You can also run commands that operate _within your local computer_:
 - `lpwd`
 - `lcd`
 
-These correspond to the commands after the first `l`, e.g. `lls` does `ls` on your local current directory
+These correspond to the commands after the first `l`, e.g. `lls` does _local_ `ls` on your local current directory
 
 Example:
 
