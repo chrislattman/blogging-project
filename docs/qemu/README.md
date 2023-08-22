@@ -81,6 +81,7 @@ qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda ~/qemu-vms/myvm.qcow2
 - Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
 - On macOS, the QEMU window is not resizable
 - Advanced: adding `-D <log-file>` will output logging information to the specified file
+- Optional: add `-name "My VM Name"` to give your VM a name (this will show up in the window title after "QEMU")
 
 ### Port forwarding
 
