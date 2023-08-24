@@ -134,6 +134,7 @@ Note: you can do more with a GPG key than just signing Git commits. See [here](.
 ### To download an existing repository:
 
 - Using SSH (recommended): `git clone git@gitlab.com:owner/repository.git`
+    - Even for public repos, you need to have an account with GitLab in order to clone with SSH
 - Using HTTPS:
     - `git clone https://gitlab.com/owner/repository.git`
         - For a public repo
