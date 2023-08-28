@@ -7,6 +7,7 @@ While Wireshark is a GUI application, there is also TShark (terminal Wireshark),
 This page will go over how to use TShark. There are numerous videos available on YouTube on how to use Wireshark.
 
 - `tcpdump` is a similar command line tool, and is mostly compatible with `tshark` flags
+- `tshark` uses another command called `dumpcap` under the hood
 
 ## Table of Contents
 
@@ -14,6 +15,8 @@ This page will go over how to use TShark. There are numerous videos available on
 - [Usage](#usage)
     - [Capturing packets](#capturing-packets)
     - [Analyzing packets](#analyzing-packets)
+- [`mergecap` - merge packet captures into one](#mergecap)
+- [`editcap` - limit time range of packets](#editcap)
 
 ## Installation
 
@@ -81,3 +84,26 @@ Replace `read filter` with a valid display filter. Examples include:
 More information can be found [here](https://www.wireshark.org/docs/man-pages/wireshark-filter.html).
 
 - `tcpdump` display filters are the same as its capture filters
+
+## `mergecap`
+
+To merge multiple packet captures (pcaps) into one file:
+
+```
+mergecap -w merged.pcapng cap1.pcapng ... capN.pcapng
+```
+
+- `tcpslice` is a similar utility that can be installed on Linux
+
+## `editcap`
+
+To filter packets from a specific time window and write them to a new file:
+
+```
+editcap -A "<start-time>" -B "<stop-time>" in.pcapng out.pcapng
+```
+
+- `<start-time>` and `<stop-time>` are in the form YYYY-MM-DD HH:MM:SS[.nnnnnn], e.g. 2023-08-28 18:57:51.763066 (24-hour time, milliseconds are optional)
+- `<start-time>` is inclusive, `<stop-time>` is exclusive
+- This reads from `in.pcapng` and copies the filtered packets into `out.pcapng`
+- `tcpslice` can also be used for this purpose, and can be installed on Linux
