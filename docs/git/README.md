@@ -357,6 +357,7 @@ git push -f
 
 - [Forking a repository](#forking-a-repository)
 - [Renaming a branch](#renaming-a-branch)
+- [Making a copy of a branch](#making-a-copy-of-a-branch)
 - [Squashing commits on a branch](#squashing-commits-on-a-branch)
 - [Tagging](#tagging)
 - [Renaming files in Git](#renaming-files-in-git)
@@ -383,6 +384,17 @@ git push -d origin <branch-name>
 ```
 
 If the branch had a MR, you will need to create a new MR.
+
+### Making a copy of a branch
+
+If you plan on ~~linting an entire repository then pushing your changes to main before a critical feature branch has been merged~~ doing something clever with Git, it may be a good idea to make a copy of a branch.
+
+To make a copy and then push it to GitLab, run the following code:
+
+```
+git checkout -b <branch>-copy <branch>
+git push -u origin <branch>-copy
+```
 
 ### Squashing commits on a branch
 
