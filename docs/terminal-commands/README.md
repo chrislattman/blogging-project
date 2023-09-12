@@ -1962,6 +1962,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Mounting devices](#mounting-devices)
 - [`xclip` - clipboard](#xclip)
 - [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
+- [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 
 ### `Ctrl + C`
 
@@ -2284,3 +2285,35 @@ where `<interface>` is the name of the Wi-Fi interface from [ifconfig](#ifconfig
 
 - It is usually either `wlan0` or `wlp4so`, but run `ifconfig` to be sure
 - This is another good command to [alias](#aliasing)
+
+### Converting between hexadecimal and base64
+
+[Hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) is a base-16 numeral system. Whereas decimal (base-10) digits range from `0`-`9`, hexadecimal digits range from `0`-`f` (`9` is followed by `a`).
+
+- Sometimes the hexadecimal digits `a`-`f` are capitalized
+    - This makes no difference in the underlying value
+- Sometimes hexadecimal numbers are prefixed with `0x`
+    - This also makes no difference in the underlying value
+- Example: the hexadecimal value `0x1f` is equal to the decimal value `31` ([this website](https://www.rapidtables.com/convert/number/hex-to-decimal.html) may help)
+- Hexadecimal is used frequently in computing
+
+[Base64](https://en.wikipedia.org/wiki/Base64) is (obviously) a base-64 numeral system. Base64 digits range from `A`-`/`.
+- `Z` is followed by `a`, then `z`, is followed by `0`, and finally `9` is followed by `+` and then `/`
+- This results in the combined range of digits `A`-`Z`, `a`-`z`, `0`-`9`, `+`, `/` (26 + 26 + 10 + 1 + 1 = 64 possible digits)
+- Sometimes there are 1-2 `=` signs after a base64 value
+    - These are padding digits and do not change the underlying value, but are needed for converting to another numeral system
+- Base64 is commonly used in networking applications
+
+Other well-known numeral systems include binary (base-2, digits range from `0`-`1`) and octal (base-8, digits range from `0`-`7`).
+
+Example: convert a hexadecimal value to base64:
+
+```
+echo -n "6c696768742077" | xxd -r -p | base64
+```
+
+Example: convert a base64 value to hexadecimal:
+
+```
+echo -n "bGlnaHQgdw==" | base64 -d | xxd -p
+```
