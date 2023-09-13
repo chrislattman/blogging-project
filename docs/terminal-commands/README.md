@@ -953,6 +953,7 @@ Stands for "word count." Despite its name, it can also output the character coun
 - `wc -w <file>` outputs the number of words in a file
 - `wc -m <file>` outputs the number of characters in a file
 - `wc -l <file>` outputs the numbers of lines of text in a file
+- To count the number of characters in some chunk of data without using an intermediate file, run `echo -n "data" | wc -m`
 
 Example:
 
@@ -967,6 +968,8 @@ some more text
       41 file1.txt
 [Chris@Chris-MBP-16 Downloads]$ wc -l file1.txt
        3 file1.txt
+[Chris@Chris-MBP-16 Downloads]$ echo -n "hello" | wc -m
+       5
 [Chris@Chris-MBP-16 Downloads]$
 ```
 
