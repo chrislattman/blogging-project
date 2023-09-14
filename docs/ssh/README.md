@@ -86,7 +86,7 @@ Local tunnel command:
 ssh -TL 127.0.0.1:<your-local-port>:127.0.0.1:<remote-local-port> <user>@<remote-host>
 ```
 
-- This connects to the remote server via SSH on port 22, and has your local port to listen to their local port
+- This connects to the remote server via SSH on port 22, and has your local port listen to their local port
 - You can replace `<user>@<remote-host>` with an SSH [configuration](#ssh-configurations)
 
 Remote tunnel command:
@@ -95,7 +95,7 @@ Remote tunnel command:
 ssh -TR 127.0.0.1:<remote-local-port>:127.0.0.1:<your-local-port> <user>@<remote-host>
 ```
 
-- This also connects to the remote server via SSH on port 22, but has _their_ local port to listen to your local port
+- This also connects to the remote server via SSH on port 22, but has _their_ local port listen to your local port
 - You can replace `<user>@<remote-host>` with an SSH [configuration](#ssh-configurations)
 
 ## SSH configurations
