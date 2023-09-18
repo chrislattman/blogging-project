@@ -980,6 +980,8 @@ It searches a file (or files) for a given phrase.
 - `grep -In "phrase" <file>` outputs every line that has a match as well as the line number
     - You can specify more than one file: `grep -In "phrase" <file1> <file2> ... <fileN>`
     - `grep -In "phrase" test*` searches all files that start with "test" for phrase
+    - `grep -In "\.world" <file>` searches a file for the phrase ".world" (including the period)
+        - You may need to prefix other special characters with `\`
 - `grep -In -e "phrase1" -e "phrase2" <file>` searches for either `phrase1` or `phrase2` in the file
     - `grep -In -v -e "phrase1" -e "phrase2" <file>` excludes results that contain `phrase1` or `phrase2`
 - `grep -Inr "phrase" <directory>` recursively searches within a directory for lines containing the provided phrase
