@@ -100,6 +100,7 @@ container-job:      # This job generates a Docker container of the project.
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
+    - export
 
 release-job:        # This job automatically creates a release on GitLab when a Git tag is pushed up.
   stage: release
@@ -126,3 +127,5 @@ release-job:        # This job automatically creates a release on GitLab when a 
         - name: '$CI_PROJECT_NAME.jar (view file in pipeline)'
           url: '$JOB_ARTIFACT_TAG_URL/file/$ARTIFACT_LOCATION'
           link_type: 'package'
+        # - name: '$CI_PROJECT_NAME Docker image'
+        #   url:
