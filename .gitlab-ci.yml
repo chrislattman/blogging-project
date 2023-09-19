@@ -89,7 +89,7 @@ package-job:        # This job generates a runnable jar of the project.
 
 container-job:      # This job generates a Docker container of the project.
   stage: package
-  image: docker:latest
+  image: docker:dind
   services:
     - docker:dind
   needs:
