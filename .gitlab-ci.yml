@@ -75,6 +75,7 @@ package-job:        # This job generates a runnable jar of the project.
   dependencies:
     - build-job
   needs:
+    - build-job
     - test-job
   script:
     - cd bin
