@@ -178,7 +178,7 @@ docker run --rm -v test-volume:/data -v clone-volume:/data2 image-name sh -c 'cp
 
 ## Pushing images to a Docker image library
 
-You may want to share your image on Docker Hub or some other Docker image library. This will allow others to use your image (and is the whole point of containerization).
+You may want to share your image on Docker Hub or some other Docker image library. This will allow others to use your image (and is a major benefit of containerization).
 
 These instructions will vary depending on what image library you're pushing to. If you're using Docker Hub, here are the instructions:
 
@@ -189,6 +189,7 @@ These instructions will vary depending on what image library you're pushing to. 
     docker tag image-name <docker-hub-username>/<docker-hub-repository-name>:<version>
     ```
     This will tag the image you just built in a format that is acceptable to Docker Hub.
+    - You could have also just built the image by specifying the image name as `<docker-hub-username>/<docker-hub-repository-name>:<version>`
 1. Push the image by running
     ```
     docker push <docker-hub-username>/<docker-hub-repository-name>:<version>

@@ -81,10 +81,10 @@ package-job:        # This job generates a runnable jar of the project.
     - cd bin
     - mkdir META-INF
     - echo -e "Manifest-Version":" 1.0\nMain-Class":" app.Driver\n" > META-INF/MANIFEST.MF
-    - jar -cmf META-INF/MANIFEST.MF ../blogging-project.jar app/*.class
+    - jar -cmf META-INF/MANIFEST.MF ../$CI_PROJECT_NAME.jar app/*.class
   artifacts:
     paths:
-      - blogging-project.jar
+      - $CI_PROJECT_NAME.jar
     expire_in: 5 min  # The default value is 30 days, but the latest successful pipeline artifacts are kept forever.
 
 container-job:      # This job generates a Docker container of the project.
@@ -96,7 +96,8 @@ container-job:      # This job generates a Docker container of the project.
     - test-job
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - export
+    - docker build -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:latest
 
 release-job:        # This job automatically creates a release on GitLab when a Git tag is pushed up.
   stage: release
@@ -114,9 +115,9 @@ release-job:        # This job automatically creates a release on GitLab when a 
     assets:
       links:
         # Artifacts associated with a tag/release are saved by GitLab regardless of expiry date.
-        - name: 'blogging-project.jar (raw file download)'
-          url: 'https://gitlab.com/chrislattman/blogging-project/-/jobs/artifacts/${CI_COMMIT_TAG}/raw/blogging-project.jar?job=package-job'
+        - name: '$CI_PROJECT_NAME.jar (raw file download)'
+          url: '$CI_PROJECT_URL/-/jobs/artifacts/${CI_COMMIT_TAG}/raw/$CI_PROJECT_NAME.jar?job=package-job'
           link_type: 'package'
-        - name: 'blogging-project.jar (view file in pipeline)'
-          url: 'https://gitlab.com/chrislattman/blogging-project/-/jobs/artifacts/${CI_COMMIT_TAG}/file/blogging-project.jar?job=package-job'
+        - name: '$CI_PROJECT_NAME.jar (view file in pipeline)'
+          url: '$CI_PROJECT_URL/-/jobs/artifacts/${CI_COMMIT_TAG}/file/$CI_PROJECT_NAME.jar?job=package-job'
           link_type: 'package'
