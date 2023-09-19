@@ -91,7 +91,7 @@ container-job:      # This job generates a Docker container of the project.
   stage: package
   image: docker:latest
   services:
-    - docker:latest-dind
+    - docker:dind
   needs:
     - test-job
   script:
