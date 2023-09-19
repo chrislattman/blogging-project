@@ -7,6 +7,7 @@ stages:             # List of stages for jobs, and their order of execution.
   - test
   - cover
   - package
+  - release
 
 lint-job:           # This job lints, or scans your code to ensure good coding practices.
   stage: lint       # It makes your code conform to the Google Java Style.
@@ -66,7 +67,7 @@ cover-job:          # This job generates a HTML code coverage report.
     paths:
       - coverage-report
 
-package-job:         # This job generates a runnable jar of the project.
+package-job:        # This job generates a runnable jar of the project.
   stage: package
   dependencies:
     - build-job
@@ -81,3 +82,23 @@ package-job:         # This job generates a runnable jar of the project.
   artifacts:
     paths:
       - blogging-project.jar
+
+release-job:        # This job automatically creates a release on GitLab when a Git tag is pushed up.
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - echo "Running release-job..."
+  release:
+    tag_name: $CI_COMMIT_TAG
+    name: 'Blogging Project ${CI_COMMIT_TAG:1}'
+    description: 'Sample release for blogging project.'
+    assets:
+      links:
+        - name: 'blogging-project.jar (raw file download)'
+          url: 'https://gitlab.com/chrislattman/blogging-project/-/jobs/artifacts/main/raw/blogging-project.jar?job=package-job'
+          link_type: 'package'
+        - name: 'blogging-project.jar (view file in pipeline)'
+          url: 'https://gitlab.com/chrislattman/blogging-project/-/jobs/artifacts/main/file/blogging-project.jar?job=package-job'
+          link_type: 'package'

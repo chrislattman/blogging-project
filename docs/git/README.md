@@ -422,7 +422,7 @@ git push -f
 
 ### Tagging
 
-Git tagging is commonplace on popular open source projects. It allows you to mark a point in a branch's history as being important. This point in history is commonly known as a version, and the version numbers in tags should follow the versioning standards laid out [here](https://semver.org/).
+Git tagging is commonplace on popular open source projects. It allows you to mark a point in a branch's history as being important. This point in history is commonly known as a version, and the version numbers in tags should follow the versioning standard laid out [here](https://semver.org/).
 
 Example: create a version 1.0.1 tag for the `main` branch:
 
@@ -447,6 +447,8 @@ git checkout v1.0.1
 ```
 
 On GitLab, tags can be associated with [Releases](https://gitlab.com/chrislattman/blogging-project/-/releases), which contain information about specific tags as well as downloadable files (i.e. the source code compiled into a `.exe` file for Windows users).
+
+- The [`.gitlab-ci.yml`](../../.gitlab-ci.yml) file associated with this project includes a release job that runs when a Git tag is pushed up
 
 ### Renaming files in Git
 
