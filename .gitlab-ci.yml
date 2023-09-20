@@ -98,7 +98,7 @@ image-job:          # This job builds and uploads a Docker image for this projec
   stage: package
   image: docker:latest
   services:
-    - docker:dind
+    - docker:latest
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # This is for normal commits into main branch
       variables:
