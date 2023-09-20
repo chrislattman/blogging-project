@@ -85,6 +85,11 @@ package-job:        # This job generates a runnable jar of the project.
     - build-job
     - test-job
   script:
+    - echo $JAR_NAME
+    - echo ${JAR_NAME}
+    - echo ${JAR_NAME:1}
+    - echo ${JAR_NAME:1:}
+    - echo ${JAR_NAME:1:5}
     - cd bin
     - mkdir META-INF
     - echo -e "Manifest-Version":" 1.0\nMain-Class":" app.Driver\n" > META-INF/MANIFEST.MF
@@ -119,23 +124,24 @@ release-job:        # This job automatically creates a release on GitLab when a 
   rules:
     - if: $CI_COMMIT_TAG
   needs:
-    - test-job
+    - package-job
   variables:
+    JAR_NAME: $CI_PROJECT_NAME-$CI_COMMIT_TAG.jar
     JOB_ARTIFACT_TAG_URL: $CI_PROJECT_URL/-/jobs/artifacts/${CI_COMMIT_TAG}
-    ARTIFACT_LOCATION: $CI_PROJECT_NAME.jar?job=package-job
+    ARTIFACT_LOCATION: $JAR_NAME?job=package-job
   script:
     - echo "Running release-job..."
   release:
     tag_name: $CI_COMMIT_TAG
-    name: 'Blogging Project ${CI_COMMIT_TAG:1}'
+    name: 'Blogging Project ${CI_COMMIT_TAG}'
     description: 'Sample release for blogging project.'
     assets:
       links:
         # Artifacts associated with a tag/release are saved by GitLab regardless of expiry date.
-        - name: '$CI_PROJECT_NAME.jar (raw file download)'
+        - name: '$JAR_NAME (raw file download)'
           url: '$JOB_ARTIFACT_TAG_URL/raw/$ARTIFACT_LOCATION'
           link_type: 'package'
-        - name: '$CI_PROJECT_NAME.jar (view file in pipeline)'
+        - name: '$JAR_NAME (view file in pipeline)'
           url: '$JOB_ARTIFACT_TAG_URL/file/$ARTIFACT_LOCATION'
           link_type: 'package'
         - name: '$CI_PROJECT_NAME Docker image'
