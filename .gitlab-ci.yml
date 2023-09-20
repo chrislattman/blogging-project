@@ -70,7 +70,7 @@ cover-job:          # This job generates a HTML code coverage report.
       - coverage-report
     expire_in: 5 min
 
-package-job:        # This job generates a runnable jar of the project.
+jar-job:            # This job builds a runnable jar of the project.
   stage: package
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # This is for normal commits into main branch
@@ -94,7 +94,7 @@ package-job:        # This job generates a runnable jar of the project.
       - $JAR_NAME
     expire_in: 5 min  # The default value is 30 days, but the latest successful pipeline artifacts are kept forever.
 
-container-job:      # This job generates a Docker container of the project.
+image-job:          # This job builds and uploads a Docker image for this project.
   stage: package
   image: docker:dind
   rules:
@@ -120,7 +120,7 @@ release-job:        # This job automatically creates a release on GitLab when a 
     - if: $CI_COMMIT_TAG
   needs:
     - package-job
-    - container-job
+    - image-job
   variables:
     JAR_NAME: $CI_PROJECT_NAME-$CI_COMMIT_TAG.jar
     JOB_ARTIFACT_TAG_URL: $CI_PROJECT_URL/-/jobs/artifacts/${CI_COMMIT_TAG}
@@ -141,5 +141,5 @@ release-job:        # This job automatically creates a release on GitLab when a 
           url: '$JOB_ARTIFACT_TAG_URL/file/$ARTIFACT_LOCATION'
           link_type: 'package'
         - name: '$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG'
-          url: '$CI_PROJECT_URL/container_registry/5599338'
+          url: '$CI_PROJECT_URL/image_registry/5599338'
           link_type: 'image'
