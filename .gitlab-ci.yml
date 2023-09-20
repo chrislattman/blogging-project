@@ -123,13 +123,13 @@ release-job:        # This job automatically creates a release on GitLab when a 
     - image-job
   variables:
     JAR_NAME: $CI_PROJECT_NAME-$CI_COMMIT_TAG.jar
-    JOB_ARTIFACT_TAG_URL: $CI_PROJECT_URL/-/jobs/artifacts/${CI_COMMIT_TAG}
+    JOB_ARTIFACT_TAG_URL: $CI_PROJECT_URL/-/jobs/artifacts/$CI_COMMIT_TAG
     ARTIFACT_LOCATION: $JAR_NAME?job=jar-job
   script:
     - echo "Running release-job..."
   release:
     tag_name: $CI_COMMIT_TAG
-    name: 'Blogging Project ${CI_COMMIT_TAG}'
+    name: 'Blogging Project $CI_COMMIT_TAG'
     description: 'Sample release for blogging project.'
     assets:
       links:
