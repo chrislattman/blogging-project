@@ -96,7 +96,9 @@ jar-job:            # This job builds a runnable jar of the project.
 
 image-job:          # This job builds and uploads a Docker image for this project.
   stage: package
-  image: docker:dind
+  image: docker:latest
+  services:
+    - docker:dind
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # This is for normal commits into main branch
       variables:
@@ -104,8 +106,6 @@ image-job:          # This job builds and uploads a Docker image for this projec
     - if: $CI_COMMIT_TAG                            # This is when a Git tag is pushed
       variables:
         IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
-  services:
-    - docker:dind
   needs:
     - test-job
   script:
