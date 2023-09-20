@@ -72,6 +72,13 @@ cover-job:          # This job generates a HTML code coverage report.
 
 package-job:        # This job generates a runnable jar of the project.
   stage: package
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # This is for normal commits into main branch
+      variables:
+        JAR_NAME: $CI_PROJECT_NAME.jar
+    - if: $CI_COMMIT_TAG                            # This is when a Git tag is pushed
+      variables:
+        JAR_NAME: $CI_PROJECT_NAME-$CI_COMMIT_TAG.jar
   dependencies:
     - build-job
   needs:
@@ -81,21 +88,26 @@ package-job:        # This job generates a runnable jar of the project.
     - cd bin
     - mkdir META-INF
     - echo -e "Manifest-Version":" 1.0\nMain-Class":" app.Driver\n" > META-INF/MANIFEST.MF
-    - jar -cmf META-INF/MANIFEST.MF ../$CI_PROJECT_NAME.jar app/*.class
+    - jar -cmf META-INF/MANIFEST.MF ../$JAR_NAME app/*.class
   artifacts:
     paths:
-      - $CI_PROJECT_NAME.jar
+      - $JAR_NAME
     expire_in: 5 min  # The default value is 30 days, but the latest successful pipeline artifacts are kept forever.
 
 container-job:      # This job generates a Docker container of the project.
   stage: package
   image: docker:dind
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # This is for normal commits into main branch
+      variables:
+        IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+    - if: $CI_COMMIT_TAG                            # This is when a Git tag is pushed
+      variables:
+        IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
   services:
     - docker:dind
   needs:
     - test-job
-  variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_TAG .
@@ -127,5 +139,5 @@ release-job:        # This job automatically creates a release on GitLab when a 
           url: '$JOB_ARTIFACT_TAG_URL/file/$ARTIFACT_LOCATION'
           link_type: 'package'
         - name: '$CI_PROJECT_NAME Docker image'
-          url: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
+          url: '$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG'
           link_type: 'image'
