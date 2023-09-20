@@ -139,6 +139,6 @@ release-job:        # This job automatically creates a release on GitLab when a 
         - name: '$JAR_NAME (view file in pipeline)'
           url: '$JOB_ARTIFACT_TAG_URL/file/$ARTIFACT_LOCATION'
           link_type: 'package'
-        - name: '$CI_PROJECT_NAME-$CI_COMMIT_TAG Docker image'
+        - name: '$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG'
           url: '$CI_PROJECT_URL/container_registry/5599338'
           link_type: 'image'
