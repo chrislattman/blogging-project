@@ -158,7 +158,7 @@ These instructions should be similar to the following:
 
 ```
 git remote add origin <url>
-git add .
+git add -A
 git commit -m "Initial commit"
 git push -u origin main
 ```
@@ -172,7 +172,7 @@ A branch is what is sounds like: code which "branches" from the main "trunk" of 
 ### Add all changes:
 
 ```
-git add .
+git add -A
 ```
 
 ### Optional: see which files have been changed:
@@ -337,7 +337,7 @@ git diff --name-only --diff-filter=U
 Add the files and continue the rebase process:
 
 ```
-git add .
+git add -A
 git rebase --continue
 ```
 
