@@ -180,16 +180,28 @@ docker run --rm -v test-volume:/data -v clone-volume:/data2 image-name sh -c 'cp
 
 You may want to share your image on Docker Hub or some other Docker image library. This will allow others to use your image (and is a major benefit of containerization).
 
-These instructions will vary depending on what image library you're pushing to. If you're using Docker Hub, here are the instructions:
+These instructions will vary depending on what image library you're pushing to. If you're using Docker Hub, here are some initial instructions:
 
 1. If you don't already have an account, create an account on [Docker Hub](https://hub.docker.com/) and set up 2FA
 1. Create a Docker Hub [repository](https://hub.docker.com/repository/create) for the image you want to push
+1. Login to Docker Desktop with your Docker Hub account
+
+To push an image:
+
+1. If you aren't using Docker Hub, authenticate using the `docker login` command:
+    ```
+    docker login -u <username> -p <password> <image-library-url>
+    ```
+    - You may need to specify a port number followed by a possible subdomain for the URL
+    - You may need to use a personal access token instead of your password
+    - You should store your password/token as a temporary [environment variable](https://www.freecodecamp.org/news/how-to-set-an-environment-variable-in-linux#how-to-set-environment-variables-in-linux) and reference that variable in this command in order to hide it from your command history
 1. After you have [built](#creating-images-containers-and-volumes) your image, run
     ```
     docker tag image-name <docker-hub-username>/<docker-hub-repository-name>:<version>
     ```
     This will tag the image you just built in a format that is acceptable to Docker Hub.
     - You could have also just built the image by specifying the image name as `<docker-hub-username>/<docker-hub-repository-name>:<version>`
+    - Change the image name as necessary if using something other than Docker Hub
 1. Push the image by running
     ```
     docker push <docker-hub-username>/<docker-hub-repository-name>:<version>
