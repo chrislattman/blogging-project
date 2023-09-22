@@ -2322,3 +2322,28 @@ Example: convert a base64 value to hexadecimal:
 ```
 echo -n "bGlnaHQgdw==" | base64 -d | xxd -p
 ```
+
+### Adding a certificate to trust store
+
+Sometimes, you need to add a [TLS certificate](https://aws.amazon.com/what-is/ssl-certificate/) to your operating system in order for TLS verification to go smoothly.
+
+To download a certificate from a website, you can use your web browser (it likely has a way for you to click to download), or you can use [openssl](#openssl):
+
+```
+openssl s_client -showcerts -connect <website-url>:443 < /dev/null | \
+sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt
+```
+
+- You may see other extensions such as `.cer` or `.pem` for certificates (they are interchangeable)
+
+Adding the certificate to the operating system's trust store depends on which OS you are using:
+
+- On Windows, double-click the certificate file and follow the instructions in the pop-up window
+- On macOS, double-click the certificate; it should automatically add it to Keychain Access
+- On Linux, it depends on which Linux distribution you are using:
+    - For Ubuntu, run:
+        ```
+        sudo apt install ca-certificates
+        sudo cp certificate.crt /usr/local/share/ca-certificates
+        sudo update-ca-certificates
+        ```
