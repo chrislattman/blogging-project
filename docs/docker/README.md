@@ -99,6 +99,10 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - Creates a snapshot of container `container-name` and saves it as the image `snapshot-image-name`
     - Note: this does not save any data from volumes
 
+- `docker rename <container> <new-name>`
+    - Renames a container to the new name specified
+    - This can be helpful if you forgot to name your container, or it just needs a new name
+
 Unfortunately, there is currently no `docker volume` command to clone a volume. However, you can accomplish this by running the following commands:
 
 ```
@@ -208,6 +212,8 @@ To push an image:
     ```
 
 The latest version of an image should be tagged with version `latest` and pushed.
+
+If you need to use another image library, make sure to run `docker logout <image-library-url>`.
 
 ## Docker Compose
 
