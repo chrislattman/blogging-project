@@ -99,7 +99,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - Creates a snapshot of container `container-name` and saves it as the image `snapshot-image-name`
     - Note: this does not save any data from volumes
 
-- `docker rename <container> <new-name>`
+- `docker rename container-name new-name`
     - Renames a container to the new name specified
     - This can be helpful if you forgot to name your container, or it just needs a new name
 
