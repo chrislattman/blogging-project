@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 43 most important terminal commands (plus symbols and compression)](#the-43-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 44 most important terminal commands (plus symbols and compression)](#the-44-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -66,7 +66,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 43 most important terminal commands (plus symbols and compression):
+## The 44 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -82,6 +82,7 @@ To save your changes, quit Terminal and restart it.
 - [`rm` - removes a file or directory](#rm)
 - [`mv` - moves or renames a file or directory](#mv)
 - [`cat` - outputs the contents of a file](#cat)
+- [`tail` - outputs an updated stream of a file](#tail)
 - [`diff` - compares two files for differences](#diff)
 - [`wc` - outputs number of words, characters, or lines in a file](#wc)
 - [`grep` - searches a file (or files) for a given phrase](#grep)
@@ -921,6 +922,119 @@ This is file2.txt
 This is file1.txt
 This is file2.txt
 [Chris@Chris-MBP-16 Downloads]$
+```
+
+### `tail`
+
+While it can be used to output the last n lines of a file, it is often useful to output a file stream.
+
+- `tail -f <file>` outputs the contents of the file, and constantly waits for new updates to the file and prints them out
+- `tail -n <num> <file>` outputs the last `<num>` lines of the file
+    - If `-n <num>` is not specified, it defaults to 10 lines
+
+Example:
+
+```
+[Chris@Chris-MBP-16 test-make]$ tail Makefile
+libfraction: fraction.c fraction.h
+	$(CC) $(CFLAGS) $(CFLAGS_LIB) -o $(LIBNAME) fraction.c
+
+clean:
+	rm -rf *.o *.so driver driverdl driver.dSYM *.exe *.dll
+
+help:
+	@echo "For debug build, run: make DEBUG=1"
+
+.PHONY: normal lib dl clean help
+[Chris@Chris-MBP-16 test-make]$ tail -n 15 Makefile
+	$(CC) $(CFLAGS) -c frac_tester.c
+
+fraction.o: fraction.c fraction.h
+	$(CC) $(CFLAGS) -c fraction.c
+
+libfraction: fraction.c fraction.h
+	$(CC) $(CFLAGS) $(CFLAGS_LIB) -o $(LIBNAME) fraction.c
+
+clean:
+	rm -rf *.o *.so driver driverdl driver.dSYM *.exe *.dll
+
+help:
+	@echo "For debug build, run: make DEBUG=1"
+
+.PHONY: normal lib dl clean help
+[Chris@Chris-MBP-16 test-make]$ cat Makefile
+# Specify shell to execute recipes
+SHELL=/bin/bash
+
+# To compile
+
+# Set compilation options:
+#
+# -O0 no optimizations, for debugging purposes
+# -ggdb3 adds extra debug info
+# -m64 targets 64-bit architecture
+# -std=c99 uses C99 Standard features
+# -Wall shows "all" warnings
+# -Wextra show all other warnings
+# -Werror treats all warnings as errors
+# -pedantic checks for conformity to ANSI C
+
+OS=$(shell echo `uname`)
+
+# macOS gcc is symlinked to clang
+ifeq ($(OS),Darwin)
+CC=gcc-12
+else
+CC=gcc
+endif
+
+# Windows (Cygwin) calls shared libraries DLLs
+# macOS normally uses .dylib for shared libraries, but
+# we are not using clang, so .so will be used for macOS (and Linux)
+ifneq ($(findstring CYGWIN,$(OS)),)
+LIBNAME=libfraction.dll
+else
+LIBNAME=libfraction.so
+endif
+
+# Compilation flags for executables and shared libraries
+CFLAGS=-m64 -std=c99 -Wall -Wextra -Werror -pedantic
+CFLAGS_LIB=-shared -fpic
+
+# Debug flags
+ifeq ($(DEBUG),1)
+CFLAGS+=-O0 -ggdb3
+endif
+
+normal: fraction.o frac_tester.o
+	$(CC) $(CFLAGS) -o driver driver.c fraction.o frac_tester.o
+
+lib: libfraction frac_tester_lib.o
+	$(CC) $(CFLAGS) -o driver driver.c ./$(LIBNAME) frac_tester.o
+
+dl: libfraction
+	$(CC) $(CFLAGS) -o driverdl driverdl.c
+
+frac_tester.o: fraction.o frac_tester.c frac_tester.h
+	$(CC) $(CFLAGS) -c frac_tester.c
+
+frac_tester_lib.o: libfraction frac_tester.c frac_tester.h
+	$(CC) $(CFLAGS) -c frac_tester.c
+
+fraction.o: fraction.c fraction.h
+	$(CC) $(CFLAGS) -c fraction.c
+
+libfraction: fraction.c fraction.h
+	$(CC) $(CFLAGS) $(CFLAGS_LIB) -o $(LIBNAME) fraction.c
+
+clean:
+	rm -rf *.o *.so driver driverdl driver.dSYM *.exe *.dll
+
+help:
+	@echo "For debug build, run: make DEBUG=1"
+
+.PHONY: normal lib dl clean help
+[Chris@Chris-MBP-16 test-make]$
 ```
 
 ### `diff`
@@ -1954,13 +2068,14 @@ You do not have to run every single terminal command one at a time. You can aggr
 
 ### Contents:
 
-- [`Ctrl + C`](#ctrl--c)
+- [`Ctrl + C` - kills a command](#ctrl--c)
+- [`Ctrl + Z` - stops a command](#ctrl--z)
+- [Run a command in the background](#run-in-background)
 - [Package managers](#package-managers)
 - [More commands](#more-commands)
 - [`vim` - file editor](#vim)
 - [Aliasing](#aliasing)
 - [Pipes and redirection](#pipes-and-redirection)
-- [Run a command in the background](#run-in-background)
 - [Run sequential commands](#run-sequential-commmands)
 - [Split command over several lines](#split-command-over-several-lines)
 - [Add to path](#add-to-path)
@@ -1971,7 +2086,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 
 ### `Ctrl + C`
 
-`Ctrl + C` (for both macOS and Windows keyboards) cancels a running command in a terminal.
+`Ctrl + C` (for both macOS and Windows keyboards) kills a running command in a terminal.
 
 Example (here I am using the [`wget`](#wget) command to attempt to download a 3 GB file):
 
@@ -1989,6 +2104,75 @@ ubuntu-20.04.3-desk   1%[                    ]  33.01M  14.2MB/s               ^
 ```
 
 - The `^C` signifies that I entered Ctrl + C to the terminal, terminating the remainder of the download
+
+### `Ctrl + Z`
+
+`Ctrl + Z` (for both macOS and Windows keyboards) stops, without killing, a running command in a terminal. Think of this as "pausing" the command.
+
+- This outputs a job ID (different from a process ID) that can be referenced later
+- To resume a stopped command, run `fg` (stands for "foreground")
+- To resume a stopped command in the [background](#run-in-background), run `bg`
+- To kill a stopped command without resuming it, run `kill -9 %<job-ID>`
+- To see a list of jobs, run `jobs`
+
+Example:
+
+```
+[Chris@Chris-MBP-16 Downloads]$ tail -f tester.py
+from time import sleep
+
+while True:
+    print("Hello world")
+    sleep(5)
+^Z
+[2]+  Stopped                 tail -f tester.py
+[Chris@Chris-MBP-16 Downloads]$ fg
+tail -f tester.py
+^Z
+[2]+  Stopped                 tail -f tester.py
+[Chris@Chris-MBP-16 Downloads]$ jobs
+[2]+  Stopped                 tail -f tester.py
+[Chris@Chris-MBP-16 Downloads]$ bg
+[2]+ tail -f tester.py &
+[Chris@Chris-MBP-16 Downloads]$ kill %2
+[2]-  Terminated: 15          tail -f tester.py
+[Chris@Chris-MBP-16 Downloads]$
+```
+
+- The `^Z` signifies that I entered Ctrl + Z to the terminal, stopping the command without killing it
+- Here, the job ID associated with the command `tail -f tester.py` is 2
+
+### Run in background
+
+If some command takes a very long time to complete, and you want to use the same terminal for another command, you can use the `&` operator.
+
+Example:
+
+```
+[Chris@Chris-MBP-16 Downloads]$ cat script.py
+counter = 0
+for i in range(100000000):
+	counter += 1
+print(counter)
+[Chris@Chris-MBP-16 Downloads]$ python3 script.py > logfile.txt &
+[1] 96345
+[Chris@Chris-MBP-16 Downloads]$ jobs
+[1]+  Running                 python3 script.py > logfile.txt &
+[Chris@Chris-MBP-16 Downloads]$ cat logfile.txt
+100000000
+[Chris@Chris-MBP-16 Downloads]$
+```
+
+The Python script increments a counter 100 million times, and then prints out its value (should be 100000000, of course). `python3 script.py > logfile.txt` runs the script and [redirects](#pipes-and-redirection) the output to a file named logfile.txt. The `&` runs the script as a background job, and prints out its job ID (in square brackets) and its process ID. Now you are able to use your terminal without waiting for the script to finish. As you can see, the script did eventually finish, since the correct output was saved in logfile.txt.
+
+- To see a command running in the background (bring it to the "foreground"), run `fg`
+- To stop a command running in the background without killing it, run
+    - `kill -17 %<job-ID>` on macOS
+    - `kill -19 %<job-ID>` on Linux
+- To kill a command running in the background, run `kill -9 %<job-ID>`
+- To see a list of jobs, run `jobs`
+
+A more advanced tool is `tmux` (stands for terminal multiplexer), which has built-in support in [iTerm2](../../docs#optional-for-macos).
 
 ### Package managers
 
@@ -2104,31 +2288,7 @@ Redirectors can be used to redirect terminal output to a file.
 - `ls -l > file.txt` copies the output of `ls -l` to file.txt
 - `ls -l >> file.txt` copies the output of `ls -l` and appends it to the end of file.txt (rather than overwrite file.txt's contents)
 - `ls -l &> file.txt` copies the output and any additional error output from running `ls -l` to file.txt
-
-### Run in background
-
-If some command takes a very long time to execute, and you want to use the same terminal for another command, you can use the `&` operator.
-
-Example:
-
-```
-[Chris@Chris-MBP-16 Downloads]$ cat script.py
-counter = 0
-for i in range(100000000):
-	counter += 1
-print(counter)
-[Chris@Chris-MBP-16 Downloads]$ python3 script.py > logfile.txt &
-[1] 96345
-[Chris@Chris-MBP-16 Downloads]$ cat logfile.txt
-100000000
-[Chris@Chris-MBP-16 Downloads]$
-```
-
-The Python script increments a counter 100 million times, and then prints out its value (should be 100000000, of course). `python3 script.py > logfile.txt` runs the script and [redirects](#pipes-and-redirection) the output to a file named logfile.txt. The `&` runs the script as a background process, and prints out its process ID. Now you are able to use your terminal without waiting for the script to finish. As you can see, the script did eventually finish, since the correct output was saved in logfile.txt.
-
-- To kill a process that is taking too long, run [`ps`](#ps) and find its PID (process ID), then kill it by running [`kill -9 <PID>`](#kill)
-
-A more advanced tool is `tmux` (stands for terminal multiplexer), which has built-in support in [iTerm2](../../docs#optional-for-macos).
+- `ls -l &> file.txt &` runs the previous command in the [background](#run-in-background)
 
 ### Run sequential commmands
 
