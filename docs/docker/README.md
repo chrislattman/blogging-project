@@ -103,7 +103,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - Renames a container to the new name specified
     - This can be helpful if you forgot to name your container, or it just needs a new name
 
-Unfortunately, there is currently no `docker volume` command to clone a volume. However, you can accomplish this by running the following commands:
+Unfortunately, there is currently no `docker volume` command to clone or even rename a volume. However, you can accomplish this by running the following commands:
 
 ```
 docker volume create clone-volume
