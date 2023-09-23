@@ -107,10 +107,10 @@ Unfortunately, there is currently no `docker volume` command to clone or even re
 
 ```
 docker volume create clone-volume
-docker run --rm -v test-volume:/data -v clone-volume:/data2 image-name sh -c 'cp -r /data/* /data2'
+docker run --rm -v original-volume:/data -v clone-volume:/data2 image-name sh -c 'cp -r /data/* /data2'
 ```
 
-- This creates a clone of some existing Docker volume `test-volume` in `clone-volume`
+- This creates a clone of some existing Docker volume `original-volume` in `clone-volume`
 
 ## Interacting with containers
 
