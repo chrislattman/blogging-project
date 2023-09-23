@@ -7,11 +7,11 @@ Docker is a tool used to containerize operating systems. It facilitates software
 - [Getting started](#getting-started)
 - [Docker image vs. Docker container vs. Docker volume](#docker-image-vs-docker-container-vs-docker-volume)
 - [Dockerfile](#dockerfile)
-- [Creating images, containers, and volumes](#creating-images-containers-and-volumes)
+- [Creating images, containers, volumes, and networks](#creating-images-containers-volumes-and-networks)
 - [Interacting with containers](#interacting-with-containers)
 - [Stopping containers](#stopping-containers)
 - [Informational commands](#informational-commands)
-- [Removing images, containers, and volumes](#removing-images-containers-and-volumes)
+- [Removing images, containers, volumes, and networks](#removing-images-containers-volumes-and-networks)
 - [Pushing images to a Docker image library](#pushing-images-to-a-docker-image-library)
 - [Docker Compose](#docker-compose)
 
@@ -38,6 +38,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
 - A volume is a file system (a directory) mounted to a container
     - This allows data to be backed up and saved, regardless of container status
     - This also allows data to be shared between containers
+- There is also such thing as a Docker network, which allows Docker containers to communicate with each other without intervention by the host OS
 
 ## Dockerfile
 
@@ -50,7 +51,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
     - e.g. `COPY file.txt .`
 - Optional: `EXPOSE` exposes a port to the host OS
     - e.g. `EXPOSE 80/tcp`
-    - This only allows other Docker containers to access this port on a given container
+    - This only allows other Docker containers on the same Docker network to access this port on a given container
     - This is made unnecessary when using the `-p` flag for `docker run`
 - `RUN` specifies commands to run while building an image in the layer on top of it
     - e.g. `RUN apt update && apt install cmake protobuf-compiler -y`
@@ -59,7 +60,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
 
 For an example of a valid Dockerfile, see [here](https://gist.github.com/chrislattman/a787857d4bbd3192ebe792c463379084).
 
-## Creating images, containers, and volumes
+## Creating images, containers, volumes, and networks
 
 - `docker pull image-name`
     - Pulls the latest version of a Docker image from [Docker Hub](https://hub.docker.com/)
@@ -80,6 +81,7 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
     - Optional: use `--rm` to automatically remove the container when it exits
     - Optional: use `--cpus <num-cpus>` to specify how many CPUs the container can use, e.g. `--cpus 4`
     - Optional: use `-m <memory>` to specify how much memory the container can use, e.g. `-m 4GB`
+    - Optional: use `--network <network>` to connect the container to a specified Docker network
 
 - `docker run -it [--name container-name] -v volume-name:/data image-name [/bin/bash]`
     - Starts up a container named `container-name` using the image `image-name` running a bash shell
@@ -94,6 +96,9 @@ For an example of a valid Dockerfile, see [here](https://gist.github.com/chrisla
 
 - `docker volume create volume-name`
     - Creates a new volume named `volume-name`
+
+- `docker network create network-name`
+    - Creates a new Docker network named `network-name`
 
 - `docker commit container-name snapshot-image-name`
     - Creates a snapshot of container `container-name` and saves it as the image `snapshot-image-name`
@@ -128,6 +133,13 @@ docker run --rm -v original-volume:/data -v clone-volume:/data2 image-name sh -c
     - Copies `file.txt` from your current directory to the `/path/to/dir` directory in a container
     - Works for both files and directories
 
+- `docker network connect network-name container-name`
+    - Connects a container to a Docker network
+
+- `docker network disconnect [-f] network-name container-name`
+    - Disconnects a container from a Docker network
+    - Add `-f` to force a disconnection
+
 ## Stopping containers
 
 - `docker restart container-name`
@@ -149,10 +161,13 @@ docker run --rm -v original-volume:/data -v clone-volume:/data2 image-name sh -c
 - `docker volume ls`
     - Shows all volumes
 
+- `docker network ls`
+    - Shows all Docker networks
+
 - `docker logs -f container-name`
     - Prints out the logs for a running container
 
-## Removing images, containers, and volumes
+## Removing images, containers, volumes, and networks
 
 - `docker rmi image-name`
     - Removes an image
@@ -161,7 +176,7 @@ docker run --rm -v original-volume:/data -v clone-volume:/data2 image-name sh -c
         - Run `docker images -a` to see all of the images and their corresponding image IDs
 
 - `docker image prune`
-    - Removes unused images
+    - Removes unused (dangling) images
     - `docker image prune -a` removes all unused images
 
 - `docker rm container-name`
@@ -179,6 +194,12 @@ docker run --rm -v original-volume:/data -v clone-volume:/data2 image-name sh -c
 
 - `docker volume prune`
     - Removes all unused volumes
+
+- `docker network rm network-name`
+    - Removes a Docker network
+
+- `docker network prune`
+    - Removes all unused Docker networks
 
 ## Pushing images to a Docker image library
 
@@ -199,7 +220,7 @@ To push an image:
     - You may need to specify a port number followed by a possible subdomain for the URL
     - You may need to use a personal access token instead of your password
     - You should store your password/token as a temporary [environment variable](https://www.freecodecamp.org/news/how-to-set-an-environment-variable-in-linux#how-to-set-environment-variables-in-linux) and reference that variable in this command in order to hide it from your command history
-1. After you have [built](#creating-images-containers-and-volumes) your image, run
+1. After you have [built](#creating-images-containers-volumes-and-networks) your image, run
     ```
     docker tag image-name <docker-hub-username>/<docker-hub-repository-name>:<version>
     ```
