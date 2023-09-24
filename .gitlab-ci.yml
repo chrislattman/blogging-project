@@ -5,8 +5,8 @@ stages:             # List of stages for jobs, and their order of execution.
   - lint
   - build
   - test
-  - cover
-  - package
+  - coverage
+  - deploy
   - release
 
 lint-job:           # This job lints, or scans your code to ensure good coding practices.
@@ -53,8 +53,8 @@ test-job:           # This job builds the .class files for your test code and ru
       - jacoco.exec
     expire_in: 5 min
 
-cover-job:          # This job generates a HTML code coverage report.
-  stage: cover
+coverage-job:       # This job generates a HTML code coverage report.
+  stage: coverage
   dependencies:
     - test-job
   needs:
@@ -70,8 +70,16 @@ cover-job:          # This job generates a HTML code coverage report.
       - coverage-report
     expire_in: 5 min
 
+pages:              # This job is a special GitLab CI/CD job that uploads a static website to GitLab Pages.
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  artifacts:
+    paths:
+      - public
+
 jar-job:            # This job builds a runnable jar of the project.
-  stage: package
+  stage: deploy
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # This is for normal commits into main branch
       variables:
@@ -95,7 +103,7 @@ jar-job:            # This job builds a runnable jar of the project.
     expire_in: 5 min  # The default value is 30 days, but the latest successful pipeline artifacts are kept forever.
 
 image-job:          # This job builds and uploads a Docker image for this project.
-  stage: package
+  stage: deploy
   image: docker:latest
   services:
     - docker:latest
