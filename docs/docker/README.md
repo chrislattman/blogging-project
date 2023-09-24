@@ -33,6 +33,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
 ## Docker image vs. Docker container vs. Docker volume
 
 - An image is an immutable file that contains files needed to run a container
+    - Images depend on the CPU architecture of the computer they were built on
 - A container is a runtime environment that runs on top of an image
     - Unlike virtual machines, they virtualize at the application layer and share the same underlying "OS" (container engine)
 - A volume is a file system (a directory) mounted to a container
