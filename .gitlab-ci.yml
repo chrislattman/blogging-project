@@ -74,6 +74,8 @@ pages:              # This job is a special GitLab CI/CD job that uploads a stat
   stage: deploy
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  script:
+    - echo "Running pages job..."
   artifacts:
     paths:
       - public
