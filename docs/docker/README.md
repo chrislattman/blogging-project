@@ -168,7 +168,7 @@ docker run --rm -v original-volume:/data -v clone-volume:/data2 image-name sh -c
     - Prints out the logs for a running container
 
 - `docker inspect name`
-    - Prints out details, in JSON-format, of the image, container, volume, or network specified
+    - Prints out details, in JSON format, of the image, container, volume, or network specified
 
 ## Removing images, containers, volumes, and networks
 
