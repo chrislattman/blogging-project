@@ -2083,7 +2083,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [`xclip` - clipboard](#xclip)
 - [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
-- [`Adding a certificate to the trust store`](#adding-a-certificate-to-the-trust-store)
+- [Adding a certificate to the trust store](#adding-a-certificate-to-the-trust-store)
 
 ### `Ctrl + C`
 
