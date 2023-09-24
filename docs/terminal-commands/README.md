@@ -1615,6 +1615,7 @@ Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
 - It outputs the IP address(es) associated with a website
 - Add `-v` to see verbose output
 - You can also specify which DNS server to query, for example `host google.com 1.1.1.1` (this uses [Cloudflare's DNS server](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/))
+- Related commands include `nslookup` and `dig`
 
 Examples:
 
@@ -2068,6 +2069,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 
 ### Contents:
 
+- [`Ctrl + D` - end of file](#ctrl--d)
 - [`Ctrl + C` - kills a command](#ctrl--c)
 - [`Ctrl + Z` - stops a command](#ctrl--z)
 - [Run a command in the background](#run-in-background)
@@ -2084,6 +2086,27 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Adding a certificate to the trust store](#adding-a-certificate-to-the-trust-store)
+
+### `Ctrl + D`
+
+This is a special key combination that indicates an end of file (EOF) to an interactive command.
+
+For example, here is the `nslookup` command, which is an interactive version of [host](#host):
+
+```
+[Chris@Chris-MBP-16 ~]$ nslookup
+> google.com
+Server:		10.2.0.1
+Address:	10.2.0.1#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 142.250.81.238
+> ^D
+[Chris@Chris-MBP-16 ~]$
+```
+
+- The `^D` signifies to `nslookup` that there is no more input to parse, therefore it exits
 
 ### `Ctrl + C`
 
