@@ -2497,9 +2497,9 @@ sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt
 
 - You may see other extensions such as `.cer` or `.pem` for certificates (they are interchangeable)
 
-Adding the certificate to the operating system's trust store depends on which OS you are using:
+Adding the certificate to the operating system's trust/certificate store depends on which OS you are using:
 
-- On Windows, double-click the certificate file and follow the instructions in the pop-up window
+- On Windows, double-click the certificate file, click on the "Install Certificate..." button, and follow the instructions in the pop-up window
 - On macOS, double-click the certificate; it should automatically add it to Keychain Access
 - On Linux, it depends on which Linux distribution you are using:
     - For Ubuntu, run:
