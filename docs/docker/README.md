@@ -33,7 +33,6 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
 ## Docker image vs. Docker container vs. Docker volume
 
 - An image is an immutable file that contains files needed to run a container
-    - Images depend on the CPU architecture of the computer they were built on
 - A container is a runtime environment that runs on top of an image
     - Unlike virtual machines, they virtualize at the application layer and share the same underlying "OS" (container engine)
 - A volume is a file system (a directory) mounted to a container
@@ -167,6 +166,9 @@ docker run --rm -v original-volume:/data -v clone-volume:/data2 image-name sh -c
 
 - `docker logs -f container-name`
     - Prints out the logs for a running container
+
+- `docker inspect name`
+    - Prints out details, in JSON-format, of the image, container, volume, or network specified
 
 ## Removing images, containers, volumes, and networks
 
