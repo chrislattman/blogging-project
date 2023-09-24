@@ -14,7 +14,7 @@ To access a remote server using any of the commands on this page, `sshd` (the SS
 - [Basic usage](#basic-usage)
 - [Tunneling](#tunneling)
 - [SSH configurations](#ssh-configurations)
-- [`scp` - copies a file or directory to a remote server](#scp)
+- [`scp` - copies a file or directory to or from a remote server](#scp)
 - [`sftp` - interactive version of `scp`](#sftp)
 
 ## Generating a SSH key
