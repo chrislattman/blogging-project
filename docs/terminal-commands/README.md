@@ -92,6 +92,7 @@ To save your changes, quit Terminal and restart it.
 - [`man` - manual pages for various commands](#man)
 - [`history` - outputs your previous terminal commands](#history)
 - [`wget` - downloads files from the Internet](#wget)
+- [`curl` - powerful networking tool](#curl)
 - [`shasum` - outputs the SHA-2 hash of a file](#shasum)
 - [`openssl` - encrypts and decrypts files](#openssl)
 - [`gpg` - encrypts and signs files for communication](#gpg)
@@ -1276,38 +1277,145 @@ total 6030984
 [Chris@Chris-MBP-16 downloaded-files]$
 ```
 
-- You could also run `curl -LO https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.iso` to do the same thing
-    - `curl` stands for "client URL" and is often written as cURL
-    - `-L` follows HTTP 3xx redirects
-    - `-O` names the downloaded file as it appears in the URL
-    - However, `curl` only works for individual files (`wget` is more [robust](https://daniel.haxx.se/docs/curl-vs-wget.html))
-    - You might also need to install `curl` with a package manager (it's better to use `wget` anyways for downloads)
+### `curl`
+
+Stands for "client URL" and is often written as cURL. It allows you to both download and upload files to the Internet.
+
+- You could also run `curl -LO https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.iso` to do the same thing as the above `wget` command
+- `curl` only works for individual files (`wget` is more [robust](https://daniel.haxx.se/docs/curl-vs-wget.html))
+- You might also need to install `curl` with a package manager (it's better to use `wget` anyways for downloads)
+
+Example use cases:
+
 - `curl https://ipv4.ipleak.net/json/` outputs your IP address and rough geographic location
 - `curl wttr.in` outputs a 3-day weather forecast for your current IP address location
     - `curl wttr.in/<city>` outputs a 3-day weather forecast for the given city
     - You can also specify a state to narrow down the right city, e.g. `curl wttr.in/manhattan,ks`
-- `curl` is a very powerful tool for testing web applications. Here are some more `curl` options:
-    - `-d "arg=value"` is used to submit a POST request with `Content-Type: application/x-www-form-urlencoded`
-        - This flag can be specified multiple times for multiple arguments
-        - This flag cannot be used with `-F`
-    - `-F "arg=value"` is used to submit a POST request with `ContentType: multipart/form-data` (supports file uploads)
-        - To submit a file, use `-F arg=@filename`
-        - This flag cannot be used with `-d`
-    - `-H <header>` is used to specify an extra HTTP request header when submitting any HTTP request
-        - A file of HTTP request headers (one for each line) can be specified with `-H @headerfile`
-        - `--proxy-header <header>` does the same thing, but specifically for HTTP proxies
-    - `--dns-servers <address>` specifies a custom DNS server to use
-        - This flag is not available on all versions of `curl`, but you can use [`host`](#host) to get a website's IP address according to a particular DNS server
-    - `-D <file>.txt` writes the HTTP response line and headers from a GET request to a file
-    - `-o <file>.txt` writes the HTTP response body from a GET request to a file
-    - `-I` is used to submit a HEAD request, so only the HTTP response line and headers are outputted
-    - `-i` outputs the HTTP response line and headers along with the HTTP response body
-    - `-v` outputs any TLS handshake data and the HTTP request line and headers, as well as the output from `-i`
-    - `-U <username:password>` specifies the username and password for an HTTP proxy
-    - `-x http[s]://proxy` specifies an HTTP proxy to use to connect to a website
-    - `--ssl-reqd` forces TLS to be used
-    - `-c <file>.txt` outputs cookies from a website to a text file
-    - `-b <file>.txt` uses cookies from a text file when uploading data
+
+`curl` is a very powerful tool for testing web applications. Here are some more `curl` options:
+
+- `-L` follows HTTP 3xx redirects
+- `-O` names the downloaded file as it appears in the URL
+- `-d "arg=value"` is used to submit a POST request with `Content-Type: application/x-www-form-urlencoded`
+    - This flag can be specified multiple times for multiple arguments
+    - This flag cannot be used with `-F`
+- `-F "arg=value"` is used to submit a POST request with `ContentType: multipart/form-data` (supports file uploads)
+    - To submit a file, use `-F arg=@filename`
+    - This flag cannot be used with `-d`
+- `-H <header>` is used to specify an extra HTTP request header when submitting any HTTP request
+    - A file of HTTP request headers (one for each line) can be specified with `-H @headerfile`
+    - `--proxy-header <header>` does the same thing, but specifically for HTTP proxies
+- `--dns-servers <address>` specifies a custom DNS server to use
+    - This flag is not available on all versions of `curl`, but you can use [`host`](#host) to get a website's IP address according to a particular DNS server
+- `-D <file>.txt` writes the HTTP response line and headers from a GET request to a file
+- `-o <file>.txt` writes the HTTP response body from a GET request to a file
+- `-I` is used to submit a HEAD request, so only the HTTP response line and headers are outputted
+- `-i` outputs the HTTP response line and headers along with the HTTP response body
+- `-v` outputs any TLS handshake data and the HTTP request line and headers, as well as the output from `-i`
+- `-U <username:password>` specifies the username and password for an HTTP proxy
+- `-x http[s]://proxy` specifies an HTTP proxy to use to connect to a website
+- `--ssl-reqd` forces TLS to be used
+- `-c <file>.txt` outputs cookies from a website to a text file
+- `-b <file>.txt` uses cookies from a text file when uploading data
+
+You can even send and receive email from the command line using `curl`!
+
+To send email, use SMTPS, the secure version of [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol):
+
+```
+curl --ssl-reqd \
+    smtps://smtp.gmail.com \
+    -u "sender@gmail.com:<app-password>" \
+    --mail-from sender@gmail.com \
+    --mail-rcpt recipient@outlook.com \
+    -T mail.txt
+```
+
+where `mail.txt` is a file that looks like this:
+
+```
+From: "Sender Name" <sender@gmail.com>
+To: "Recipient Name" <recipient@outlook.com>
+Subject: This is a test
+
+Hi Recipient,
+
+I’m sending this email with cURL through my Gmail account.
+
+Bye!
+```
+
+To download emails, there are a few steps involved. They use IMAPS, the secure version of [IMAP](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol).
+
+First, to see the names of your folders:
+
+```
+curl --ssl-reqd \
+    "imaps://imap.gmail.com" \
+    -u "username@gmail.com:<app-password>"
+```
+
+For a Gmail account, this should print something like this:
+
+```
+* LIST (\HasNoChildren) "/" "INBOX"
+* LIST (\HasNoChildren) "/" "Notes"
+* LIST (\HasChildren \Noselect) "/" "[Gmail]"
+* LIST (\All \HasNoChildren) "/" "[Gmail]/All Mail"
+* LIST (\HasNoChildren) "/" "[Gmail]/Chats"
+* LIST (\Drafts \HasNoChildren) "/" "[Gmail]/Drafts"
+* LIST (\HasNoChildren \Important) "/" "[Gmail]/Important"
+* LIST (\HasNoChildren \Sent) "/" "[Gmail]/Sent Mail"
+* LIST (\HasNoChildren \Junk) "/" "[Gmail]/Spam"
+* LIST (\Flagged \HasNoChildren) "/" "[Gmail]/Starred"
+* LIST (\HasNoChildren \Trash) "/" "[Gmail]/Trash"
+```
+
+To find out which emails are in your inbox, run
+
+```
+curl --ssl-reqd \
+    "imaps://imap.gmail.com/INBOX" \
+    -u "username@gmail.com:<app-password>"
+    -X "UID SEARCH ALL"
+```
+
+This uses the IMAP SEARCH command and prints out a potentially gigantic list of numbers.
+
+- These numbers are UIDs, or unique IDs, associated with each of your emails
+- They should be sorted (mostly) chronologically
+- However, you can refine your search by using the following IMAP commands:
+    - `UID SEARCH UNSEEN` prints out UIDs for unread emails
+    - `UID SEARCH BEFORE 13-Apr-2021` prints out UIDs for emails before April 13, 2021
+    - `UID SEARCH ON 13-Apr-2021` prints out UIDs for emails on April 13, 2021
+    - `UID SEARCH SINCE 13-Apr-2021` prints out UIDs for emails on or after April 13, 2021
+    - `UID SEARCH BODY jackrabbit` prints out UIDs for emails that contain the phrase "jackrabbit" in the email body
+    - `UID SEARCH SUBJECT jackrabbit` prints out UIDs for emails that contain the phrase "jackrabbit" in the email subject line
+    - `UID SEARCH TEST jackrabbit` prints out UIDs for emails that contain the phrase "jackrabbit" in either the email subject line or email body
+    - `UID SEARCH FROM user@gmail.com` prints out UIDs for emails that were sent from `user@gmail.com`
+    - `UID SEARCH TO user@gmail.com` prints out UIDs for emails that were sent to `user@gmail.com`
+
+When you find the UID for an email you want to download, run
+
+```
+curl --ssl-reqd \
+    "imaps://imap.gmail.com/INBOX;UID=<desired-UID>" \
+    -u "username@gmail.com:<app-password>"
+    -o email.txt
+```
+
+- You can also download it as `email.eml` since email clients recognize that file extension
+
+To replicate this with an email in the "Sent Mail" folder, run
+
+```
+curl --ssl-reqd \
+    "imaps://imap.gmail.com/%5BGmail%5D/Sent%20Mail;UID=<desired-UID>" \
+    -u "username@gmail.com:<app-password>"
+    -o email.txt
+```
+
+- This applies URL [percent-encoding](https://en.wikipedia.org/wiki/Percent-encoding#Reserved_characters) that you have probably seen before in other URLs
 
 ### `shasum`
 
