@@ -2112,7 +2112,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 
 ### `Ctrl D`
 
-This is a special key combination that indicates an end of file (EOF) to an interactive command.
+`Ctrl + D` is a special key combination that indicates an end of file (EOF) to an interactive command.
 
 For example, here is the `nslookup` command, which is an interactive version of [host](#host):
 
