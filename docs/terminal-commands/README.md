@@ -1297,7 +1297,7 @@ total 6030984
         - A file of HTTP request headers (one for each line) can be specified with `-H @headerfile`
         - `--proxy-header <header>` does the same thing, but specifically for HTTP proxies
     - `--dns-servers <address>` specifies a custom DNS server to use
-        - This flag is not available on all versions of `curl`, but you can use [`host`](#host) instead
+        - This flag is not available on all versions of `curl`, but you can use [`host`](#host) to get a website's IP address according to a particular DNS server
     - `-D <file>.txt` writes the HTTP response line and headers from a GET request to a file
     - `-o <file>.txt` writes the HTTP response body from a GET request to a file
     - `-I` is used to submit a HEAD request, so only the HTTP response line and headers are outputted
@@ -2133,7 +2133,7 @@ Address: 142.250.81.238
 
 ### `Ctrl C`
 
-`Ctrl + C` (for both macOS and Windows keyboards) kills a running command in a terminal.
+`Ctrl + C` (for both macOS and Windows keyboards) tries to gracefully kill a running command in a terminal.
 
 Example (here I am using the [`wget`](#wget) command to attempt to download a 3 GB file):
 
