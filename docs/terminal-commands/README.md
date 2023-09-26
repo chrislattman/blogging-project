@@ -1277,7 +1277,7 @@ total 6030984
 ```
 
 - You could also run `curl -LO https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.iso` to do the same thing
-    - `curl` stands for "client URL"
+    - `curl` stands for "client URL" and is often written as cURL
     - `-L` follows HTTP 3xx redirects
     - `-O` names the downloaded file as it appears in the URL
     - However, `curl` only works for individual files (`wget` is more [robust](https://daniel.haxx.se/docs/curl-vs-wget.html))
@@ -1286,7 +1286,7 @@ total 6030984
 - `curl wttr.in` outputs a 3-day weather forecast for your current IP address location
     - `curl wttr.in/<city>` outputs a 3-day weather forecast for the given city
     - You can also specify a state to narrow down the right city, e.g. `curl wttr.in/manhattan,ks`
-- Here are some more `curl` options:
+- `curl` is a very powerful tool for testing web applications. Here are some more `curl` options:
     - `-d "arg=value"` is used to submit a POST request with `Content-Type: application/x-www-form-urlencoded`
         - This flag can be specified multiple times for multiple arguments
         - This flag cannot be used with `-F`
