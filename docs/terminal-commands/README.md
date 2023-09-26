@@ -1278,15 +1278,36 @@ total 6030984
 
 - You could also run `curl -LO https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.iso` to do the same thing
     - `curl` stands for "client URL"
-    - `-LO` has an uppercase letter O, not a zero
+    - `-L` follows HTTP 3xx redirects
+    - `-O` names the downloaded file as it appears in the URL
     - However, `curl` only works for individual files (`wget` is more [robust](https://daniel.haxx.se/docs/curl-vs-wget.html))
-    - You might also need to install `curl` with a package manager (it's better to use `wget` anyways)
+    - You might also need to install `curl` with a package manager (it's better to use `wget` anyways for downloads)
 - `curl https://ipv4.ipleak.net/json/` outputs your IP address and rough geographic location
-- `curl -I <url>` outputs the HTTP header of a website
 - `curl wttr.in` outputs a 3-day weather forecast for your current IP address location
     - `curl wttr.in/<city>` outputs a 3-day weather forecast for the given city
     - You can also specify a state to narrow down the right city, e.g. `curl wttr.in/manhattan,ks`
-- `curl -S - <url>` will continue a dropped download where it left off
+- Here are some more `curl` options:
+    - `-d "arg=value"` is used to submit a POST request with `Content-Type: application/x-www-form-urlencoded`
+        - This flag can be specified multiple times for multiple arguments
+        - This flag cannot be used with `-F`
+    - `-F "arg=value"` is used to submit a POST request with `ContentType: multipart/form-data` (supports file uploads)
+        - To submit a file, use `-F arg=@filename`
+        - This flag cannot be used with `-d`
+    - `-H <header>` is used to specify an extra HTTP request header when submitting any HTTP request
+        - A file of HTTP request headers (one for each line) can be specified with `-H @headerfile`
+        - `--proxy-header <header>` does the same thing, but specifically for HTTP proxies
+    - `--dns-servers <address>` specifies a custom DNS server to use
+        - This flag is not available om all versions of `curl`, but you can use [`host`](#host) instead
+    - `-D <file>.txt` writes the HTTP response headers from a GET request to a file
+    - `-o <file>.txt` writes the HTTP response body from a GET request to a file
+    - `-I` is used to submit a HEAD request, so only HTTP response headers are outputted
+    - `-i` outputs HTTP response headers along with the HTTP response body
+    - `-v` outputs the HTTP request headers as well as the output from `-i`
+    - `-U <username:password>` specifies the username and password for an HTTP proxy
+    - `-x http[s]://proxy` specifies an HTTP proxy to use to connect to a website
+    - `--ssl-reqd` forces TLS to be used
+    - `-c <file>.txt` outputs cookies from a website to a text file
+    - `-b <file>.txt` uses cookies from a text file when uploading data
 
 ### `shasum`
 
