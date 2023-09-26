@@ -1943,6 +1943,8 @@ Example:
 Ends one or more processes.
 
 - `kill -9 <pid>` ends a process immediately
+- `kill -2 <pid>` tries to end a process gracefully
+- These are associated with `Ctrl +` signals, read more [below](#contents)
 - You can end multiple processes at once, e.g. `kill -9 <pid1> [pid2] ... [pidN]`
 
 Example (I am downloading a 3 GB file in the [background](#run-in-background)):
@@ -2090,9 +2092,9 @@ You do not have to run every single terminal command one at a time. You can aggr
 
 ### Contents:
 
-- [`Ctrl + D` - end of file](#ctrl--d)
-- [`Ctrl + C` - kills a command](#ctrl--c)
-- [`Ctrl + Z` - stops a command](#ctrl--z)
+- [`Ctrl + D` - end of file](#ctrl-d)
+- [`Ctrl + C` - kills a command](#ctrl-c)
+- [`Ctrl + Z` - stops a command](#ctrl-z)
 - [Run a command in the background](#run-in-background)
 - [Package managers](#package-managers)
 - [More commands](#more-commands)
@@ -2108,7 +2110,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Adding a certificate to the trust store](#adding-a-certificate-to-the-trust-store)
 
-### `Ctrl + D`
+### `Ctrl D`
 
 This is a special key combination that indicates an end of file (EOF) to an interactive command.
 
@@ -2129,7 +2131,7 @@ Address: 142.250.81.238
 
 - The `^D` signifies to `nslookup` that there is no more input to parse, therefore it exits
 
-### `Ctrl + C`
+### `Ctrl C`
 
 `Ctrl + C` (for both macOS and Windows keyboards) kills a running command in a terminal.
 
@@ -2150,14 +2152,15 @@ ubuntu-20.04.3-desk   1%[                    ]  33.01M  14.2MB/s               ^
 
 - The `^C` signifies that I entered Ctrl + C to the terminal, terminating the remainder of the download
 
-### `Ctrl + Z`
+### `Ctrl Z`
 
 `Ctrl + Z` (for both macOS and Windows keyboards) stops, without killing, a running command in a terminal. Think of this as "pausing" the command.
 
 - This outputs a job ID (different from a process ID) that can be referenced later
 - To resume a stopped command, run `fg` (stands for "foreground")
 - To resume a stopped command in the [background](#run-in-background), run `bg`
-- To kill a stopped command without resuming it, run `kill -9 %<job-ID>`
+- To kill a stopped command immediately without resuming it, run `kill -9 %<job-ID>`
+- To try to kill a stopped command graceully without resuming it, run `kill -2 %<job-ID>`
 - To see a list of jobs, run `jobs`
 
 Example:
@@ -2214,7 +2217,8 @@ The Python script increments a counter 100 million times, and then prints out it
 - To stop a command running in the background without killing it, run
     - `kill -17 %<job-ID>` on macOS
     - `kill -19 %<job-ID>` on Linux
-- To kill a command running in the background, run `kill -9 %<job-ID>`
+- To kill a command running in the background immediately, run `kill -9 %<job-ID>`
+- To try to kill a command running in the background gracefully, run `kill -2 %<job-ID>`
 - To see a list of jobs, run `jobs`
 
 A more advanced tool is `tmux` (stands for terminal multiplexer), which has built-in support in [iTerm2](../../docs#optional-for-macos).
