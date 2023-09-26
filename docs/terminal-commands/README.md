@@ -1297,12 +1297,12 @@ total 6030984
         - A file of HTTP request headers (one for each line) can be specified with `-H @headerfile`
         - `--proxy-header <header>` does the same thing, but specifically for HTTP proxies
     - `--dns-servers <address>` specifies a custom DNS server to use
-        - This flag is not available om all versions of `curl`, but you can use [`host`](#host) instead
-    - `-D <file>.txt` writes the HTTP response headers from a GET request to a file
+        - This flag is not available on all versions of `curl`, but you can use [`host`](#host) instead
+    - `-D <file>.txt` writes the HTTP response line and headers from a GET request to a file
     - `-o <file>.txt` writes the HTTP response body from a GET request to a file
-    - `-I` is used to submit a HEAD request, so only HTTP response headers are outputted
-    - `-i` outputs HTTP response headers along with the HTTP response body
-    - `-v` outputs the HTTP request headers as well as the output from `-i`
+    - `-I` is used to submit a HEAD request, so only the HTTP response line and headers are outputted
+    - `-i` outputs the HTTP response line and headers along with the HTTP response body
+    - `-v` outputs any TLS handshake data and the HTTP request line and headers, as well as the output from `-i`
     - `-U <username:password>` specifies the username and password for an HTTP proxy
     - `-x http[s]://proxy` specifies an HTTP proxy to use to connect to a website
     - `--ssl-reqd` forces TLS to be used
