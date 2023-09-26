@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 44 most important terminal commands (plus symbols and compression)](#the-44-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 45 most important terminal commands (plus symbols and compression)](#the-45-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -66,7 +66,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 44 most important terminal commands (plus symbols and compression):
+## The 45 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
