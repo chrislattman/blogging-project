@@ -1312,11 +1312,15 @@ Example use cases:
 - `-I` is used to submit a HEAD request, so only the HTTP response line and headers are outputted
 - `-i` outputs the HTTP response line and headers along with the HTTP response body
 - `-v` outputs any TLS handshake data and the HTTP request line and headers, as well as the output from `-i`
-- `-U <username:password>` specifies the username and password for an HTTP proxy
+- `-U <username:password>` specifies the username and password for a (HTTP) proxy
+- `-u <username:password>` specifies the username and password for a (HTTP) server
 - `-x http[s]://proxy` specifies an HTTP proxy to use to connect to a website
 - `--ssl-reqd` forces TLS to be used
 - `-c <file>.txt` outputs cookies from a website to a text file
 - `-b <file>.txt` uses cookies from a text file when uploading data
+- `-T <file>` uploads a file with the request
+- `-X <request>` specifies a custom request
+    - This is generally unnecessary for HTTP, but other protocols may necessitate it (see below)
 
 You can even send and receive email from the command line using `curl`!
 
