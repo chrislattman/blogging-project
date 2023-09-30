@@ -1296,25 +1296,28 @@ Example use cases:
 
 - `-L` follows HTTP 3xx redirects
 - `-O` names the downloaded file as it appears in the URL
-- `-d "arg=value"` is used to submit a POST request with `Content-Type: application/x-www-form-urlencoded`
+- `-d arg=value` is used to submit a POST request with `Content-Type: application/x-www-form-urlencoded`
     - This flag can be specified multiple times for multiple arguments
     - This flag cannot be used with `-F`
-- `-F "arg=value"` is used to submit a POST request with `ContentType: multipart/form-data` (supports file uploads)
+- `--data-raw <data>` is like `-d` above, but allows you to send raw text (e.g. JSON data) without treating `@` as a special character
+- `-F arg=value` is used to submit a POST request with `ContentType: multipart/form-data` (supports file uploads)
+    - This flag can be specified multiple times for multiple arguments
     - To submit a file, use `-F arg=@filename`
     - This flag cannot be used with `-d`
-- `-H <header>` is used to specify an extra HTTP request header when submitting any HTTP request
+- `-H "<header>"` is used to specify an extra HTTP request header when submitting any HTTP request
+    - This flag can be specified multiple times for multiple headers
     - A file of HTTP request headers (one for each line) can be specified with `-H @headerfile`
-    - `--proxy-header <header>` does the same thing, but specifically for HTTP proxies
+    - `--proxy-header "<header>"` does the same thing, but passes the header to an HTTP proxy only
 - `--dns-servers <address>` specifies a custom DNS server to use
     - This flag is not available on all versions of `curl`, but you can use [`host`](#host) to get a website's IP address according to a particular DNS server
-- `-D <file>.txt` writes the HTTP response line and headers from a GET request to a file
-- `-o <file>.txt` writes the HTTP response body from a GET request to a file
+- `-D <file>` writes the HTTP response line and headers from a GET request to a file
+- `-o <file>` writes the HTTP response body from a GET request to a file
 - `-I` is used to submit a HEAD request, so only the HTTP response line and headers are outputted
 - `-i` outputs the HTTP response line and headers along with the HTTP response body
 - `-v` outputs any TLS handshake data and the HTTP request line and headers, as well as the output from `-i`
 - `-U <username:password>` specifies the username and password for a (HTTP) proxy
 - `-u <username:password>` specifies the username and password for a (HTTP) server
-- `-x http[s]://proxy` specifies an HTTP proxy to use to connect to a website
+- `-x http[s]://proxy[:port]` specifies an HTTP proxy to use to connect to a website
 - `--ssl-reqd` forces TLS to be used for any protocol
     - Alternatively, you can specify a specific (secure) protocol to use with the `--proto` flag
     - Example: `--proto =https` only lets `curl` use HTTPS for a command
