@@ -1315,7 +1315,10 @@ Example use cases:
 - `-U <username:password>` specifies the username and password for a (HTTP) proxy
 - `-u <username:password>` specifies the username and password for a (HTTP) server
 - `-x http[s]://proxy` specifies an HTTP proxy to use to connect to a website
-- `--ssl-reqd` forces TLS to be used
+- `--ssl-reqd` forces TLS to be used for any protocol
+    - Alternatively, you can specify a specific (secure) protocol to use with the `--proto` flag
+    - Example: `--proto =https` only lets `curl` use HTTPS for a command
+    - A list of supported protocols is available [here](https://man7.org/linux/man-pages/man1/curl.1.html#DESCRIPTION)
 - `-c <file>.txt` outputs cookies from a website to a text file
 - `-b <file>.txt` uses cookies from a text file when uploading data
 - `-T <file>` uploads a file with the request
