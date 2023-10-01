@@ -1322,9 +1322,10 @@ Example use cases:
 - `-u <username:password>` specifies the username and password for a (HTTP) server
 - `-x http[s]://proxy[:port]` specifies an HTTP proxy to use to connect to a website
 - `--ssl-reqd` forces TLS to be used for any protocol
-    - Alternatively, you can specify a specific (secure) protocol to use with the `--proto` flag
-    - Example: `--proto =https` only lets `curl` use HTTPS for a command
-    - A list of supported protocols is available [here](https://man7.org/linux/man-pages/man1/curl.1.html#DESCRIPTION)
+    - Alternatively, you can specify a specific (secure) protocol to use with `--proto =<protocol>`
+    - Example: `--proto =https` only lets `curl` use HTTPS for the request
+    - A list of supported protocols is available [here](https://man7.org/linux/man-pages/man1/curl.1.html#PROTOCOLS)
+        - You can also run `curl -V | grep Protocols` to locally see what protocols your version of `curl` supports
 - `-c <file>.txt` outputs cookies from a website to a text file
 - `-b <file>.txt` uses cookies from a text file when uploading data
 - `-T <file>` uploads a file with the request
@@ -1460,11 +1461,13 @@ curl --ssl-reqd \
 
 - You can also download it as `email.eml` since email clients recognize that file extension
 - Downloading an email causes it to be marked as read (at least for Gmail)
-- File attachments are encoded as [Base64](https://en.wikipedia.org/wiki/Base64)
+- Emails are really just long text files, with file attachments encoded as [Base64](https://en.wikipedia.org/wiki/Base64)
     - To decode Base64 from a text file:
         ```
         cat base64_encoded.txt | base64 -d > decoded_file
         ```
+    - Emails that have rich content (i.e. they look more sophisticated than a text file) are embedded in HTML format
+        - The embedded HTML can have CSS but not JavaScript
 
 To replicate this with an email in the "Sent Mail" folder, run
 
@@ -1476,6 +1479,19 @@ curl --ssl-reqd \
 ```
 
 - This applies URL [percent-encoding](https://en.wikipedia.org/wiki/Percent-encoding#Reserved_characters) that you have probably seen before in other URLs
+
+Some notes about web browsers:
+
+- Web browsers like Google Chrome, Safari, Microsoft Edge, and Mozilla Firefox use an underlying browser engine to render webpages
+    - Google Chrome and Microsoft Edge use [Blink](https://en.wikipedia.org/wiki/Blink_(browser_engine))
+    - Safari uses [WebKit](https://en.wikipedia.org/wiki/WebKit)
+    - Mozilla Firefox uses [Gecko](https://en.wikipedia.org/wiki/Gecko_(software))
+- Email clients such as the Gmail/Outlook apps on iOS and Android, Apple Mail, Windows Mail/Outlook for Windows, and Mozilla Thunderbird also use browser engines to render emails
+- Browser engines include an underlying JavaScript engine, used to execute JavaScript code in webpages
+    - Blink comes with [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine))
+    - WebKit comes with [JavaScriptCore](https://en.wikipedia.org/wiki/WebKit#JavaScriptCore)
+    - Gecko comes with [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey)
+- Email clients, however, do not support JavaScript, so they do not use the JavaScript engine
 
 ### `shasum`
 
