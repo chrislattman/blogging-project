@@ -1394,10 +1394,11 @@ I’m sending this email with cURL through my Gmail account.
 Bye!
 ```
 
+- You can use HTML (with CSS if desired) instead of plain text for the email body
 - `type` refers to the [MIME type](https://en.wikipedia.org/wiki/Media_type#Common_examples) of the file
-- You can programatically get the MIME type of a file with the [`file`](#file) command:
+- You can programatically get the MIME type of an attachment with the [`file`](#file) command:
     ```
-    file --mime-type <file> | sed "s/.*: //"
+    file --mime-type <attachment> | sed "s/.*: //"
     ```
 
 To download emails, there are a few steps involved. They use IMAPS, the secure version of [IMAP](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol).
@@ -1486,12 +1487,12 @@ Some notes about web browsers:
     - Google Chrome and Microsoft Edge use [Blink](https://en.wikipedia.org/wiki/Blink_(browser_engine))
     - Safari uses [WebKit](https://en.wikipedia.org/wiki/WebKit)
     - Mozilla Firefox uses [Gecko](https://en.wikipedia.org/wiki/Gecko_(software))
-- Email clients such as the Gmail/Outlook apps on iOS and Android, Apple Mail, Windows Mail/Outlook for Windows, and Mozilla Thunderbird also use browser engines to render emails
+- Email clients such as the Gmail and Outlook apps on iOS and Android, Apple Mail, Windows Mail/Outlook for Windows, and Mozilla Thunderbird also use browser engines to render emails
 - Browser engines include an underlying JavaScript engine, used to execute JavaScript code in webpages
     - Blink comes with [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine))
     - WebKit comes with [JavaScriptCore](https://en.wikipedia.org/wiki/WebKit#JavaScriptCore)
     - Gecko comes with [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey)
-- Email clients, however, do not support JavaScript, so they do not use the JavaScript engine
+- Email clients, however, do not support running JavaScript, so they do not use the JavaScript engine
 
 ### `shasum`
 
