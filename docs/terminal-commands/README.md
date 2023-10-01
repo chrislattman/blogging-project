@@ -299,6 +299,7 @@ map auto_home      0B     0B     0B   100%       0          0  100%   /System/Vo
 Shows details about a file's type.
 
 - To see a file's size, use [`du`](#du)
+- `file --mime-type` outputs the [MIME type](https://en.wikipedia.org/wiki/Media_type#Common_examples) of a file
 
 Example:
 
@@ -323,6 +324,8 @@ FracTester.h: c program text, ASCII text
 FracTester.o: Mach-O 64-bit object x86_64
 [Chris@Chris-MBP-16 test-make]$ file driver
 driver: Mach-O 64-bit executable x86_64
+[Chris@Chris-MBP-16 test-make]$ file --mime-type driver.c
+driver.c: text/x-c
 [Chris@Chris-MBP-16 test-make]$
 ```
 
@@ -1306,7 +1309,7 @@ Example use cases:
     - This flag cannot be used with `-d`
 - `-H "<header>"` is used to specify an extra HTTP request header when submitting any HTTP request
     - This flag can be specified multiple times for multiple headers
-    - A file of HTTP request headers (one for each line) can be specified with `-H @headerfile`
+    - A file of HTTP request headers (one for each line) can be specified with `-H @<headerfilename>.txt`
     - `--proxy-header "<header>"` does the same thing, but passes the header to an HTTP proxy only
 - `--dns-servers <address>` specifies a custom DNS server to use
     - This flag is not available on all versions of `curl`, but you can use [`host`](#host) to get a website's IP address according to a particular DNS server
@@ -1338,10 +1341,10 @@ curl --ssl-reqd \
     -u "sender@gmail.com:<app-password>" \
     --mail-from sender@gmail.com \
     --mail-rcpt recipient@outlook.com \
-    -T mail.txt
+    -T email.txt
 ```
 
-where `mail.txt` is a file that looks like this:
+where `email.txt` is a file that looks like this:
 
 ```
 From: "Sender Name" <sender@gmail.com>
@@ -1354,6 +1357,47 @@ I’m sending this email with cURL through my Gmail account.
 
 Bye!
 ```
+
+- Add more `--mail-rcpt` flags to specify more recipients
+
+To send an email with an attachment, there are more flags involved:
+
+```
+curl --ssl-reqd \
+    smtps://smtp.gmail.com \
+    -u "sender@gmail.com:<app-password>" \
+    --mail-from sender@gmail.com \
+    --mail-rcpt recipient@outlook.com \
+    -H @headers.txt \
+    -F "=(;type=multipart/mixed" \
+    -F "=$(cat body.txt);type=text/plain" \
+    -F "file=@attachment.pdf;type=application/pdf;encoder=base64" \
+    -F "=)"
+```
+
+where `headers.txt` is a file that looks like this:
+
+```
+From: "Sender Name" <sender@gmail.com>
+To: "Recipient Name" <recipient@outlook.com>
+Subject: This is a test
+```
+
+and `body.txt` is a file that looks like this:
+
+```
+Hi Recipient,
+
+I’m sending this email with cURL through my Gmail account.
+
+Bye!
+```
+
+- `type` refers to the [MIME type](https://en.wikipedia.org/wiki/Media_type#Common_examples) of the file
+- You can programatically get the MIME type of a file with the [`file`](#file) command:
+    ```
+    file --mime-type <file> | sed "s/.*: //"
+    ```
 
 To download emails, there are a few steps involved. They use IMAPS, the secure version of [IMAP](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol).
 
@@ -1386,15 +1430,15 @@ To find out which emails are in your inbox, run
 ```
 curl --ssl-reqd \
     "imaps://imap.gmail.com/INBOX" \
-    -u "username@gmail.com:<app-password>"
+    -u "username@gmail.com:<app-password>" \
     -X "UID SEARCH ALL"
 ```
 
-This uses the IMAP SEARCH command and prints out a potentially gigantic list of numbers.
+This uses the IMAP SEARCH command and prints out `* SEARCH` followed by a potentially gigantic list of numbers.
 
 - These numbers are UIDs, or unique IDs, associated with each of your emails
 - They should be sorted (mostly) chronologically
-- However, you can refine your search by using the following IMAP commands:
+- However, you can refine your search by replacing `UID SEARCH ALL` with one of the following IMAP commands:
     - `UID SEARCH UNSEEN` prints out UIDs for unread emails
     - `UID SEARCH BEFORE 13-Apr-2021` prints out UIDs for emails before April 13, 2021
     - `UID SEARCH ON 13-Apr-2021` prints out UIDs for emails on April 13, 2021
@@ -1410,18 +1454,24 @@ When you find the UID for an email you want to download, run
 ```
 curl --ssl-reqd \
     "imaps://imap.gmail.com/INBOX;UID=<desired-UID>" \
-    -u "username@gmail.com:<app-password>"
+    -u "username@gmail.com:<app-password>" \
     -o email.txt
 ```
 
 - You can also download it as `email.eml` since email clients recognize that file extension
+- Downloading an email causes it to be marked as read (at least for Gmail)
+- File attachments are encoded as [Base64](https://en.wikipedia.org/wiki/Base64)
+    - To decode Base64 from a text file:
+        ```
+        cat base64_encoded.txt | base64 -d > decoded_file
+        ```
 
 To replicate this with an email in the "Sent Mail" folder, run
 
 ```
 curl --ssl-reqd \
     "imaps://imap.gmail.com/%5BGmail%5D/Sent%20Mail;UID=<desired-UID>" \
-    -u "username@gmail.com:<app-password>"
+    -u "username@gmail.com:<app-password>" \
     -o email.txt
 ```
 
