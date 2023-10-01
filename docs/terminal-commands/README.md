@@ -1318,9 +1318,9 @@ Example use cases:
 - `-I` is used to submit a HEAD request, so only the HTTP response line and headers are outputted
 - `-i` outputs the HTTP response line and headers along with the HTTP response body
 - `-v` outputs any TLS handshake data and the HTTP request line and headers, as well as the output from `-i`
-- `-U <username:password>` specifies the username and password for a (HTTP) proxy
-- `-u <username:password>` specifies the username and password for a (HTTP) server
-- `-x http[s]://proxy[:port]` specifies an HTTP proxy to use to connect to a website
+- `-U <username:password>` specifies the username and password for a proxy
+- `-u <username:password>` specifies the username and password for a server
+- `-x https://proxy-address` specifies an HTTPS proxy to use to connect to a website
 - `--ssl-reqd` forces TLS to be used for any protocol
     - Alternatively, you can specify a specific (secure) protocol to use with `--proto =<protocol>`
     - Example: `--proto =https` only lets `curl` use HTTPS for the request
@@ -1492,7 +1492,7 @@ Some notes about web browsers:
     - Blink comes with [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine))
     - WebKit comes with [JavaScriptCore](https://en.wikipedia.org/wiki/WebKit#JavaScriptCore)
     - Gecko comes with [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey)
-- Email clients, however, do not support running JavaScript, so they do not use the JavaScript engine
+- Email clients, however, do not support running JavaScript in emails, so they do not use the JavaScript engine
 
 ### `shasum`
 
