@@ -1348,8 +1348,8 @@ curl --ssl-reqd \
 where `email.txt` is a file that looks like this:
 
 ```
-From: "Sender Name" <sender@gmail.com>
-To: "Recipient Name" <recipient@outlook.com>
+From: Sender Name <sender@gmail.com>
+To: Recipient Name <recipient@outlook.com>
 Subject: This is a test
 
 Hi Recipient,
@@ -1359,7 +1359,7 @@ I’m sending this email with cURL through my Gmail account.
 Bye!
 ```
 
-- Add more `--mail-rcpt` flags to specify more recipients
+- Add more `--mail-rcpt` flags to specify more recipients, then add those recipients to the "To: " field separated by a comma followed by a space
 
 To send an email with an attachment, there are more flags involved:
 
@@ -1379,8 +1379,8 @@ curl --ssl-reqd \
 where `headers.txt` is a file that looks like this:
 
 ```
-From: "Sender Name" <sender@gmail.com>
-To: "Recipient Name" <recipient@outlook.com>
+From: Sender Name <sender@gmail.com>
+To: Recipient Name <recipient@outlook.com>
 Subject: This is a test
 ```
 
@@ -1407,7 +1407,7 @@ First, to see the names of your folders:
 
 ```
 curl --ssl-reqd \
-    "imaps://imap.gmail.com" \
+    imaps://imap.gmail.com \
     -u "username@gmail.com:<app-password>"
 ```
 
@@ -1431,7 +1431,7 @@ To find out which emails are in your inbox, run
 
 ```
 curl --ssl-reqd \
-    "imaps://imap.gmail.com/INBOX" \
+    imaps://imap.gmail.com/INBOX \
     -u "username@gmail.com:<app-password>" \
     -X "UID SEARCH ALL"
 ```
@@ -1467,8 +1467,6 @@ curl --ssl-reqd \
         ```
         cat base64_encoded.txt | base64 -d > decoded_file
         ```
-    - Emails that have rich content (i.e. they look more sophisticated than a text file) are embedded in HTML format
-        - The embedded HTML can have CSS but not JavaScript
 
 To replicate this with an email in the "Sent Mail" folder, run
 
