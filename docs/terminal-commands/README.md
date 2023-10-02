@@ -1487,12 +1487,13 @@ Some notes about web browsers:
     - Google Chrome and Microsoft Edge use [Blink](https://en.wikipedia.org/wiki/Blink_(browser_engine))
     - Safari uses [WebKit](https://en.wikipedia.org/wiki/WebKit)
     - Mozilla Firefox uses [Gecko](https://en.wikipedia.org/wiki/Gecko_(software))
-- Email clients such as the Gmail and Outlook apps on iOS and Android, Apple Mail, Windows Mail/Outlook for Windows, and Mozilla Thunderbird also use browser engines to render emails
+- Email clients such as the Gmail and Outlook apps on iOS and Android, Apple Mail, Windows Mail/Outlook for Windows, and Mozilla Thunderbird also use browser engines to render emails (since they can be in HTML format)
 - Browser engines include an underlying JavaScript engine, used to execute JavaScript code in webpages
-    - Blink comes with [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine))
-    - WebKit comes with [JavaScriptCore](https://en.wikipedia.org/wiki/WebKit#JavaScriptCore)
-    - Gecko comes with [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey)
-- Email clients, however, do not support running JavaScript in emails, so they do not use the JavaScript engine
+    - Blink uses [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine))
+        - The popular JavaScript runtime environment [Node.js](https://en.m.wikipedia.org/wiki/Node.js) also uses V8
+    - WebKit uses [JavaScriptCore](https://en.wikipedia.org/wiki/WebKit#JavaScriptCore)
+    - Gecko uses [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey)
+- Email clients, however, do not support JavaScript in emails, so they do not use the JavaScript engine
 
 ### `shasum`
 
