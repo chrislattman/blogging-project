@@ -79,6 +79,7 @@ pages:              # This job is a special GitLab CI/CD job that uploads a stat
   artifacts:
     paths:
       - public
+    expire_in: 5 min
 
 jar-job:            # This job builds a runnable jar of the project.
   stage: deploy
