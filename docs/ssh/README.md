@@ -19,7 +19,7 @@ To access a remote server using any of the commands on this page, `sshd` (the SS
 
 ## Generating a SSH key
 
-Run the following code in Terminal (or Git Bash on Windows) to create a SSH key:
+Run the following code in Terminal (or Git Bash on Windows) to create a SSH key (technically a keypair, a public key and a private key):
 
 ```
 ssh-keygen -t ed25519 -C "your email address"
@@ -27,7 +27,7 @@ ssh-keygen -t ed25519 -C "your email address"
 
 Press enter/return 3 more times. This saves the key in the default location and leaves the key password blank.
 
-To add your key to your GitLab account, copy the output of
+To add your (public) key to your GitLab account, copy the output of
 
 ```
 cat ~/.ssh/id_ed25519.pub

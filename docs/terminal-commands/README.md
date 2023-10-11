@@ -1526,7 +1526,7 @@ OpenSSL is a cryptography toolkit used, among other things, to encrypt and decry
 - You might need to install `openssl` with a [package manager](#package-managers)
 - `openssl` is organized into subcommands:
     - `openssl rand <num-bytes>` is used to generate random bytes of data
-    - `openssl enc -aes-256-cbc -pass file:<file> -pbkdf2 -P` is used to securely generate a private key for the [AES-256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) cipher in [CBC](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)) mode, where `<file>` is a file containing random bytes
+    - `openssl enc -aes-256-cbc -pass file:<file> -pbkdf2 -P` is used to securely generate a secret key for the [AES-256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) cipher in [CBC](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)) mode, where `<file>` is a file containing random bytes
         - This will output a salt, key, and iv (initialization vector) used for encryption
     - `openssl enc -aes-256-cbc -in <plaintext-file> -out <ciphertext-file> -S <salt> -K <key> -iv <iv>` is used to encrypt a file `<plaintext-file>`, and stores the encrypted file in `<ciphertext-file>`
     - `openssl enc -aes-256-cbc -in <ciphertext-file> -out <decrypted-file> -d -S <salt> -K <key> -iv <iv>` decrypts a file, and stores the decrypted file in `<decrypted-file>`
@@ -1610,7 +1610,7 @@ Cryptosystems like RSA also allow you to [digitally sign](https://en.wikipedia.o
 
 To generate a GPG key, follow the instructions [here](../git#optional-sign-your-commits-with-a-gpg-key), but ignore all the Git/GitLab stuff.
 
-- Technically, you are generating a keypair (a public GPG key and a private GPG key)
+- Technically, you are generating a keypair (a GPG public key and a GPG private key)
 
 #### Key management:
 

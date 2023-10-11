@@ -58,7 +58,7 @@ Git associates your name and your email address with each commit.
 
 ### Optional: sign your commits with a GPG key:
 
-Create the GPG key:
+Create the GPG key (technically a keypair):
 
 ```
 gpg --full-gen-key
