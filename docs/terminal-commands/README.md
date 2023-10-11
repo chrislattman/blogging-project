@@ -1608,7 +1608,7 @@ Cryptosystems like RSA also allow you to [digitally sign](https://en.wikipedia.o
 
 #### Usage:
 
-To generate a GPG key, follow the instructions [here](../git#optional-sign-your-commits-with-a-gpg-key), but ignore all the Git/GitLab stuff.
+To create a GPG key, follow the instructions [here](../git#optional-sign-your-commits-with-a-gpg-key), but ignore all the Git/GitLab stuff.
 
 - Technically, you are generating a keypair (a GPG public key and a GPG private key)
 
@@ -1617,6 +1617,8 @@ To generate a GPG key, follow the instructions [here](../git#optional-sign-your-
 - `gpg -k` outputs all public keys saved in your GPG keyring
     - The GPG keyring is where your GPG public and private keys are stored (kind of like the key ring for your keys)
     - This is where you can see the email address associated with a public key
+- `gpg -a --export <key-id>` exports your own GPG public key in text format
+    - Find your key ID by running `gpg -K --keyid-format=long`
 - `gpg --import <public-key>` imports someone else's public key into your keyring
     - `<public-key>` should be a text file (sometimes ends with `.key` or `.asc`) whose contents begin with
         ```
