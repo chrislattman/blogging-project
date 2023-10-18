@@ -159,7 +159,7 @@ Then run the following commands in your host OS:
 
 ```
 cd <folder-you-want-to-share>
-python3 -m http.server 8000
+python3 -m http.server
 ```
 
 - Python 3 comes pre-installed with macOS
@@ -168,10 +168,30 @@ python3 -m http.server 8000
 
 Now, in the VM, visit `http://<local-ip-address>:8000` from a web browser, using the IP address from earlier, and now you should be able to see those files from your VM.
 
+- You can change the port by appending an optional port number to the command, e.g. `python3 -m http.server 1234`
 - This works not only for VMs but for _any device_ on your local area network (LAN)!
+    - This is because `http.server` by default is bound to 0.0.0.0, which means it is bound to ALL network interfaces
+        - This includes your Wi-Fi or Ethernet interface, which means all devices connected to your LAN can access the server
+    - You can restrict this by binding to localhost only: `python3 -m http.server --bind 127.0.0.1 [1234]`
 - This also works the other way around (sharing a folder's contents from your VM to your host OS)
     - Make sure to use the VM's local IP address in this scenario
     - The VM's folder will not be accessible to other devices on your LAN (only your host OS knows about your VM)
+
+Note: if for some reason you want to use FTP instead of HTTP, run these commands in your host OS:
+
+```
+pip3 install pyftpdlib
+cd <folder-you-want-to-share>
+python3 -m pyftpdlib -w
+```
+
+- Like `http.server`, you can bind `pyftpdlib` to localhost only and/or specify a port number: `python3 -m pyftpdlib -w -i 127.0.0.1 -p 1234`
+
+Then you can use [`curl`](../terminal-commands#curl) to view the directory contents from the VM, as well as download _and_ upload files:
+
+- `curl ftp://<local-ip-address>:2121` to view files
+- `curl ftp://<local-ip-address>:2121/<file> -o <file>` to download a file
+- `curl ftp://<local-ip-address>:2121 -T <file>` to upload a file
 
 ### Headless mode
 

@@ -1332,6 +1332,22 @@ Example use cases:
 - `-X <request>` specifies a custom request
     - This is generally unnecessary for HTTP, but other protocols may necessitate it (see below)
 
+Aside from HTTP requests, `curl` can be used with other protocols, such as FTP(S).
+
+- FTPS is different from [SFTP](../ssh#sftp)
+    - FTPS is simply [FTP](https://en.wikipedia.org/wiki/File_Transfer_Protocol) over TLS, much like HTTPS is HTTP over TLS
+    - SFTP is FTP over SSH, which is its own cryptographic protocol
+
+FTP is largely being phased out, and most web browsers no longer support `ftp://` or `ftps://` URLs. If you do need to use it though, it can be invoked in the following ways:
+
+- `curl --ssl-reqd ftp://<ftp-server>` allows you to view files in a FTPS server
+- `curl --ssl-reqd ftp://<ftp-server>/<file> -o <file>` downloads a file from a FTPS server
+- `curl --ssl-reqd ftp://<ftp-server> -T <file>` uploads a file to a FTPS server
+- For all of these commands, you may need to specify a username and password with `-u <username>:<password>`
+- The reason why `ftps://` isn't used is explained [here](https://everything.curl.dev/ftp/ftps#common-ftps-problems)
+    - It uses port 21 to establish a connection and port 20 for data transfer
+    - Yes this is weird
+
 You can even send and receive email from the command line using `curl`!
 
 To send email, use SMTPS, the secure version of [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol):
@@ -2742,3 +2758,4 @@ Adding the certificate to the operating system's trust/certificate store depends
         sudo cp certificate.crt /usr/local/share/ca-certificates
         sudo update-ca-certificates
         ```
+    - You may need to reboot afterwards
