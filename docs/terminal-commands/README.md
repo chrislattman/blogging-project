@@ -1338,7 +1338,7 @@ Aside from HTTP requests, `curl` can be used with other protocols, such as FTP(S
     - FTPS is simply [FTP](https://en.wikipedia.org/wiki/File_Transfer_Protocol) over TLS, much like HTTPS is HTTP over TLS
     - SFTP is FTP over SSH, which is its own cryptographic protocol
 
-FTP is largely being phased out, and most web browsers no longer support `ftp://` or `ftps://` URLs. If you do need to use it though, it can be invoked in the following ways:
+FTP is largely being phased out, and most web browsers no longer support `ftp://` or `ftps://` URLs. If you do need to use it though, it can be invoked in the following ways with `curl`:
 
 - `curl --ssl-reqd ftp://<ftp-server>` allows you to view files in a FTPS server
 - `curl --ssl-reqd ftp://<ftp-server>/<file> -o <file>` downloads a file from a FTPS server
@@ -1347,6 +1347,7 @@ FTP is largely being phased out, and most web browsers no longer support `ftp://
 - The reason why `ftps://` isn't used is explained [here](https://everything.curl.dev/ftp/ftps#common-ftps-problems)
     - It uses port 21 to establish a connection and port 20 for data transfer
     - Yes this is weird
+- You can also use the file manager on your OS to access FTP(S) servers, as well as FTP clients such as [FileZilla](https://filezilla-project.org/download.php?type=client)
 
 You can even send and receive email from the command line using `curl`!
 

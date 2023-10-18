@@ -151,7 +151,7 @@ You should now be able to copy and paste between your host OS and your VM.
 
 Unfortunately, shared folders are not easy to configure with QEMU.
 
-However, you can use [`scp`](../ssh#scp) or [`sftp`](../ssh#sftp) from your host OS to copy files and directories to and from your VM. Make sure to have [port forwarding](#port-forwarding) set up first. Note: some VMs will require you to manually set up `openssh-server`.
+However, you can use [`scp`](../ssh#scp) or [`sftp`](../ssh#sftp) from your host OS to copy files and directories to and from your VM. Note: some VMs will require you to manually set up `openssh-server`.
 
 **Pro tip:** if you just want to share a folder's contents from your host OS to your VM, run [`ifconfig`](../terminal-commands#ifconfig) (or `ipconfig` on Windows) to see your computer's local IP address. Take note of this IP address.
 
@@ -173,6 +173,7 @@ Now, in the VM, visit `http://<local-ip-address>:8000` from a web browser, using
     - This is because `http.server` by default is bound to 0.0.0.0, which means it is bound to ALL network interfaces
         - This includes your Wi-Fi or Ethernet interface, which means all devices connected to your LAN can access the server
     - You can restrict this by binding to localhost only: `python3 -m http.server --bind 127.0.0.1 [1234]`
+    - However, you will need to have [port forwarding](#port-forwarding) enabled for the VM to access the server
 - This also works the other way around (sharing a folder's contents from your VM to your host OS)
     - Make sure to use the VM's local IP address in this scenario
     - The VM's folder will not be accessible to other devices on your LAN (only your host OS knows about your VM)
@@ -186,12 +187,15 @@ python3 -m pyftpdlib -w
 ```
 
 - Like `http.server`, you can bind `pyftpdlib` to localhost only and/or specify a port number: `python3 -m pyftpdlib -w -i 127.0.0.1 -p 1234`
+    - Again, you will need to have [port forwarding](#port-forwarding) enabled for the VM to access the server
 
-Then you can use [`curl`](../terminal-commands#curl) to view the directory contents from the VM, as well as download _and_ upload files:
+Then you can use [`curl`](../terminal-commands#curl) in a terminal on the VM to view the directory contents, as well as download _and_ upload files:
 
 - `curl ftp://<local-ip-address>:2121` to view files
 - `curl ftp://<local-ip-address>:2121/<file> -o <file>` to download a file
 - `curl ftp://<local-ip-address>:2121 -T <file>` to upload a file
+
+If you don't want to use the terminal, you can use the popular FTP GUI client [FileZilla](https://filezilla-project.org/download.php?type=client), or you can use the file manager that comes with your OS (e.g. Files, File Explorer, Finder).
 
 ### Headless mode
 
