@@ -92,17 +92,17 @@ qemu-system-x86_64 -enable-kvm \
     -m 4G \
     -hda ~/qemu-vms/myvm.qcow2 \
     -device e1000,netdev=net0 \
-    -netdev user,id=net0,hostfwd=tcp::3022-:22
+    -netdev user,id=net0,hostfwd=tcp:127.0.0.1:3022-:22
 ```
 
 - Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
-- This binds port 3022 of your host OS to port 22 (default SSH port) of the VM over TCP (UDP is available too)
-- You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1` in another terminal window, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
+- This binds address `127.0.0.1` (localhost) and port 3022 of your host OS to port 22 (default SSH port) of the VM over TCP (UDP is available too)
+- You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1` in another terminal window, where `user` is the username for your VM and `127.0.0.1` is the hostname
 - You can save your login credentials by following [these](../ssh#saving-your-login-to-the-server) instructions
 - Long commands like this are suitable targets for an [alias](../terminal-commands#aliasing)
 - Advanced: forward another port by adding another `hostfwd` key-value pair, e.g.
     ```
-    -netdev user,id=net0,hostfwd=tcp::3022-:22,hostfwd=tcp::2159-:2159
+    -netdev user,id=net0,hostfwd=tcp:127.0.0.1:3022-:22,hostfwd=tcp:127.0.0.1:2159-:2159
     ```
 
 ### Creating a snapshot
@@ -208,14 +208,14 @@ qemu-system-x86_64 -enable-kvm \
     -m 4G \
     -hda myvm.qcow2 \
     -device e1000,netdev=net0 \
-    -netdev user,id=net0,hostfwd=tcp::3022-:22 \
+    -netdev user,id=net0,hostfwd=tcp:127.0.0.1:3022-:22 \
     -display none
 ```
 
 - Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
 - Append a [`&`](../terminal-commands#run-in-background) to the command to run it in the background
 - You will have to wait until the VM is ready
-- You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1`, where `user` is the username for your VM and `127.0.0.1` (localhost) is the hostname
+- You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1`, where `user` is the username for your VM and `127.0.0.1` is the hostname
     - From there, you can shut it down (recommended), or you can [kill](../terminal-commands#kill) the `qemu-system-x86_64` process
 
 ### Convert file format
