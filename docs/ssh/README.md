@@ -56,9 +56,9 @@ You should then see a message like this: `Welcome to GitLab, @username!`
     - By default, SSH uses port 22
 - To log out of a remote server, run `exit`
 - To shut down a remote server, run `sudo shutdown now`
-    - For a Windows server, the equivalent command is `Stop-Computer -Force`
+    - For a Windows server, the equivalent PowerShell command is `Stop-Computer -Force`
 - To restart a remote server, run `sudo reboot`
-    - For a Windows server, the equivalent command is `Restart-Computer -Force`
+    - For a Windows server, the equivalent PowerShell command is `Restart-Computer -Force`
 
 To log in into a Windows server, there are a few more steps involved:
 
@@ -81,7 +81,7 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Wi
 
 If you are using `ssh` to login to a password-protected server, you may want to cache your login information to the server. Otherwise, you will have to enter your password every single time.
 
-Run the following command in Terminal or Git Bash to cache your login details on the server:
+Run the following command in Terminal or Git Bash to cache your login details on a Unix server:
 
 ```
 ssh-copy-id [-p <port-number>] user@hostname
@@ -92,12 +92,12 @@ If you want to cache your login details on a Windows server:
 - Run the following command to cache your login for a non-Administrator user:
     ```
     ssh [-p <port-number>] domain\\user@hostname \
-        "Add-Content -Force -Path \$HOME\.ssh\authorized_keys -Value '$(cat ~/.ssh/id_ed25519.pub)'"
+        "powershell Add-Content -Force -Path \$HOME\.ssh\authorized_keys -Value '$(cat ~/.ssh/id_ed25519.pub)'"
     ```
 - Run the following commands to cache your login for an Administrator:
     ```
     ssh [-p <port-number>] domain\\user@hostname \
-        "Add-Content -Force -Path C:\ProgramData\ssh\administrators_authorized_keys -Value '$(cat ~/.ssh/id_ed25519.pub)'"
+        "powershell Add-Content -Force -Path C:\ProgramData\ssh\administrators_authorized_keys -Value '$(cat ~/.ssh/id_ed25519.pub)'"
     ssh [-p <port-number>] domain\\user@hostname \
         "icacls.exe C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r /grant Administrators:F /grant SYSTEM:F"
     ```
