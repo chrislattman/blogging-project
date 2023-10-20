@@ -14,7 +14,7 @@ Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals inclu
 - Linux uses the terms "folder" and "directory" interchangeably
 - Windows is NOT a Unix-like operating system
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
-- Git Bash allows you to run most of these commands (except `tree`, `man`, `wget`, `speedtest`, `host`, `nmap`, `openvpn`, `htop`, `zip`, or any package manager)
+- Git Bash allows you to run most of these commands (except `tree`, `man`, `wget`, `speedtest`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip`, or any package manager)
 - Note: if you are using Windows PowerShell, clicking on a PowerShell window will cause the shell to enter "Select mode"
     - Press the escape key or right-click on the window to exit this mode
 
