@@ -168,7 +168,7 @@ To build and run a Java project from the command line, you have two options:
     ```
     Manifest-Version: 1.0
     Main-Class: pkg.YourMainClassName
-     
+
     ```
 
     Then run:
@@ -183,3 +183,19 @@ To view the contents of a `.jar` file:
 ```
 jar -tf archive.jar
 ```
+
+To extract a `.jar` file:
+
+```
+jar -xvf archive.jar
+```
+
+To convert (decompile) Java bytecode (`.class` files) into Java code (`.java`):
+
+```
+jadx File.class
+```
+
+- You will need to install `jadx` with a [package manager](../terminal-commands#package-managers)
+- You can also pass in a `.jar` file to decompile an entire Java project
+- Use `-d <dir>` to specify an output directory

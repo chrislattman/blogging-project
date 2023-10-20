@@ -2312,6 +2312,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Adding a certificate to the trust store](#adding-a-certificate-to-the-trust-store)
+- [Tracing library and system calls on Linux](#tracing-library-and-system-calls-on-a-linux-application)
 
 ### `Ctrl D`
 
@@ -2760,3 +2761,20 @@ Adding the certificate to the operating system's trust/certificate store depends
         sudo update-ca-certificates
         ```
     - You may need to reboot afterwards
+
+### Tracing library and system calls on a Linux application
+
+On Linux, you can see which dynamic library (e.g. libc) functions are invoked from a running application. To do so, use `ltrace`:
+
+```
+ltrace <command> [command-flags]
+```
+
+You can also include system calls in the output:
+
+```
+ltrace -S <command> [command-flags]
+```
+
+- A similar command to do this is called `strace`
+- You will need to install `ltrace` or `strace` with a [package manager](#package-managers)

@@ -6,7 +6,7 @@ It is a program used to access remote servers, although "remote" can mean on the
 
 On Windows, use Git Bash to perform any commands on this page except `rsync`. On Linux, you might need to install `openssh-client` with a [package manager](../terminal-commands#package-managers) to use `ssh`, as well as the bundled `scp` and `sftp` file transfer commands.
 
-To access a remote server using any of the commands on this page, `sshd` (the SSH daemon) must be running on the server. You might need to install `openssh-server` on the server.
+To access a remote server using any of the commands on this page, `sshd` (the SSH daemon) must be running on the server. You might need to install `openssh-server` on a Linux server, or follow [these](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui#install-openssh-for-windows) instructions for a Windows server.
 
 ## Table of Contents
 
@@ -56,7 +56,24 @@ You should then see a message like this: `Welcome to GitLab, @username!`
     - By default, SSH uses port 22
 - To log out of a remote server, run `exit`
 - To shut down a remote server, run `sudo shutdown now`
+    - For a Windows server, the equivalent command is `Stop-Computer -Force`
 - To restart a remote server, run `sudo reboot`
+    - For a Windows server, the equivalent command is `Restart-Computer -Force`
+
+To log in into a Windows server, there are a few more steps involved:
+
+- Go to Settings -> Accounts -> Sign-in options, and make sure that "Require Windows Hello sign-in for Microsoft accounts" is turned off if your account is linked to a Microsoft account (this isn't necessary for local accounts)
+- `ssh [-p <port-number>] domain\\user@hostname` is the command to use on Unix terminals
+    - `domain\\user` is obtained by running `whoami` in PowerShell on the Windows server, and adding an extra `\`
+        - It is the concatentation of the device name and the username
+    - If using PowerShell to log in, just use one `\` instead of two
+    - The password is your Microsoft account password, or the local account password if logging in to a local account
+
+Run this command in an Administrator PowerShell terminal to use PowerShell as the default shell when logging in via SSH:
+
+```
+New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
+```
 
 ### Saving your login to the server
 
@@ -67,8 +84,23 @@ If you are using `ssh` to login to a password-protected server, you may want to 
 Run the following command in Terminal or Git Bash to cache your login details on the server:
 
 ```
-ssh-copy-id -i ~/.ssh/id_ed25519.pub [-p <port-number>] user@hostname
+ssh-copy-id [-p <port-number>] user@hostname
 ```
+
+If you want to cache your login details on a Windows server:
+
+- Run the following command to cache your login for a non-Administrator user:
+    ```
+    ssh [-p <port-number>] domain\\user@hostname \
+        "Add-Content -Force -Path \$HOME\.ssh\authorized_keys -Value '$(cat ~/.ssh/id_ed25519.pub)'"
+    ```
+- Run the following commands to cache your login for an Administrator:
+    ```
+    ssh [-p <port-number>] domain\\user@hostname \
+        "Add-Content -Force -Path C:\ProgramData\ssh\administrators_authorized_keys -Value '$(cat ~/.ssh/id_ed25519.pub)'"
+    ssh [-p <port-number>] domain\\user@hostname \
+        "icacls.exe C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r /grant Administrators:F /grant SYSTEM:F"
+    ```
 
 ## Tunneling
 
