@@ -73,7 +73,7 @@ Check out the [getting started](docker#getting-started) section of the Docker fo
 
 - Java SE Development Kit: https://www.oracle.com/java/technologies/downloads/
     - **If you already have an older Java SE Development Kit installed:** you will not need to install the latest SDK, since we are not using any of the latest Java features
-    - For Linux: install the `openjdk-17-jdk-headless` package with a [package manager](terminal-commands#package-managers)
+    - For Linux: install the `openjdk-17-jdk` package with a [package manager](terminal-commands#package-managers)
 
 - Eclipse IDE: https://www.eclipse.org/downloads/
     - **If you already have Eclipse installed:** go to Help -> Check for Updates and install any updates

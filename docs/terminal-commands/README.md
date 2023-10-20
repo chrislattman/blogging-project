@@ -1840,6 +1840,9 @@ Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
 - Add `-v` to see verbose output
 - You can also specify which DNS server to query, for example `host google.com 1.1.1.1` (this uses [Cloudflare's DNS server](https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/))
 - Related commands include `nslookup` and `dig`
+- On Unix OSes:
+    - `/etc/resolv.conf` specifies DNS servers to use, which override any DNS servers inherited from the network
+    - `/etc/hosts` specifies domain name to IP address mappings, which bypass DNS resolution
 
 Examples:
 
