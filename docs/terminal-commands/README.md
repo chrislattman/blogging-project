@@ -14,7 +14,7 @@ Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals inclu
 - Linux uses the terms "folder" and "directory" interchangeably
 - Windows is NOT a Unix-like operating system
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
-- Git Bash allows you to run most of these commands (except `tree`, `man`, `wget`, `speedtest`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip`, or any package manager)
+- Git Bash allows you to run most of these commands (except `tree`, `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip`, or any package manager)
 - Note: if you are using Windows PowerShell, clicking on a PowerShell window will cause the shell to enter "Select mode"
     - Press the escape key or right-click on the window to exit this mode
 
@@ -1754,7 +1754,7 @@ Upload: 8.39 Mbit/s
 
 Stands for "netcat." It's a handy utility that is used to test connections between devices on a network.
 
-- Telnet is a similar tool (which should only be used for diagnostic purposes)
+- Telnet is a similar tool (which should also only be used for diagnostic purposes)
 - `nc` can also be used for file transfers and port scanning
     - For file transfers, it's more secure to use [`scp`](../ssh#scp) or [`sftp`](../ssh#sftp)
     - For port scanning, a more sophisticated alternative is [`nmap`](#nmap)
