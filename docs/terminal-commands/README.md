@@ -2316,6 +2316,8 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Adding a certificate to the trust store](#adding-a-certificate-to-the-trust-store)
 - [Tracing library and system calls on Linux](#tracing-library-and-system-calls-on-a-linux-application)
+- [Managing services](#managing-services)
+- [Job scheduling](#job-scheduling)
 
 ### `Ctrl D`
 
@@ -2746,17 +2748,19 @@ Sometimes, you need to add a [TLS certificate](https://aws.amazon.com/what-is/ss
 To download a certificate from a website, you can use your web browser (it likely has a way for you to click to download), or you can use [openssl](#openssl):
 
 ```
-openssl s_client -showcerts -connect <website-url>:443 < /dev/null | \
-sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt
+openssl s_client -showcerts -connect <domain-name>:443 < /dev/null | \
+    sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt
 ```
 
-- You may see other extensions such as `.cer` or `.pem` for certificates (they are interchangeable)
+- You may see other extensions such as `.cer` or `.pem` for certificates (they refer to the same file type)
 
 Adding the certificate to the operating system's trust/certificate store depends on which OS you are using:
 
 - On Windows, double-click the certificate file, click on the "Install Certificate..." button, and follow the instructions in the pop-up window
     - If you need to install a root certificate, choose "Place all certificates in the following store" on the 2nd window, and select "Trusted Root Certification Authorities"
+    - The Administrator PowerShell command to do this is `Import-Certificate -FilePath certificate.crt -CertStoreLocation Cert:\LocalMachine\Root`
 - On macOS, double-click the certificate; it should automatically add it to Keychain Access
+    - The command to do this is `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain certificate.crt`
 - On Linux, it depends on which Linux distribution you are using:
     - For Ubuntu, run:
         ```
@@ -2782,3 +2786,90 @@ ltrace -S <command> [command-flags]
 
 - A similar command to do this is called `strace`
 - You will need to install `ltrace` or `strace` with a [package manager](#package-managers)
+
+### Managing services
+
+Services, also known as daemons, are processes that are meant to continuously run in the background. They are present on all major operating systems.
+
+This section describes how to manage them on Linux, macOS, and Windows.
+
+- On Windows, PowerShell is used
+
+#### View all services
+
+- Linux: `systemctl -t service`
+- macOS: `launchctl list`
+- Windows: `Get-Service`
+
+#### Turn a service on/off or restart a service
+
+- Linux: `sudo systemctl start/stop/restart <service>`
+- macOS: `sudo launchctl load/unload/(kickstart -k) -w <service>`
+- Windows: `Start-Service/Stop-Service/Restart-Service -Name <service>`
+
+#### Automatically enable/disable a service on startup
+
+- Linux: `sudo systemctl enable/disable <service>`
+- macOS: `sudo launchctl enable/disable <service>`
+- Windows: `Set-Service -Name <service> -StartupType Automatic/Manual`
+
+### Job scheduling
+
+On all major operating systems, you can schedule a job to be run at intervals. This is useful for servers that need to run routine tasks automatically without human intervention.
+
+#### Unix
+
+On macOS and Linux, the `crontab` command is used to view, create, and delete scheduled jobs, also known as "cron jobs."
+
+To edit the crontab file (which is a text file listing your cron jobs):
+
+```
+crontab -e
+```
+
+- Initially, it will ask which editor you want to use by default (I use [`vim.basic`](#vim))
+- From here, you can add or remove cron jobs
+
+To view your crontab file:
+
+```
+crontab -l
+```
+
+Here is an example of a crontab file:
+
+```
+* */12 * * * rm -rf /tmp/* >/dev/null 2>&1
+```
+
+- This includes one cron job, which force deletes all of the contents in the `/tmp` directory at midnight and noon every day
+- A handy tool to create crontab entries is [here](https://crontab-generator.org/)
+
+#### Windows
+
+On Windows, cron jobs are known as scheduled tasks.
+
+To view all scheduled tasks:
+
+```
+Get-ScheduledTask
+```
+
+Example: create a new scheduled task:
+
+```
+$trigger = New-ScheduledTaskTrigger -Once -At 12am -RepetitionInterval (New-TimeSpan -Hours 12)
+$action = New-ScheduledTaskAction -Execute "Remote-Item -Recurse -Force $env:TEMP"
+Register-ScheduledTask -TaskName "RemoveTmpFiles" -Trigger $trigger -Action $action
+Start-ScheduledTask -TaskName "RemoveTmpFiles"
+```
+
+- This scheduled task deletes all of the contents in the user's temp directory at midnight and noon every day
+- You can configure different time intervals for `New-ScheduledTaskTrigger` [here](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtasktrigger?view=windowsserver2022-ps#parameters)
+
+To delete a scheduled task:
+
+```
+Stop-ScheduledTask -TaskName <task>
+Unregister-ScheduledTask -TaskName <task>
+```

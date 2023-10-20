@@ -446,6 +446,12 @@ To checkout a specified version of the repository (e.g. version 1.0.1):
 git checkout v1.0.1
 ```
 
+Example: delete the v1.0.1 tag:
+
+```
+git tag -d v1.0.1
+```
+
 On GitLab, tags can be associated with [Releases](https://gitlab.com/chrislattman/blogging-project/-/releases), which contain information about specific tags as well as downloadable files (i.e. the source code compiled into a `.exe` file for Windows users).
 
 - The [`.gitlab-ci.yml`](../../.gitlab-ci.yml) file associated with this project includes a release job that automatically creates a GitLab Release when a Git tag is pushed up
