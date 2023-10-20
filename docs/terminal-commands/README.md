@@ -2752,6 +2752,7 @@ sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt
 Adding the certificate to the operating system's trust/certificate store depends on which OS you are using:
 
 - On Windows, double-click the certificate file, click on the "Install Certificate..." button, and follow the instructions in the pop-up window
+    - If you need to install a root certificate, choose "Place all certificates in the following store" on the 2nd window, and select "Trusted Root Certification Authorities"
 - On macOS, double-click the certificate; it should automatically add it to Keychain Access
 - On Linux, it depends on which Linux distribution you are using:
     - For Ubuntu, run:
