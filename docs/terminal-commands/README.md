@@ -2133,7 +2133,7 @@ Stands for "password." Changes the login password of a user.
 Stands for "process status." It displays a list of processes.
 
 - All processes have a unique PID (process ID)
-- `ps ax` outputs all processes
+- `ps aux` outputs all processes
 
 Example:
 
