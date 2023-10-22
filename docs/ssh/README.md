@@ -89,6 +89,12 @@ ssh-copy-id [-p <port-number>] user@hostname
 
 If you want to cache your login details on a Windows server:
 
+Note: run this command in an Administrator PowerShell terminal to allow Administrators to cache their SSH credentials:
+
+```
+icacls.exe C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r /grant Administrators:F /grant SYSTEM:F
+```
+
 - Run the following command to cache your login for a non-Administrator user:
     ```
     ssh [-p <port-number>] domain\\user@hostname \
@@ -98,8 +104,6 @@ If you want to cache your login details on a Windows server:
     ```
     ssh [-p <port-number>] domain\\user@hostname \
         "powershell Add-Content -Force -Path C:\ProgramData\ssh\administrators_authorized_keys -Value '$(cat ~/.ssh/id_ed25519.pub)'"
-    ssh [-p <port-number>] domain\\user@hostname \
-        "icacls.exe C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r /grant Administrators:F /grant SYSTEM:F"
     ```
 
 ## Tunneling

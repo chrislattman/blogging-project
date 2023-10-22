@@ -14,7 +14,7 @@ Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals inclu
 - Linux uses the terms "folder" and "directory" interchangeably
 - Windows is NOT a Unix-like operating system
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
-- Git Bash allows you to run most of these commands (except `tree`, `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip`, or any package manager)
+- Git Bash allows you to run most of these commands (except `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip`, or any package manager)
 - Note: if you are using Windows PowerShell, clicking on a PowerShell window will cause the shell to enter "Select mode"
     - Press the escape key or right-click on the window to exit this mode
 
@@ -141,6 +141,8 @@ Stands for "list." Use it to list files and directories.
 - `tree` is a similar command that displays directory and subdirectory contents in a tree
     - You might need to install `tree` with a [package manager](#package-managers)
     - `tree -L <depth>` outputs the first `depth` levels of the directory tree
+    - To setup `tree` in Git Bash, run `echo 'alias tree="tree.com //f //a"' >> ~/.bashrc; source ~/.bashrc`
+        - The `tree` in Git Bash does not support any flags
 
 Examples:
 
