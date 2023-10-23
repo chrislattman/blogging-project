@@ -2318,6 +2318,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Adding a certificate to the trust store](#adding-a-certificate-to-the-trust-store)
 - [Tracing library and system calls on Linux](#tracing-library-and-system-calls-on-a-linux-application)
+- [`objdump` - displays info from object files](#objdump)
 - [Managing services](#managing-services)
 - [Job scheduling](#job-scheduling)
 
@@ -2788,6 +2789,362 @@ ltrace -S <command> [command-flags]
 
 - A similar command to do this is called `strace`
 - You will need to install `ltrace` or `strace` with a [package manager](#package-managers)
+
+### `objdump`
+
+Warning: this section is extremely advanced.
+
+#### Intro
+
+Executables and shared/static libraries on Linux ([ELF](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format)), macOS ([Mach-O](https://en.wikipedia.org/wiki/Mach-O)), and Windows ([PE](https://en.wikipedia.org/wiki/Portable_Executable)) are first compiled from source code in a high-level language like C into a human-readable assembly language, such as [x86-64](https://en.wikipedia.org/wiki/X86-64), used by both Intel and AMD processors, or [AArch64](https://en.wikipedia.org/wiki/AArch64).
+
+- Assembly languages are also known as [instruction sets](https://en.wikipedia.org/wiki/Instruction_set_architecture)
+
+Afterwards, the assembly code is assembled into object code (pure binary, therefore unreadable).
+
+- On Linux and macOS, these are `.o` files
+- On Windows, these are `.obj` files
+
+After this stage, the object files are linked with static libraries it depends on, and the end result is either an executable or a library.
+
+- On Linux and macOS, there is no common file extension for executable files
+- On Windows, executables are `.exe` files
+
+Libraries can either be static or shared:
+
+- Static libraries are meant to be compiled with other object files to create an executable
+    - On Linux and macOS, these are `.a` files
+    - On Windows, these are `.lib` files
+- Shared libraries can be used by any executable, and are linked at runtime
+    - They result in saved memory space, since multiple running executables can link to the same shared library, rather than compiling the same (static) library into every single executable
+    - On Linux, these are `.so` files
+    - On macOS, these are `.dylib` files
+    - On Windows, these are `.dll` files
+
+#### Usage
+
+`objdump` stands for for "object dump." It's used to disassemble a binary's raw bytes into assembly code.
+
+- `objdump -d <binary>` outputs the standard disassembly of a binary
+- By default, `objdump` on macOS and Linux will display x86-64 assembly using AT&T syntax
+    - Adding `-M intel` will output the assembly using Intel syntax
+- If you are using a computer with an Intel/AMD processor and you want to disassemble a binary compiled with an ARM processor, you will need to use `aarch64-elf-objdump` on macOS or `aarch64-linux-gnu-objdump` on Linux
+    - You will need to install either `aarch64-elf-binutils` (macOS) or `binutils-aarch64-linux-gnu` (Linux) with a [package manager](#package-managers)
+- If you are using a computer with an ARM processor and you want to disassemble a binary compiled with an Intel/AMD processor, you will need to use `x86_64-linux-gnu-objdump`
+    - You will need to install either `x86_64-elf-binutils` (macOS) or `binutils-x86-64-linux-gnu` (Linux) with a [package manager](#package-managers)
+
+Example:
+
+```
+[Chris@Chris-MBP-16 test-make]$ objdump -d fraction.o
+
+fraction.o:	file format mach-o 64-bit x86-64
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <_fraction_init>:
+       0: 55                           	pushq	%rbp
+       1: 48 89 e5                     	movq	%rsp, %rbp
+       4: 48 83 ec 20                  	subq	$32, %rsp
+       8: 89 7d ec                     	movl	%edi, -20(%rbp)
+       b: 89 75 e8                     	movl	%esi, -24(%rbp)
+       e: 83 7d e8 00                  	cmpl	$0, -24(%rbp)
+      12: 75 07                        	jne	0x1b <_fraction_init+0x1b>
+      14: b8 00 00 00 00               	movl	$0, %eax
+      19: eb 31                        	jmp	0x4c <_fraction_init+0x4c>
+      1b: bf 08 00 00 00               	movl	$8, %edi
+      20: e8 00 00 00 00               	callq	0x25 <_fraction_init+0x25>
+      25: 48 89 45 f8                  	movq	%rax, -8(%rbp)
+      29: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+      2d: 8b 55 ec                     	movl	-20(%rbp), %edx
+      30: 89 10                        	movl	%edx, (%rax)
+      32: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+      36: 8b 55 e8                     	movl	-24(%rbp), %edx
+      39: 89 50 04                     	movl	%edx, 4(%rax)
+      3c: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+      40: 48 89 c7                     	movq	%rax, %rdi
+      43: e8 00 00 00 00               	callq	0x48 <_fraction_init+0x48>
+      48: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+      4c: c9                           	leave
+      4d: c3                           	retq
+
+000000000000004e <_fraction_free>:
+      4e: 55                           	pushq	%rbp
+      4f: 48 89 e5                     	movq	%rsp, %rbp
+      52: 48 83 ec 10                  	subq	$16, %rsp
+      56: 48 89 7d f8                  	movq	%rdi, -8(%rbp)
+      5a: 48 83 7d f8 00               	cmpq	$0, -8(%rbp)
+      5f: 74 14                        	je	0x75 <_fraction_free+0x27>
+      61: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+      65: 48 89 c7                     	movq	%rax, %rdi
+      68: e8 00 00 00 00               	callq	0x6d <_fraction_free+0x1f>
+      6d: 48 c7 45 f8 00 00 00 00      	movq	$0, -8(%rbp)
+      75: 90                           	nop
+      76: c9                           	leave
+      77: c3                           	retq
+
+0000000000000078 <_fraction_add>:
+      78: 55                           	pushq	%rbp
+      79: 48 89 e5                     	movq	%rsp, %rbp
+      7c: 48 83 ec 20                  	subq	$32, %rsp
+      80: 48 89 7d e8                  	movq	%rdi, -24(%rbp)
+      84: 48 89 75 e0                  	movq	%rsi, -32(%rbp)
+      88: 48 83 7d e8 00               	cmpq	$0, -24(%rbp)
+      8d: 0f 84 9f 00 00 00            	je	0x132 <_fraction_add+0xba>
+      93: 48 83 7d e0 00               	cmpq	$0, -32(%rbp)
+      98: 0f 84 94 00 00 00            	je	0x132 <_fraction_add+0xba>
+      9e: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+      a2: 48 89 c7                     	movq	%rax, %rdi
+      a5: e8 00 00 00 00               	callq	0xaa <_fraction_add+0x32>
+      aa: 48 8b 45 e0                  	movq	-32(%rbp), %rax
+      ae: 48 89 c7                     	movq	%rax, %rdi
+      b1: e8 00 00 00 00               	callq	0xb6 <_fraction_add+0x3e>
+      b6: c7 45 fc 00 00 00 00         	movl	$0, -4(%rbp)
+      bd: c7 45 f8 00 00 00 00         	movl	$0, -8(%rbp)
+      c4: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+      c8: 8b 40 04                     	movl	4(%rax), %eax
+      cb: 89 45 f4                     	movl	%eax, -12(%rbp)
+      ce: 48 8b 45 e0                  	movq	-32(%rbp), %rax
+      d2: 8b 40 04                     	movl	4(%rax), %eax
+      d5: 89 45 f0                     	movl	%eax, -16(%rbp)
+      d8: 8b 45 f4                     	movl	-12(%rbp), %eax
+      db: 3b 45 f0                     	cmpl	-16(%rbp), %eax
+      de: 74 28                        	je	0x108 <_fraction_add+0x90>
+      e0: 8b 45 f4                     	movl	-12(%rbp), %eax
+      e3: 0f af 45 f0                  	imull	-16(%rbp), %eax
+      e7: 89 45 f8                     	movl	%eax, -8(%rbp)
+      ea: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+      ee: 8b 00                        	movl	(%rax), %eax
+      f0: 8b 55 f0                     	movl	-16(%rbp), %edx
+      f3: 0f af c2                     	imull	%edx, %eax
+      f6: 89 45 fc                     	movl	%eax, -4(%rbp)
+      f9: 48 8b 45 e0                  	movq	-32(%rbp), %rax
+      fd: 8b 00                        	movl	(%rax), %eax
+      ff: 0f af 45 f4                  	imull	-12(%rbp), %eax
+     103: 01 45 fc                     	addl	%eax, -4(%rbp)
+     106: eb 17                        	jmp	0x11f <_fraction_add+0xa7>
+     108: 8b 45 f4                     	movl	-12(%rbp), %eax
+     10b: 89 45 f8                     	movl	%eax, -8(%rbp)
+     10e: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     112: 8b 10                        	movl	(%rax), %edx
+     114: 48 8b 45 e0                  	movq	-32(%rbp), %rax
+     118: 8b 00                        	movl	(%rax), %eax
+     11a: 01 d0                        	addl	%edx, %eax
+     11c: 89 45 fc                     	movl	%eax, -4(%rbp)
+     11f: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     123: 8b 55 fc                     	movl	-4(%rbp), %edx
+     126: 89 10                        	movl	%edx, (%rax)
+     128: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     12c: 8b 55 f8                     	movl	-8(%rbp), %edx
+     12f: 89 50 04                     	movl	%edx, 4(%rax)
+     132: 90                           	nop
+     133: c9                           	leave
+     134: c3                           	retq
+
+0000000000000135 <_fraction_subtract>:
+     135: 55                           	pushq	%rbp
+     136: 48 89 e5                     	movq	%rsp, %rbp
+     139: 48 83 ec 10                  	subq	$16, %rsp
+     13d: 48 89 7d f8                  	movq	%rdi, -8(%rbp)
+     141: 48 89 75 f0                  	movq	%rsi, -16(%rbp)
+     145: 48 83 7d f8 00               	cmpq	$0, -8(%rbp)
+     14a: 74 2a                        	je	0x176 <_fraction_subtract+0x41>
+     14c: 48 83 7d f0 00               	cmpq	$0, -16(%rbp)
+     151: 74 23                        	je	0x176 <_fraction_subtract+0x41>
+     153: 48 8b 45 f0                  	movq	-16(%rbp), %rax
+     157: 8b 00                        	movl	(%rax), %eax
+     159: f7 d8                        	negl	%eax
+     15b: 89 c2                        	movl	%eax, %edx
+     15d: 48 8b 45 f0                  	movq	-16(%rbp), %rax
+     161: 89 10                        	movl	%edx, (%rax)
+     163: 48 8b 55 f0                  	movq	-16(%rbp), %rdx
+     167: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     16b: 48 89 d6                     	movq	%rdx, %rsi
+     16e: 48 89 c7                     	movq	%rax, %rdi
+     171: e8 00 00 00 00               	callq	0x176 <_fraction_subtract+0x41>
+     176: 90                           	nop
+     177: c9                           	leave
+     178: c3                           	retq
+
+0000000000000179 <_fraction_multiply>:
+     179: 55                           	pushq	%rbp
+     17a: 48 89 e5                     	movq	%rsp, %rbp
+     17d: 48 83 ec 20                  	subq	$32, %rsp
+     181: 48 89 7d e8                  	movq	%rdi, -24(%rbp)
+     185: 48 89 75 e0                  	movq	%rsi, -32(%rbp)
+     189: 48 83 7d e8 00               	cmpq	$0, -24(%rbp)
+     18e: 74 58                        	je	0x1e8 <_fraction_multiply+0x6f>
+     190: 48 83 7d e0 00               	cmpq	$0, -32(%rbp)
+     195: 74 51                        	je	0x1e8 <_fraction_multiply+0x6f>
+     197: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     19b: 48 89 c7                     	movq	%rax, %rdi
+     19e: e8 00 00 00 00               	callq	0x1a3 <_fraction_multiply+0x2a>
+     1a3: 48 8b 45 e0                  	movq	-32(%rbp), %rax
+     1a7: 48 89 c7                     	movq	%rax, %rdi
+     1aa: e8 00 00 00 00               	callq	0x1af <_fraction_multiply+0x36>
+     1af: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     1b3: 8b 10                        	movl	(%rax), %edx
+     1b5: 48 8b 45 e0                  	movq	-32(%rbp), %rax
+     1b9: 8b 00                        	movl	(%rax), %eax
+     1bb: 0f af c2                     	imull	%edx, %eax
+     1be: 89 45 fc                     	movl	%eax, -4(%rbp)
+     1c1: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     1c5: 8b 50 04                     	movl	4(%rax), %edx
+     1c8: 48 8b 45 e0                  	movq	-32(%rbp), %rax
+     1cc: 8b 40 04                     	movl	4(%rax), %eax
+     1cf: 0f af c2                     	imull	%edx, %eax
+     1d2: 89 45 f8                     	movl	%eax, -8(%rbp)
+     1d5: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     1d9: 8b 55 fc                     	movl	-4(%rbp), %edx
+     1dc: 89 10                        	movl	%edx, (%rax)
+     1de: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     1e2: 8b 55 f8                     	movl	-8(%rbp), %edx
+     1e5: 89 50 04                     	movl	%edx, 4(%rax)
+     1e8: 90                           	nop
+     1e9: c9                           	leave
+     1ea: c3                           	retq
+
+00000000000001eb <_fraction_divide>:
+     1eb: 55                           	pushq	%rbp
+     1ec: 48 89 e5                     	movq	%rsp, %rbp
+     1ef: 48 83 ec 10                  	subq	$16, %rsp
+     1f3: 48 89 7d f8                  	movq	%rdi, -8(%rbp)
+     1f7: 48 89 75 f0                  	movq	%rsi, -16(%rbp)
+     1fb: 48 83 7d f8 00               	cmpq	$0, -8(%rbp)
+     200: 74 26                        	je	0x228 <_fraction_divide+0x3d>
+     202: 48 83 7d f0 00               	cmpq	$0, -16(%rbp)
+     207: 74 1f                        	je	0x228 <_fraction_divide+0x3d>
+     209: 48 8b 45 f0                  	movq	-16(%rbp), %rax
+     20d: 48 89 c7                     	movq	%rax, %rdi
+     210: e8 00 00 00 00               	callq	0x215 <_fraction_divide+0x2a>
+     215: 48 8b 55 f0                  	movq	-16(%rbp), %rdx
+     219: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     21d: 48 89 d6                     	movq	%rdx, %rsi
+     220: 48 89 c7                     	movq	%rax, %rdi
+     223: e8 00 00 00 00               	callq	0x228 <_fraction_divide+0x3d>
+     228: 90                           	nop
+     229: c9                           	leave
+     22a: c3                           	retq
+
+000000000000022b <_fraction_invert>:
+     22b: 55                           	pushq	%rbp
+     22c: 48 89 e5                     	movq	%rsp, %rbp
+     22f: 48 83 ec 20                  	subq	$32, %rsp
+     233: 48 89 7d e8                  	movq	%rdi, -24(%rbp)
+     237: 48 83 7d e8 00               	cmpq	$0, -24(%rbp)
+     23c: 74 2c                        	je	0x26a <_fraction_invert+0x3f>
+     23e: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     242: 48 89 c7                     	movq	%rax, %rdi
+     245: e8 00 00 00 00               	callq	0x24a <_fraction_invert+0x1f>
+     24a: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     24e: 8b 00                        	movl	(%rax), %eax
+     250: 89 45 fc                     	movl	%eax, -4(%rbp)
+     253: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     257: 8b 50 04                     	movl	4(%rax), %edx
+     25a: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     25e: 89 10                        	movl	%edx, (%rax)
+     260: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     264: 8b 55 fc                     	movl	-4(%rbp), %edx
+     267: 89 50 04                     	movl	%edx, 4(%rax)
+     26a: 90                           	nop
+     26b: c9                           	leave
+     26c: c3                           	retq
+
+000000000000026d <_fraction_negate>:
+     26d: 55                           	pushq	%rbp
+     26e: 48 89 e5                     	movq	%rsp, %rbp
+     271: 48 83 ec 10                  	subq	$16, %rsp
+     275: 48 89 7d f8                  	movq	%rdi, -8(%rbp)
+     279: 48 83 7d f8 00               	cmpq	$0, -8(%rbp)
+     27e: 74 1c                        	je	0x29c <_fraction_negate+0x2f>
+     280: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     284: 48 89 c7                     	movq	%rax, %rdi
+     287: e8 00 00 00 00               	callq	0x28c <_fraction_negate+0x1f>
+     28c: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     290: 8b 00                        	movl	(%rax), %eax
+     292: f7 d8                        	negl	%eax
+     294: 89 c2                        	movl	%eax, %edx
+     296: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     29a: 89 10                        	movl	%edx, (%rax)
+     29c: 90                           	nop
+     29d: c9                           	leave
+     29e: c3                           	retq
+
+000000000000029f <_fraction_reduce>:
+     29f: 55                           	pushq	%rbp
+     2a0: 48 89 e5                     	movq	%rsp, %rbp
+     2a3: 48 83 ec 20                  	subq	$32, %rsp
+     2a7: 48 89 7d e8                  	movq	%rdi, -24(%rbp)
+     2ab: 48 83 7d e8 00               	cmpq	$0, -24(%rbp)
+     2b0: 74 6c                        	je	0x31e <_fraction_reduce+0x7f>
+     2b2: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     2b6: 48 89 c7                     	movq	%rax, %rdi
+     2b9: e8 00 00 00 00               	callq	0x2be <_fraction_reduce+0x1f>
+     2be: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     2c2: 8b 00                        	movl	(%rax), %eax
+     2c4: 89 45 fc                     	movl	%eax, -4(%rbp)
+     2c7: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     2cb: 8b 40 04                     	movl	4(%rax), %eax
+     2ce: 89 45 f8                     	movl	%eax, -8(%rbp)
+     2d1: 83 7d fc 00                  	cmpl	$0, -4(%rbp)
+     2d5: 79 1b                        	jns	0x2f2 <_fraction_reduce+0x53>
+     2d7: f7 5d fc                     	negl	-4(%rbp)
+     2da: eb 16                        	jmp	0x2f2 <_fraction_reduce+0x53>
+     2dc: 8b 45 fc                     	movl	-4(%rbp), %eax
+     2df: 89 45 f4                     	movl	%eax, -12(%rbp)
+     2e2: 8b 45 f8                     	movl	-8(%rbp), %eax
+     2e5: 89 45 fc                     	movl	%eax, -4(%rbp)
+     2e8: 8b 45 f4                     	movl	-12(%rbp), %eax
+     2eb: 99                           	cltd
+     2ec: f7 7d f8                     	idivl	-8(%rbp)
+     2ef: 89 55 f8                     	movl	%edx, -8(%rbp)
+     2f2: 83 7d f8 00                  	cmpl	$0, -8(%rbp)
+     2f6: 7f e4                        	jg	0x2dc <_fraction_reduce+0x3d>
+     2f8: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     2fc: 8b 00                        	movl	(%rax), %eax
+     2fe: 99                           	cltd
+     2ff: f7 7d fc                     	idivl	-4(%rbp)
+     302: 89 c2                        	movl	%eax, %edx
+     304: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     308: 89 10                        	movl	%edx, (%rax)
+     30a: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     30e: 8b 40 04                     	movl	4(%rax), %eax
+     311: 99                           	cltd
+     312: f7 7d fc                     	idivl	-4(%rbp)
+     315: 89 c2                        	movl	%eax, %edx
+     317: 48 8b 45 e8                  	movq	-24(%rbp), %rax
+     31b: 89 50 04                     	movl	%edx, 4(%rax)
+     31e: 90                           	nop
+     31f: c9                           	leave
+     320: c3                           	retq
+
+0000000000000321 <_fraction_check_negatives>:
+     321: 55                           	pushq	%rbp
+     322: 48 89 e5                     	movq	%rsp, %rbp
+     325: 48 89 7d f8                  	movq	%rdi, -8(%rbp)
+     329: 48 83 7d f8 00               	cmpq	$0, -8(%rbp)
+     32e: 74 2d                        	je	0x35d <_fraction_check_negatives+0x3c>
+     330: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     334: 8b 40 04                     	movl	4(%rax), %eax
+     337: 85 c0                        	testl	%eax, %eax
+     339: 79 22                        	jns	0x35d <_fraction_check_negatives+0x3c>
+     33b: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     33f: 8b 00                        	movl	(%rax), %eax
+     341: f7 d8                        	negl	%eax
+     343: 89 c2                        	movl	%eax, %edx
+     345: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     349: 89 10                        	movl	%edx, (%rax)
+     34b: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     34f: 8b 40 04                     	movl	4(%rax), %eax
+     352: f7 d8                        	negl	%eax
+     354: 89 c2                        	movl	%eax, %edx
+     356: 48 8b 45 f8                  	movq	-8(%rbp), %rax
+     35a: 89 50 04                     	movl	%edx, 4(%rax)
+     35d: 90                           	nop
+     35e: 5d                           	popq	%rbp
+     35f: c3                           	retq
+[Chris@Chris-MBP-16 test-make]$
+```
 
 ### Managing services
 
