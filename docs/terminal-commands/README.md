@@ -2832,6 +2832,7 @@ Libraries can either be static or shared:
     - You will need to install either `aarch64-elf-binutils` (macOS) or `binutils-aarch64-linux-gnu` (Linux) with a [package manager](#package-managers)
 - If you are using a computer with an ARM processor and you want to disassemble a binary compiled with an Intel/AMD processor, you will need to use `x86_64-linux-gnu-objdump`
     - You will need to install either `x86_64-elf-binutils` (macOS) or `binutils-x86-64-linux-gnu` (Linux) with a [package manager](#package-managers)
+- For more involved reverse engineering projects, tools like [Ghidra](https://ghidra-sre.org/) will not only disassemble binaries but also _decompile_ them back into C-like source code
 
 Example:
 
