@@ -2796,7 +2796,7 @@ Warning: this section is extremely advanced.
 
 #### Intro
 
-Executables and shared/static libraries on Linux ([ELF](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format)), macOS ([Mach-O](https://en.wikipedia.org/wiki/Mach-O)), and Windows ([PE](https://en.wikipedia.org/wiki/Portable_Executable)) are first compiled from source code in a high-level language like C into a human-readable assembly language, such as [x86-64](https://en.wikipedia.org/wiki/X86-64), used by both Intel and AMD processors, or [AArch64](https://en.wikipedia.org/wiki/AArch64).
+Executables and shared/static libraries on Linux ([ELF](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format)), macOS ([Mach-O](https://en.wikipedia.org/wiki/Mach-O)), and Windows ([PE](https://en.wikipedia.org/wiki/Portable_Executable)) are first compiled from source code in a high-level language like C into a human-readable assembly language, such as [x86-64](https://en.wikipedia.org/wiki/X86-64) (also known as AMD64), used by both Intel and AMD processors, or [AArch64](https://en.wikipedia.org/wiki/AArch64) (also known as ARM64).
 
 - Assembly languages are also known as [instruction sets](https://en.wikipedia.org/wiki/Instruction_set_architecture)
 
