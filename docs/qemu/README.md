@@ -22,6 +22,7 @@ There are graphical interfaces available for QEMU, which can help you if you are
     - [Convert file format](#convert-file-format)
     - [Resizing a VM](#resizing-a-vm)
     - [Importing a VM](#importing-a-vm)
+    - [Emulate an executable](#emulate-an-executable)
 
 ## Installation
 
@@ -262,3 +263,14 @@ You may run into files with the `.ova` extension, which refers to an [Open Virtu
     1. Unarchive the `.ova` file, e.g. `tar -xf myexportedvm.ova`
     1. [Convert](#convert-file-format) the `.vmdk` file to a `.qcow2` file
     1. [Run](#running-a-vm) the newly-created `.qcow2` file with the arguments specified in the `.ovf` file
+
+### Emulate an executable
+
+Say you are working on a x86-64 computer, but have an AArch64 executable that you need to run. Fortunately, you don't have to buy another computer just to run a simple program. Emulate it instead!
+
+- You will need to install `qemu-user` with a [package manager](../terminal-commands#package-managers)
+
+Then run one of the following commands:
+
+- `qemu-aarch64 -L /usr/aarch64-linux-gnu/ <executable>` to emulate an AArch64 executable
+- `qemu-x86_64 -L /usr/x86_64-linux-gnu/ <executable>` to emulate a x86-64 executable
