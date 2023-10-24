@@ -268,6 +268,7 @@ You may run into files with the `.ova` extension, which refers to an [Open Virtu
 
 Say you are working on a x86-64 computer, but have an AArch64 executable that you need to run. Fortunately, you don't have to buy another computer just to run a simple program. Emulate it instead!
 
+- This only works on Linux
 - You will need to install `qemu-user` with a [package manager](../terminal-commands#package-managers)
 
 Then run one of the following commands:
