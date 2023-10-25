@@ -2827,7 +2827,9 @@ Libraries can either be static or shared:
 
 - `objdump -d <binary>` outputs the standard disassembly of a binary
 - By default, `objdump` on macOS and Linux will display x86-64 assembly using AT&T syntax
-    - Adding `-M intel` will output the assembly using Intel syntax
+    - Adding `-M intel` will output the assembly using Intel syntax (differences are described [here](https://staffwww.fullcoll.edu/aclifton/courses/cs241/syntax.html))
+        - Notably, operands are in reverse order
+        - You may see qword/dword/word/byte ptr [r__] (this is a size specifier which is equivalent to the q/l/w/b suffix in an instruction)
 - If you are using a computer with an Intel/AMD processor and you want to disassemble a binary compiled with an ARM processor, you will need to use `aarch64-elf-objdump` on macOS or `aarch64-linux-gnu-objdump` on Linux
     - You will need to install either `aarch64-elf-binutils` (macOS) or `binutils-aarch64-linux-gnu` (Linux) with a [package manager](#package-managers)
 - If you are using a computer with an ARM processor and you want to disassemble a binary compiled with an Intel/AMD processor, you will need to use `x86_64-linux-gnu-objdump`
