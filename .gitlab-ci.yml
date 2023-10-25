@@ -78,8 +78,8 @@ pages:              # This job is a special GitLab CI/CD job that uploads a stat
     - echo "Running pages job..."
   artifacts:
     paths:
-      - public
-    expire_in: 5 min
+      - public        # You can add subdirectories to this folder, which can be accessed at
+    expire_in: 5 min  # https://chrislattman.gitlab.io/blogging-project/<subdirectory>
 
 jar-job:            # This job builds a runnable jar of the project.
   stage: deploy
