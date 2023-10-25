@@ -2321,6 +2321,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [`objdump` - displays info from object files](#objdump)
 - [Managing services](#managing-services)
 - [Job scheduling](#job-scheduling)
+- [Network traffic filtering](#network-traffic-filtering)
 
 ### `Ctrl D`
 
@@ -3235,3 +3236,65 @@ To delete a scheduled task:
 Stop-ScheduledTask -TaskName <task>
 Unregister-ScheduledTask -TaskName <task>
 ```
+
+### Network traffic filtering
+
+All of the major operating systems come with a firewall, which can filter incoming and outgoing network traffic. Each filter is referred to in this section as a "rule."
+
+On Linux, changes to `iptables` don't persist after a reboot
+
+- Install `iptables-persistent` with a [package manager](#package-managers)
+- Run `sudo netfilter-persistent save` after adding or removing a rule
+- More details about `iptables` can be found [here](https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands)
+
+On macOS, append `set block-policy drop` to `/etc/pf.conf` then run `sudo pfctl -f /etc/pf.conf` to persist your changes.
+
+- Add any rules after this line and a newline
+- To create or delete a rule, modify `/etc/pf.conf`, then run `sudo pfctl -F rules; sudo pfctl -f /etc/pf.conf`
+
+This section describes how to manage rules on Linux, macOS, and Windows.
+
+#### View all firewall rules
+
+- Linux: `sudo iptables -n -L --line-numbers`
+- macOS: `sudo pfctl -s rules`
+- Windows: ``
+
+#### Delete a rule
+
+- Linux: `sudo iptables -D INPUT/OUTPUT <rule-num>`
+    - To delete all rules for a particular direction, run `sudo iptables -F INPUT/OUTPUT`
+- macOS: delete the rule from `/etc/pf.conf`
+- Windows: ``
+
+#### Drop all incoming IP packets from an IP address
+
+- Linux: `sudo iptables -A INPUT -s <ip-address> -j DROP`
+    - To specify a website instead of an IP address, replace `-s <ip-address>` with `-m string --string <url> --algo kmp`
+- macOS: append `block in from ip-address-or-url to any` to `/etc/pf.conf`
+- Windows: ``
+
+#### Drop all outgoing IP packets to an IP address
+
+- Linux: `sudo iptables -A OUTPUT -d <ip-address> -j DROP`
+    - To specify a website instead of an IP address, replace `-d <ip-address>` with `-m string --string <url> --algo kmp`
+- macOS: append `block out from any to ip-address-or-url` to `/etc/pf.conf`
+- Windows: ``
+
+#### Drop all incoming TCP segments from an IP address and port(s)
+
+- Linux: `sudo iptables -A INPUT -p tcp -s <ip-address> --sport <port> -j DROP`
+    - To specify multiple ports, run `sudo iptables -A INPUT -p tcp -m multiport -s <ip-address> --sports <port1,port2,...> -j DROP`
+    - To specify a website instead of an IP address, replace `-s <ip-address>` with `-m string --string <url> --algo kmp`
+- macOS: append `block in proto tcp from ip-address-or-url port port-number to any` to `/etc/pf.conf`
+    - To specify multiple ports: `block in proto tcp from ip-address-or-url port { port1, port2, ... } to any`
+- Windows: ``
+
+#### Drop all outgoing TCP segments to an IP address and port(s)
+
+- Linux: `sudo iptables -A OUTPUT -p tcp -d <ip-address> --dport <port> -j DROP`
+    - To specify multiple ports, run `sudo iptables -A OUTPUT -p tcp -m multiport -d <ip-address> --dports <port1,port2,...> -j DROP`
+    - To specify a website instead of an IP address, replace `-d <ip-address>` with `-m string --string <url> --algo kmp`
+- macOS: append `block out proto tcp from any to ip-address-or-url port port-number` to `/etc/pf.conf`
+    - To specify multiple ports: `block out proto tcp from any to ip-address-or-url port { port1, port2, ... }`
+- Windows: ``
