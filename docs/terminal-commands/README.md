@@ -2044,6 +2044,7 @@ Endpoint that connects to a VPN service. This command only works for Linux.
         - However, use TCP if there are connection issues with UDP (unlikely)
     - You may also be prompted for an OpenVPN username/password pair that is provided by your VPN service
 - WireGuard is an alternative VPN protocol that promises faster speeds
+    - WireGuard client instructions are available [here](https://engineerworkshop.com/blog/how-to-set-up-a-wireguard-client-on-linux-with-conf-file/)
 
 Usage: `sudo openvpn some-file.ovpn`
 
