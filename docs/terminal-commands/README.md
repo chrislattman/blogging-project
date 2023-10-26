@@ -1844,8 +1844,9 @@ Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
 - Related commands include `nslookup` and `dig`
 - On Unix OSes:
     - `/etc/resolv.conf` specifies DNS servers to use, which override any DNS servers inherited from the network
+        - Windows has a PowerShell command called [`Set-DnsClientServerAddress`](https://www.thewindowsclub.com/change-dns-server-using-command-prompt-and-powershell) to override the inherited DNS server
     - `/etc/hosts` specifies domain name to IP address mappings, which bypass DNS resolution
-        - Windows has an equivalent file in `C:\Windows\System32\drivers\etc`
+        - Windows has an equivalent file at `C:\Windows\System32\drivers\etc\hosts`
 
 Examples:
 
