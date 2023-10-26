@@ -2035,7 +2035,7 @@ bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 Endpoint that connects to a VPN service. This command only works for Linux.
 
 - You might need to install `openvpn` with a [package manager](#package-managers)
-- It is NOT a VPN service, it is used to _connect_ to VPN services like NordVPN, ExpressVPN, ProtonVPN, etc.
+- OpenVPN is NOT a VPN service, it is a _protocol_ used to connect to VPN services like NordVPN, ExpressVPN, ProtonVPN, etc.
 - You need to already have an account with a VPN service (and you will probably need to pay for it)
 - Refer to your VPN service for specific instructions on using OpenVPN
     - There may be some steps that have to be done prior to running `openvpn`
@@ -2043,6 +2043,7 @@ Endpoint that connects to a VPN service. This command only works for Linux.
         - Make sure to specify Linux (if applicable) and use UDP (it is faster than TCP)
         - However, use TCP if there are connection issues with UDP (unlikely)
     - You may also be prompted for an OpenVPN username/password pair that is provided by your VPN service
+- WireGuard is an alternative VPN protocol that promises faster speeds
 
 Usage: `sudo openvpn some-file.ovpn`
 
@@ -2561,6 +2562,9 @@ You can run commands one after the other with one terminal line using the `&&` s
 - `sudo apt update && sudo apt upgrade -y` updates and upgrades packages on a Debian-based OS in a single expression
 - `sudo dnf update && sudo dnf upgrade -y` does the same thing on a Red Hat-based OS
 - `brew update && brew upgrade` does the same thing on macOS
+- `<command1> && <command2>` executes `<command2>` only if `<command1>` is successful
+- `<command1> || <command2>` is similar, except `<command2>` will execute only if `<command1>` is _unsuccessful_
+- `<command1>; <command2>` is similar, except `<command2>` will execute regardless of `<command1>`'s success
 
 ### Split command over several lines
 
