@@ -14,7 +14,7 @@ Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals inclu
 - Linux uses the terms "folder" and "directory" interchangeably
 - Windows is NOT a Unix-like operating system
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
-- Git Bash allows you to run most of these commands (except `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip`, or any package manager)
+- Git Bash allows you to run most of these commands (except `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip` (use [`powershell Compress-Archive`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/compress-archive?view=powershell-7.3) instead), or any package manager)
 - Note: if you are using Windows PowerShell, clicking on a PowerShell window will cause the shell to enter "Select mode"
     - Press the escape key or right-click on the window to exit this mode
 
@@ -1845,6 +1845,7 @@ Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
 - On Unix OSes:
     - `/etc/resolv.conf` specifies DNS servers to use, which override any DNS servers inherited from the network
     - `/etc/hosts` specifies domain name to IP address mappings, which bypass DNS resolution
+        - Windows has an equivalent file in `C:\Windows\System32\drivers\etc`
 
 Examples:
 
@@ -3252,34 +3253,45 @@ On macOS, append `set block-policy drop` to `/etc/pf.conf` then run `sudo pfctl 
 - Add any rules after this line and a newline
 - To create or delete a rule, modify `/etc/pf.conf`, then run `sudo pfctl -F rules; sudo pfctl -f /etc/pf.conf`
 
+On Windows, the following commands must be run in an Administrator PowerShell terminal.
+
 This section describes how to manage rules on Linux, macOS, and Windows.
 
 #### View all firewall rules
 
 - Linux: `sudo iptables -n -L --line-numbers`
 - macOS: `sudo pfctl -s rules`
-- Windows: ``
+- Windows:
+    ```
+    Get-NetFirewallRule [flags] | `
+        Format-Table -Property DisplayName,Direction,Action, `
+        @{Name=’Protocol’;Expression={($PSItem | Get-NetFirewallPortFilter).Protocol}}, `
+        @{Name=’LocalAddress’;Expression={($PSItem | Get-NetFirewallAddressFilter).LocalAddress}}, `
+        @{Name=’RemoteAddress’;Expression={($PSItem | Get-NetFirewallAddressFilter).RemoteAddress}}, `
+        @{Name=’LocalPort’;Expression={($PSItem | Get-NetFirewallPortFilter).LocalPort}}, `
+        @{Name=’RemotePort’;Expression={($PSItem | Get-NetFirewallPortFilter).RemotePort}}
+    ```
+    - You can use `-DisplayName <rule-name>`, `-Action Block`, etc. as flags to filter the results
 
 #### Delete a rule
 
 - Linux: `sudo iptables -D INPUT/OUTPUT <rule-num>`
-    - To delete all rules for a particular direction, run `sudo iptables -F INPUT/OUTPUT`
 - macOS: delete the rule from `/etc/pf.conf`
-- Windows: ``
+- Windows: `Remove-NetFirewallRule -DisplayName <rule-name>`
 
 #### Drop all incoming IP packets from an IP address
 
 - Linux: `sudo iptables -A INPUT -s <ip-address> -j DROP`
     - To specify a website instead of an IP address, replace `-s <ip-address>` with `-m string --string <url> --algo kmp`
 - macOS: append `block in from ip-address-or-url to any` to `/etc/pf.conf`
-- Windows: ``
+- Windows: `New-NetFirewallRule -DisplayName <rule-name> -Direction Inbound -Action Block -RemoteAddress <ip-address>`
 
 #### Drop all outgoing IP packets to an IP address
 
 - Linux: `sudo iptables -A OUTPUT -d <ip-address> -j DROP`
     - To specify a website instead of an IP address, replace `-d <ip-address>` with `-m string --string <url> --algo kmp`
 - macOS: append `block out from any to ip-address-or-url` to `/etc/pf.conf`
-- Windows: ``
+- Windows: `New-NetFirewallRule -DisplayName <rule-name> -Direction Outbound -Action Block -RemoteAddress <ip-address>`
 
 #### Drop all incoming TCP segments from an IP address and port(s)
 
@@ -3288,7 +3300,8 @@ This section describes how to manage rules on Linux, macOS, and Windows.
     - To specify a website instead of an IP address, replace `-s <ip-address>` with `-m string --string <url> --algo kmp`
 - macOS: append `block in proto tcp from ip-address-or-url port port-number to any` to `/etc/pf.conf`
     - To specify multiple ports: `block in proto tcp from ip-address-or-url port { port1, port2, ... } to any`
-- Windows: ``
+- Windows: `New-NetFirewallRule -DisplayName <rule-name> -Direction Inbound -Action Block -RemoteAddress <ip-address> -Protocol TCP -RemotePort <port>`
+    - To specify multiple ports, replace `<port>` with `@("port1", "port2", ...)`
 
 #### Drop all outgoing TCP segments to an IP address and port(s)
 
@@ -3297,4 +3310,5 @@ This section describes how to manage rules on Linux, macOS, and Windows.
     - To specify a website instead of an IP address, replace `-d <ip-address>` with `-m string --string <url> --algo kmp`
 - macOS: append `block out proto tcp from any to ip-address-or-url port port-number` to `/etc/pf.conf`
     - To specify multiple ports: `block out proto tcp from any to ip-address-or-url port { port1, port2, ... }`
-- Windows: ``
+- Windows: `New-NetFirewallRule -DisplayName <rule-name> -Direction Outbound -Action Block -RemoteAddress <ip-address> -Protocol TCP -RemotePort <port>`
+    - To specify multiple ports, replace `<port>` with `@("port1", "port2", ...)`
