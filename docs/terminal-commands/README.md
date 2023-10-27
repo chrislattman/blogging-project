@@ -3254,6 +3254,8 @@ On Linux, changes to `iptables` don't persist after a reboot
 - Run `sudo netfilter-persistent save` after adding or removing a rule
 - More details about `iptables` can be found [here](https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands)
 
+> Note: there is a newer method to configure firewall rules on Linux called [`nftables`](https://en.wikipedia.org/wiki/Nftables).
+
 On macOS, append `set block-policy drop` to `/etc/pf.conf` then run `sudo pfctl -f /etc/pf.conf` to persist your changes.
 
 - Add any rules after this line and a newline
