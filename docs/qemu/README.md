@@ -154,7 +154,7 @@ Unfortunately, shared folders are not easy to configure with QEMU.
 
 However, you can use [`scp`](../ssh#scp) or [`sftp`](../ssh#sftp) from your host OS to copy files and directories to and from your VM. Note: some VMs will require you to manually set up `openssh-server`.
 
-**Pro tip:** if you just want to share a folder's contents from your host OS to your VM, run [`ifconfig`](../terminal-commands#ifconfig) (or `ipconfig` on Windows) to see your computer's local IP address. Take note of this IP address.
+**Pro tip:** if you just want to share a folder's contents from your host OS to your VM, run [`ifconfig`](../terminal-commands#ifconfig) (or `ipconfig` on Windows) in your host OS to see your computer's local IP address. Take note of this IP address.
 
 Then run the following commands in your host OS:
 
