@@ -189,6 +189,9 @@ python3 -m pyftpdlib -w
 
 - Like `http.server`, you can bind `pyftpdlib` to localhost only and/or specify a port number: `python3 -m pyftpdlib -w -i 127.0.0.1 -p 1234`
     - Again, you will need to have [port forwarding](#port-forwarding) enabled for the VM to access the server
+- Advanced:
+    - By default, this server runs in passive mode
+    - If the server requires no password to login, it accepts the username "anonymous" with an empty password
 
 Then you can use [`curl`](../terminal-commands#curl) in a terminal on the VM to view the directory contents, as well as download _and_ upload files:
 
