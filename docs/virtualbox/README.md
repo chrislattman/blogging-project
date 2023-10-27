@@ -46,4 +46,4 @@ This runs your VM in the background without a GUI. It treats your VM much like a
 
 Regardless of whether you start your VM in "Normal Start" mode or "Headless Start" mode, you can SSH into your VM using the steps from [this](../ssh#ssh-configurations) section.
 
-You can shut down your VM from the command line with this command: `sudo shutdown now`
+You can shut down your VM from the command line with this command: `sudo poweroff`

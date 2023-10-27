@@ -55,7 +55,7 @@ You should then see a message like this: `Welcome to GitLab, @username!`
 - `ssh -p <port-number> user@hostname` works the same way but specifies a port to be used
     - By default, SSH uses port 22
 - To log out of a remote server, run `exit`
-- To shut down a remote server, run `sudo shutdown now`
+- To shut down a remote server, run `sudo poweroff`
     - For a Windows server, the equivalent PowerShell command is `Stop-Computer -Force`
 - To restart a remote server, run `sudo reboot`
     - For a Windows server, the equivalent PowerShell command is `Restart-Computer -Force`

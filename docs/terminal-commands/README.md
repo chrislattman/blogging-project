@@ -12,9 +12,13 @@
 Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals include `Terminal.app` (Terminal) on macOS and Terminal on Ubuntu or any other Linux distribution.
 
 - Linux uses the terms "folder" and "directory" interchangeably
-- While macOS (and iOS, iPadOS, watchOS, and tvOS) are Unix-like, they derive from [FreeBSD](https://en.wikipedia.org/wiki/FreeBSD), an alternative to Linux that is also free and open source
-- Android (and Wear OS, Android TV) are based off of Linux, which itself is Unix-like
+- While macOS (and iOS, iPadOS, watchOS, and tvOS) are Unix-like, they all derive from [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system))
+    - Much of Darwin's code comes from [FreeBSD](https://en.wikipedia.org/wiki/FreeBSD), an alternative to Linux that is also free and open source
+    - Darwin uses the [XNU](https://en.wikipedia.org/wiki/XNU) kernel
+- Android (and Wear OS, Android TV) are based off of Linux, which itself is a kernel
+    - All Linux distributions (Ubuntu, Debian, etc.) are Unix-like
 - Windows is NOT a Unix-like operating system
+    - Windows uses the [NT](https://en.wikipedia.org/wiki/Architecture_of_Windows_NT) kernel
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
 - Git Bash allows you to run most of these commands (except `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip` (use [`powershell Compress-Archive`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/compress-archive?view=powershell-7.3) instead), or any package manager)
 - Note: if you are using Windows PowerShell, clicking on a PowerShell window will cause the shell to enter "Select mode"
@@ -2488,6 +2492,18 @@ The are package managers available for other operating systems too:
     - `brew autoremove`
     - `brew list`
 - [MacPorts](https://www.macports.org/) is an older but less popular package manager for macOS
+    - Its name originated from FreeBSD Ports
+- [`pkg`] is a package manager for FreeBSD, and has similar syntax to the other package managers:
+    - You have to be logged in as the `root` user to run most of these commands
+        - `sudo` doesn't come preinstalled with FreeBSD, [here](https://www.cyberciti.biz/faq/freebsd-install-sudo-command/) are instructions on how to install it
+    - `pkg update`
+    - `pkg upgrade`
+    - `pkg install <package>`
+        - Example: `pkg install wget`
+    - `pkg delete <package>`
+    - `pkg clean`
+    - `pkg autoremove`
+    - `pkg info`
 
 ### More commands!
 
@@ -2505,6 +2521,7 @@ I lied. There are actually a few more useful terminal commands, but they are mor
 It is one of the oldest (and most despised) editors in existence. However, it is useful when you need to make a quick change to a file from within a terminal.
 
 - You might need to install `vim` with a [package manager](#package-managers)
+- Alternative terminal editors include `emacs` and `nano`
 - Make sure to place [this file](../macos-dot-files/.exrc) in your home directory
 - `vim <file>` opens an existing file or creates a new file, then opens up the editor
 - Vim opens up in Command Mode, which accepts values such as `:w` to save a file, `:q` to exit a blank file, and more
@@ -2798,6 +2815,7 @@ ltrace -S <command> [command-flags]
 ```
 
 - A similar command to do this is called `strace`
+    - macOS has a similar tool to `strace` called `dtruss`, read more [here](https://poweruser.blog/using-dtrace-with-sip-enabled-3826a352e64b)
 - You will need to install `ltrace` or `strace` with a [package manager](#package-managers)
 
 ### `objdump`
@@ -2808,6 +2826,7 @@ Warning: this section is extremely advanced.
 
 Executables and shared/static libraries on Linux ([ELF](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format)), macOS ([Mach-O](https://en.wikipedia.org/wiki/Mach-O)), and Windows ([PE](https://en.wikipedia.org/wiki/Portable_Executable)) are first compiled from source code in a high-level language like C into a human-readable assembly language, such as [x86-64](https://en.wikipedia.org/wiki/X86-64) (also known as AMD64), used by both Intel and AMD processors, or [AArch64](https://en.wikipedia.org/wiki/AArch64) (also known as ARM64).
 
+- FreeBSD also uses the ELF format
 - Assembly languages are also known as [instruction sets](https://en.wikipedia.org/wiki/Instruction_set_architecture)
 
 Afterwards, the assembly code is assembled into object code (pure binary, therefore unreadable).
