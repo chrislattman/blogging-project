@@ -12,6 +12,8 @@
 Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals include `Terminal.app` (Terminal) on macOS and Terminal on Ubuntu or any other Linux distribution.
 
 - Linux uses the terms "folder" and "directory" interchangeably
+- While macOS (and iOS, iPadOS, watchOS, and tvOS) are Unix-like, they derive from [FreeBSD](https://en.wikipedia.org/wiki/FreeBSD), an alternative to Linux that is also free and open source
+- Android (and Wear OS, Android TV) are based off of Linux, which itself is Unix-like
 - Windows is NOT a Unix-like operating system
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
 - Git Bash allows you to run most of these commands (except `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip` (use [`powershell Compress-Archive`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/compress-archive?view=powershell-7.3) instead), or any package manager)
