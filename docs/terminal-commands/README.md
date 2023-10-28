@@ -2493,7 +2493,7 @@ The are package managers available for other operating systems too:
     - `brew list`
 - [MacPorts](https://www.macports.org/) is an older but less popular package manager for macOS
     - Its name originated from FreeBSD Ports
-- [`pkg`] is a package manager for FreeBSD, and has similar syntax to the other package managers:
+- `pkg` is a package manager for FreeBSD, and has similar syntax to the other package managers:
     - You have to be logged in as the `root` user to run most of these commands
         - `sudo` doesn't come preinstalled with FreeBSD, [here](https://www.cyberciti.biz/faq/freebsd-install-sudo-command/) are instructions on how to install it
     - `pkg update`
@@ -2802,7 +2802,7 @@ Adding the certificate to the operating system's trust/certificate store depends
 
 ### Tracing library and system calls on a Linux application
 
-On Linux, you can see which dynamic library (e.g. libc) functions are invoked from a running application. To do so, use `ltrace`:
+On Linux (and FreeBSD), you can see which dynamic library (e.g. libc) functions are invoked from a running application. To do so, use `ltrace`:
 
 ```
 ltrace <command> [command-flags]
@@ -2814,7 +2814,7 @@ You can also include system calls in the output:
 ltrace -S <command> [command-flags]
 ```
 
-- A similar command to do this is called `strace`
+- A similar command to do this is called `strace`, which only traces system calls
     - macOS has a similar tool to `strace` called `dtruss`, read more [here](https://poweruser.blog/using-dtrace-with-sip-enabled-3826a352e64b)
 - You will need to install `ltrace` or `strace` with a [package manager](#package-managers)
 
