@@ -197,7 +197,7 @@ Then you can use [`curl`](../terminal-commands#curl) in a terminal on the VM to 
 
 - `curl ftp://<local-ip-address>:2121` to view files
 - `curl ftp://<local-ip-address>:2121/<file> -o <file>` to download a file
-    - If you want to download a folder, use [`wget`](../terminal-commands#wget): `wget -r -nd ftp://<local-ip-address>:2121/<folder>`
+    - If you want to download a folder, use [`wget`](../terminal-commands#wget): `wget -r -nH ftp://<local-ip-address>:2121/<folder>`
 - `curl ftp://<local-ip-address>:2121 -T <file>` to upload a file
 
 If you don't want to use the terminal, you can use the popular FTP GUI client [FileZilla](https://filezilla-project.org/download.php?type=client), or you can use the file manager that comes with your OS (e.g. Files, File Explorer, Finder).

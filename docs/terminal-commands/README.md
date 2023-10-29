@@ -2420,6 +2420,7 @@ tail -f tester.py
 `Ctrl + R` searches through your previous commands in your [`history`](#history) file (`~/.bash_history`).
 
 - Type in the phrase to search for, then enter `Ctrl + R` repeatedly to cycle through the results
+- Once you find the command, press enter to run it again or the escape key to modify the command before running it
 
 ### Run in background
 
