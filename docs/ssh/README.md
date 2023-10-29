@@ -140,6 +140,9 @@ ssh -TR 127.0.0.1:<remote-local-port>:127.0.0.1:<your-local-port> <user>@<remote
 Every single window you see on your computer is served by a windowing system that runs as a part of your operating system. Without it, you would not have a desktop.
 
 - The default windowing system for many Linux distributions is [X11](https://en.wikipedia.org/wiki/X_Window_System), although [Wayland](https://en.wikipedia.org/wiki/Wayland_(protocol)) is becoming more popular (and used by default on Ubuntu Desktop)
+- This is not to be confused with a desktop environment, which runs on top of a windowing system and serves as a "meta-application" that allows you to open other applications graphically
+    - This is what you see when you log in to a computer
+    - Popular Linux desktop environments include GNOME, KDE Plasma, and Xfce
 
 X11 and Wayland both have the ability to serve windows to a remote user. This is essentially a remote desktop solution comparable to TeamViewer, except it's designed to serve individual applications.
 
