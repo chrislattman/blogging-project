@@ -2313,6 +2313,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [`Ctrl + D` - end of file](#ctrl-d)
 - [`Ctrl + C` - kills a command](#ctrl-c)
 - [`Ctrl + Z` - stops a command](#ctrl-z)
+- [`Ctrl + R` - searches through previously ran commands](#ctrl-r)
 - [Run a command in the background](#run-in-background)
 - [Package managers](#package-managers)
 - [More commands](#more-commands)
@@ -2413,6 +2414,12 @@ tail -f tester.py
 
 - The `^Z` signifies that I entered Ctrl + Z to the terminal, stopping the command without killing it
 - Here, the job ID associated with the command `tail -f tester.py` is 2
+
+### `Ctrl R`
+
+`Ctrl + R` searches through your previous commands in your [`history`](#history) file (`~/.bash_history`).
+
+- Type in the phrase to search for, then enter `Ctrl + R` repeatedly to cycle through the results
 
 ### Run in background
 
