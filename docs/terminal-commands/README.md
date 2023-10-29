@@ -46,7 +46,7 @@ Apple will tell you to use zsh but just ignore it for now.
 
 Download the 4 files inside of [`macos-dot-files`](../macos-dot-files). You can do this by clicking on a file and then downloading it to your computer by clicking the download button. For example:
 
-![download-file](../img/download.png)
+![](../img/download.png)
 
 Copy these files to your home directory. To make this easy, open up Terminal and run
 ```

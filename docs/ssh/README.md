@@ -13,6 +13,7 @@ To access a remote server using any of the commands on this page, `sshd` (the SS
 - [Generating a SSH key](#generating-a-ssh-key)
 - [Basic usage](#basic-usage)
 - [Tunneling](#tunneling)
+- [X11 Forwarding](#x11-forwarding)
 - [SSH configurations](#ssh-configurations)
 - [`scp` - copies a file or directory to or from a remote server](#scp)
 - [`sftp` - interactive version of `scp`](#sftp)
@@ -133,6 +134,38 @@ ssh -TR 127.0.0.1:<remote-local-port>:127.0.0.1:<your-local-port> <user>@<remote
 
 - This also connects to the remote server via SSH on port 22, but has _their_ local port listen to _your_ local port
 - You can replace `<user>@<remote-host>` with an SSH [configuration](#ssh-configurations)
+
+## X11 Forwarding
+
+Every single window you see on your computer is served by a windowing system that runs as a part of your operating system. Without it, you would not have a desktop.
+
+- The default windowing system for many Linux distributions is [X11](https://en.wikipedia.org/wiki/X_Window_System), although [Wayland](https://en.wikipedia.org/wiki/Wayland_(protocol)) is becoming more popular (and used by default on Ubuntu Desktop)
+
+X11 and Wayland both have the ability to serve windows to a remote user. This is essentially a remote desktop solution comparable to TeamViewer, except it's designed to serve individual applications.
+
+To run a GUI application through SSH, run
+
+```
+ssh -X <user>@<remote-host> <path-to-application>
+```
+
+- This requires windowing support on both the server and the client (your computer)
+    - For Linux, the X.Org Server should already be installed
+    - For macOS, you will need to install [XQuartz](https://www.xquartz.org/)
+    - For Windows, you can install [Xming](https://sourceforge.net/projects/xming/)
+
+Example: running Visual Studio Code from SSH
+
+```
+ssh -X ubuntu-desktop code
+```
+
+- `ubuntu-desktop` is a [SSH configuration](#ssh-configurations) for my Ubuntu Desktop VM
+- `code` is an [alias](../terminal-commands#aliasing) for Visual Studio Code
+
+Here's what it looks like:
+
+![](../img/x11.png)
 
 ## SSH configurations
 

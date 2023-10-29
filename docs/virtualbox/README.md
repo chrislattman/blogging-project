@@ -36,11 +36,11 @@ There are also several videos on YouTube describing this installation process.
 
 Once you've installed the virtual machine, you can use it like a regular operating system:
 
-![Ubuntu screen](../img/ubuntu.png)
+![](../img/ubuntu.png)
 
 VirtualBox allows you to start up a VM in "Headless Start" mode:
 
-![Headless Start](../img/headless-start.png)
+![](../img/headless-start.png)
 
 This runs your VM in the background without a GUI. It treats your VM much like a detached Docker container, although by no means can Docker access it.
 

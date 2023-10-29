@@ -43,8 +43,7 @@ You will then need to import this project into Eclipse. Open Eclipse and follow 
 If you would like to access the terminal from within Eclipse:
 
 - Go to Window -> Show View -> Terminal
-- Click on the small blue computer monitor icon (hard to see):
-    ![Terminal icon](img/icon.png)
+- Click on the small blue computer monitor icon (hard to see): ![](img/icon.png)
 - Click OK
 - The Eclipse terminal for macOS is very limited in functionality so it is still recommended to use Terminal
 
