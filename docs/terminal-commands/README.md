@@ -2332,6 +2332,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Managing services](#managing-services)
 - [Job scheduling](#job-scheduling)
 - [Network traffic filtering](#network-traffic-filtering)
+- [Identifying devices on your local network](#identifying-devices-on-your-local-network)
 
 ### `Ctrl D`
 
@@ -3341,3 +3342,36 @@ This section describes how to manage rules on Linux, macOS, and Windows.
     - To specify multiple ports: `block out proto tcp from any to ip-address-or-url port { port1, port2, ... }`
 - Windows: `New-NetFirewallRule -DisplayName <rule-name> -Direction Outbound -Action Block -RemoteAddress <ip-address> -Protocol TCP -RemotePort <port>`
     - To specify multiple ports, replace `<port>` with `@("port1", "port2", ...)`
+
+### Identifying devices on your local network
+
+You can see which devices are connected to your local area network (LAN) with a few commands. They differ in their approach, but the end result is the same.
+
+To ping all devices in your LAN (this uses the [ICMP](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol) protocol), use `nmap` instead of `ping`:
+
+```
+nmap -sn 10.0.0.*
+```
+
+- This assumes your router has address `10.0.0.1` and your subnet mask (netmask) is `255.255.255.0`
+- Alternatively, you can use CIDR notation: `10.0.0.0/24`
+- Not all devices respond to ping requests!
+
+[ARP](https://en.wikipedia.org/wiki/Address_Resolution_Protocol) is the protocol used to obtain the MAC address of a device from its IP address.
+
+- This is needed in LANs, since your computer needs to know the destination MAC address of the device to send its Ethernet frames to (the router), which is almost always different from the destination IP address of the server to send its IP packets to (e.g. a web server like google.com)
+
+To send ARP requests to all of the devices in your LAN, run:
+
+```
+arp-scan -I <interface> -l
+```
+
+- `arp-scan` will need to be installed with a [package manager](#package-managers)
+- `<interface>` is the name of the Wi-Fi or Ethernet interface from [`ifconfig`](#ifconfig)
+
+You can see cached ARP connections by running
+
+```
+arp -a
+```
