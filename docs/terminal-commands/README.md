@@ -2327,6 +2327,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [`xclip` - clipboard](#xclip)
 - [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
+- [Editing a binary file](#editing-a-binary-file)
 - [Adding a certificate to the trust store](#adding-a-certificate-to-the-trust-store)
 - [Tracing library and system calls on Linux](#tracing-library-and-system-calls-on-a-linux-application)
 - [`objdump` - displays info from object files](#objdump)
@@ -2779,6 +2780,24 @@ Example: convert a base64 value to hexadecimal:
 ```
 echo -n "bGlnaHQgdw==" | base64 -d | xxd -p
 ```
+
+### Editing a binary file
+
+You can edit a binary file with `vim` and `xxd`.
+
+First, generate a hex dump of the binary:
+
+```
+xxd <file> > file.bin
+```
+
+Then edit it with [`vim`](#vim) in binary mode:
+
+```
+vim -b file.bin
+```
+
+Edit the hexadecimal values to your liking. When you're done, press the escape key, then type `:%!xxd -r` and press enter, then type `:wq` and press enter once more to exit `vim`.
 
 ### Adding a certificate to the trust store
 
