@@ -59,7 +59,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
 - `CMD` a single instruction that provides a default command to be executed in the container
     - e.g. `CMD ["/bin/bash"]` or `CMD ["python3", "./setup.py"]` for multiple arguments
 
-For an example of a valid Dockerfile, see [here](https://gist.github.com/chrislattman/a787857d4bbd3192ebe792c463379084).
+[This](https://gist.github.com/chrislattman/a787857d4bbd3192ebe792c463379084) is an example of a valid Dockerfile.
 
 ## Creating images, containers, volumes, and networks
 

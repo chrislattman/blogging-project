@@ -2559,7 +2559,7 @@ Command aliasing is a common practice used to provide a shortcut alias to a long
 
 There are two ways to create an alias:
 
-- Use [`vim`](#vim) to edit `~/.bashrc` and manually type in an alias (see [here](../macos-dot-files/.bashrc) for examples)
+- Use [`vim`](#vim) to edit `~/.bashrc` and manually type in an alias ([here](../macos-dot-files/.bashrc) are some examples)
 - Append an alias to `~/.bashrc` in a command
     - Example: `echo "alias shortcut='ls -l /home/user/me'" >> ~/.bashrc`
     - This appends the alias `shortcut` to the end of the `.bashrc` file in your home directory
@@ -2744,7 +2744,7 @@ To output a list of distinct access points, run
 sudo iwlist <interface> scan | grep "ESSID" | sort -u
 ```
 
-where `<interface>` is the name of the Wi-Fi interface from [ifconfig](#ifconfig)
+where `<interface>` is the name of the Wi-Fi interface from [`ifconfig`](#ifconfig)
 
 - It is usually either `wlan0` or `wlp4so`, but run `ifconfig` to be sure
 - This is another good command to [alias](#aliasing)

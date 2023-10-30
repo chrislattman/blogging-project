@@ -127,7 +127,7 @@ gpg-connect-agent reloadagent /bye
 
 If you see the message `OK`, then your passphrase has been cached. Quit your current terminal and open a new terminal, and your changes will take effect.
 
-Note: you can do more with a GPG key than just signing Git commits. See [here](../terminal-commands#gpg) for more details.
+Note: you can do more with a GPG key than just signing Git commits. Read more [here](../terminal-commands#gpg).
 
 ## Initializing a Git repository
 
@@ -342,7 +342,7 @@ git rebase --continue
 ```
 
 - You should see a message that says something like `Applying: squash commits`
-- If you see a [vim](../terminal-commands#vim) screen pop up, type `:q!` and press enter/return
+- If you see a [`vim`](../terminal-commands#vim) screen pop up, type `:q!` and press enter/return
     - Then you should see a message that ends like `Successfully rebased and updated refs/heads/<branch>.`
 
 Finally, force push the changes:
