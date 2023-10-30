@@ -156,6 +156,10 @@ ssh -X <user>@<remote-host> <path-to-application>
     - For Linux, the X.Org Server should already be installed
     - For macOS, you will need to install [XQuartz](https://www.xquartz.org/)
     - For Windows, you can install [Xming](https://sourceforge.net/projects/xming/)
+    - You can also run `ssh -X <user>@<remote-host>` and open any GUI applications from the terminal
+        - Example X window applications include `xcalc`, `xclock`, and `xterm`
+        - Other applications (if using the GNOME desktop environment) are part of the `gnome-*` family
+        - Additional commands that may be available include `gedit` and `firefox`
 
 Example: running Visual Studio Code from SSH
 
