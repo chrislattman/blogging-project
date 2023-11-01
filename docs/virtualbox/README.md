@@ -55,8 +55,8 @@ Once you create a VM, you have the choice to configure its network settings (cli
 - NAT: the default option, which is a basic [Network Address Translation](https://en.wikipedia.org/wiki/Network_address_translation) configuration that allows your VM to connect to the Internet
     - By default, your host OS cannot access the VM unless a local port forwarding rule is set up (click on the Advanced button -> Port Forwarding)
     - However, your VM can access the host OS's `localhost` from the hostname `10.0.2.2` (or `10.0.2.3`)
-    - Other hypervisors (Virtual Machine Manager and VMware Workstation/Fusion Player) may have different default NAT settings, and define the network on some other `x.y.z.0/24` range
-        - The host's localhost is usually accessible from `x.y.z.1` in those scenarios (VMware Workstation Player doesn't seem to work)
+        - Other hypervisors (Virtual Machine Manager, UTM, and VMware Workstation/Fusion Player) have different default NAT settings, and define the network on some other `x.y.z.0/24` range
+        - The host's `localhost` is usually inaccessible in those scenarios
 - Internal Network: this is similar to an internal Docker network, where VirtualBox VMs can connect to it and address one another but nothing outside can connect to it, and it doesn't allow VMs to access the Internet
 - Host-Only Network: this extends upon an Internal Network by allowing the host OS to access VMs on it
 - NAT Network: this sets up a virtual router that VMs can connect to, much like devices connecting to a home Wi-Fi router
