@@ -3400,5 +3400,5 @@ arp-scan -I <interface> -l
 You can see cached ARP connections by running
 
 ```
-arp -a
+arp -an
 ```
