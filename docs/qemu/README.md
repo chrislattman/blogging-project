@@ -107,7 +107,7 @@ qemu-system-x86_64 -enable-kvm \
     -netdev user,id=net0,hostfwd=tcp:127.0.0.1:3022-:22,hostfwd=tcp:127.0.0.1:2159-:2159
     ```
 - QEMU VMs use NAT by default, hence the need for port forwarding
-    - It is possible to do more elaborate networking, [these instructions](https://wiki.qemu.org/Documentation/Networking/NAT) show how to set up a NAT network
+    - It is possible to do more elaborate networking, instructions are available online on how to set up a [NAT network](https://wiki.qemu.org/Documentation/Networking/NAT) and a [host-only network](https://kevrocks67.github.io/blog/qemu-host-only-networking.html)
 
 ### Creating a snapshot
 
