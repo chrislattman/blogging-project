@@ -47,3 +47,17 @@ This runs your VM in the background without a GUI. It treats your VM much like a
 Regardless of whether you start your VM in "Normal Start" mode or "Headless Start" mode, you can SSH into your VM using the steps from [this](../ssh#ssh-configurations) section.
 
 You can shut down your VM from the command line with this command: `sudo poweroff`
+
+# VirtualBox Networking
+
+Once you create a VM, you have the choice to configure its network settings (click on your virtual machine -> Settings -> Network). You have a few choices for networking modes. The most notable are:
+
+- NAT: the default option, which is a basic [Network Address Translation](https://en.wikipedia.org/wiki/Network_address_translation) configuration that allows your VM to connect to the Internet
+    - By default, your host OS cannot access the VM unless a NAT port forwarding rule is set up (click on the Advanced button -> Port Forwarding)
+    - However, your VM can access the host OS's `localhost` from the hostname `10.0.2.2`
+- Internal Network: this is similar to an internal Docker network, where VirtualBox VMs can connect to it and address one another but nothing outside can connect to it, and it doesn't allow VMs to access the Internet
+- Host-Only Network: this extends upon an Internal Network by allowing the host OS to access VMs on it
+- NAT Network: this sets up a virtual router that VMs can connect to, much like home devices connecting to a Wi-Fi router
+    - Like routers, NAT Networks include a DHCP server and support DNAT port forwarding, which allows computers from the outside world (in this case the host OS) to connect to a particular device (in this case a VM)
+        - Unlike NAT port forwarding, DNAT port forwarding can be configured even after the VM is turned on
+        - If a DNAT port forwarding rule's host IP address is the same as the IP address for your Wi-Fi or Ethernet interface (see [`ifconfig`](../terminal-commands#ifconfig)), then you will be able to access your VM from another device on your LAN!

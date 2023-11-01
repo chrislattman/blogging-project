@@ -85,6 +85,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
     - Optional: use `--cpus <num-cpus>` to specify how many CPUs the container can use, e.g. `--cpus 4`
     - Optional: use `-m <memory>` to specify how much memory the container can use, e.g. `-m 4GB`
     - Optional: use `--network <network>` to connect the container to a specified Docker network
+    - Optional: use `--add-host host.docker.internal:host-gateway` to allow the container to access the host OS's `localhost` from the hostname `host.docker.internal`
 
 - `docker run -it [--name container-name] -v volume-name:/data image-name [/bin/bash]`
     - Starts up a container named `container-name` using the image `image-name` running a bash shell
@@ -100,8 +101,9 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
 - `docker volume create volume-name`
     - Creates a new volume named `volume-name`
 
-- `docker network create network-name`
+- `docker network create [--internal] network-name`
     - Creates a new Docker network named `network-name`
+    - Add `--internal` to create an internal Docker network which cannot access the Internet
 
 - `docker commit container-name snapshot-image-name`
     - Creates a snapshot of container `container-name` and saves it as the image `snapshot-image-name`
