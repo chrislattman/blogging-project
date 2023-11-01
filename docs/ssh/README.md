@@ -251,6 +251,15 @@ It is equivalent to running `ssh -p 3022 seed@127.0.0.1`
 
 Read more about VirtualBox [here](../virtualbox).
 
+You may want to SSH into some server in your home network (LAN).
+
+- Unfortunately, most residential ISPs don't allow their customers to have static IP addresses for their homes (not even for an extra fee)
+- These are also known as WAN (wide area network) addresses
+
+Dynamic DNS (DDNS) to the rescue! Some routers support DDNS, which allows you to associate a domain name with your home's IP address _and_ updates the DNS record if your ISP changes your WAN address.
+
+- After you set up a port forwarding rule for that server on your router, you can create a SSH configuration that allows you to connect to that server from anywhere in the world!
+
 ## `scp`
 
 Stands for "secure copy." It is similar to [`cp`](../terminal-commands#cp), but allows you to copy files and directories over the Internet between your computer and a remote server (or directly to a virtual machine on your computer).
