@@ -85,6 +85,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
     - Optional: use `--cpus <num-cpus>` to specify how many CPUs the container can use, e.g. `--cpus 4`
     - Optional: use `-m <memory>` to specify how much memory the container can use, e.g. `-m 4GB`
     - Optional: use `--network <network>` to connect the container to a specified Docker network
+        - Docker containers connected to a Docker network can communicate to each other by using a container's name as the hostname
     - Optional: use `--add-host host.docker.internal:host-gateway` to allow the container to access the host OS's `localhost` from the hostname `host.docker.internal`
 
 - `docker run -it [--name container-name] -v volume-name:/data image-name [/bin/bash]`
