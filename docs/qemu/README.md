@@ -177,7 +177,7 @@ Now, in the VM, visit `http://<local-ip-address>:8000` from a web browser, using
     - This is because `http.server` by default is bound to 0.0.0.0, which means it is bound to ALL network interfaces
         - This includes your Wi-Fi or Ethernet interface, which means all devices connected to your LAN can access the server
     - You can restrict this by binding to localhost only: `python3 -m http.server --bind 127.0.0.1 [1234]`
-    - From the VM, you can access this server at `http://10.0.2.2[:1234]`
+    - You can access this HTTP server from the VM at `http://10.0.2.2[:1234]`
 - This also works the other way around (sharing a folder's contents from your VM to your host OS)
     - Make sure to access the folder by using the VM's local IP address in this scenario
     - The VM's folder will not be accessible to other devices on your LAN (only your host OS knows about your VM)
@@ -191,7 +191,7 @@ python3 -m pyftpdlib -w
 ```
 
 - Like `http.server`, you can bind `pyftpdlib` to localhost only and/or specify a port number: `python3 -m pyftpdlib -w -i 127.0.0.1 [-p 1234]`
-    - Like the HTTP server, you can access the FTP server in the VM at `http://10.0.2.2[:1234]`
+    - You can access this FTP server from the VM at `ftp://10.0.2.2[:1234]`
 - Advanced:
     - By default, this server runs in passive mode
     - If the server requires no password to login, it accepts the username "anonymous" with an empty password
