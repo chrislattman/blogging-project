@@ -81,6 +81,7 @@ qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda ~/qemu-vms/myvm.qcow2
 
 - Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
 - On macOS, the QEMU window is not resizable
+- Like VirtualBox VMs, a QEMU VM can access the host OS's `localhost` at `10.0.2.2`
 - Advanced: adding `-D <log-file>` will output logging information to the specified file
 - Optional: add `-name "My VM Name"` to give your VM a name (this will show up in the window title after "QEMU")
 
@@ -105,6 +106,8 @@ qemu-system-x86_64 -enable-kvm \
     ```
     -netdev user,id=net0,hostfwd=tcp:127.0.0.1:3022-:22,hostfwd=tcp:127.0.0.1:2159-:2159
     ```
+- QEMU VMs use NAT by default, hence the need for port forwarding
+    - It is possible to do more elaborate networking, [these instructions](https://wiki.qemu.org/Documentation/Networking/NAT) show how to set up a NAT network
 
 ### Creating a snapshot
 
