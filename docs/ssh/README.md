@@ -161,7 +161,9 @@ ssh -X <user>@<remote-host> <path-to-application>
 ```
 
 - This requires windowing support on both the server and the client (your computer)
-    - For Linux, the X.Org Server should already be installed
+    - For desktop Linux distributions, the X.Org Server should already be installed
+        - If using a server Linux distribution, install `xorg` with a [package manager](../terminal-commands#package-managers)
+            - Be warned, this takes up a lot of space (>200 MB)
     - For macOS, you will need to install [XQuartz](https://www.xquartz.org/)
     - For Windows, you can install [Xming](https://sourceforge.net/projects/xming/)
     - You can also run `ssh -X <user>@<remote-host>` and open any GUI applications from the terminal
