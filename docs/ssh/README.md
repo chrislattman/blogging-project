@@ -269,7 +269,7 @@ You may want to SSH into some server in your home network (LAN).
 Dynamic DNS (DDNS) to the rescue! Some routers support DDNS, which allows you to associate a domain name with your home's IP address _and_ updates the DNS record if your ISP changes your WAN address.
 
 - After you set up a port forwarding rule for that server on your router, you can create a SSH configuration that allows you to connect to that server from anywhere in the world!
-    - Make sure that server has a static local IP address
+    - Make sure that server has a static local IP address, otherwise the [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) server running on your router might assign a new local IP address to your server, breaking the port forwarding rule
 
 ## `scp`
 
