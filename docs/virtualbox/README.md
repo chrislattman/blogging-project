@@ -63,3 +63,7 @@ Once you create a VM, you have the choice to configure its network settings (cli
     - Like routers, NAT Networks include a DHCP server and support DNAT port forwarding, which allows computers from the outside world (in this case the host OS) to connect to a particular device (in this case a VM)
         - Unlike local port forwarding, DNAT port forwarding can be configured even after the VM is turned on (just like a router)
         - If a DNAT port forwarding rule's host IP address is the same as the IP address for your Wi-Fi or Ethernet interface (see [`ifconfig`](../terminal-commands#ifconfig)), then you will be able to access your VM from another device on your LAN!
+        - To set a static local IP address for a VM connected to a NAT Network, run
+            ```
+            VBoxManage dhcpserver modify --network=<nat-network-name> --mac-address=<mac-address> --fixed-address=<static-ip-address>
+            ```

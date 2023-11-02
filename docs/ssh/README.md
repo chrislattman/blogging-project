@@ -164,6 +164,7 @@ ssh -X <user>@<remote-host> <path-to-application>
     - For desktop Linux distributions, the X.Org Server should already be installed
         - If using a server Linux distribution, install `xorg` with a [package manager](../terminal-commands#package-managers)
             - Be warned, this takes up a lot of space (>200 MB)
+            - Some applications (such as Firefox) may still take a very long time to render, even on servers with adequate resources, so this may not be worth it
     - For macOS, you will need to install [XQuartz](https://www.xquartz.org/)
     - For Windows, you can install [Xming](https://sourceforge.net/projects/xming/)
     - You can also run `ssh -X <user>@<remote-host>` and open any GUI applications from the terminal
