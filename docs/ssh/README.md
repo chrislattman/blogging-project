@@ -107,6 +107,14 @@ icacls.exe C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r /gra
         "powershell Add-Content -Force -Path C:\ProgramData\ssh\administrators_authorized_keys -Value '$(cat ~/.ssh/id_ed25519.pub)'"
     ```
 
+If you were told that the server changed their public key(s), you can remove the existing key(s) from your `~/.ssh/known_hosts` file by running
+
+```
+ssh-keygen -R hostname[:port]
+```
+
+- If the hostname is either `localhost` or `127.0.0.1` (such as a VM), add brackets around it (e.g. `[127.0.0.1]`)
+
 ## Tunneling
 
 In SSH there are ways to "tunnel" or redirect network traffic.
@@ -259,6 +267,7 @@ You may want to SSH into some server in your home network (LAN).
 Dynamic DNS (DDNS) to the rescue! Some routers support DDNS, which allows you to associate a domain name with your home's IP address _and_ updates the DNS record if your ISP changes your WAN address.
 
 - After you set up a port forwarding rule for that server on your router, you can create a SSH configuration that allows you to connect to that server from anywhere in the world!
+    - Make sure that server has a static local IP address
 
 ## `scp`
 
