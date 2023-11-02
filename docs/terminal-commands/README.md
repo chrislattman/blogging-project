@@ -2326,6 +2326,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Mounting devices](#mounting-devices)
 - [`xclip` - clipboard](#xclip)
 - [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
+- [`bluetoothctl` - scans for nearby Bluetooth devices](#bluetoothctl)
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Editing a binary file](#editing-a-binary-file)
 - [Adding a certificate to the trust store](#adding-a-certificate-to-the-trust-store)
@@ -2741,13 +2742,33 @@ Used to scan for Wi-Fi access points. This command only works on Linux.
 To output a list of distinct access points, run
 
 ```
-sudo iwlist <interface> scan | grep "ESSID" | sort -u
+iwlist <interface> scan | grep "ESSID" | sort -u
 ```
 
 where `<interface>` is the name of the Wi-Fi interface from [`ifconfig`](#ifconfig)
 
 - It is usually either `wlan0` or `wlp4so`, but run `ifconfig` to be sure
 - This is another good command to [alias](#aliasing)
+
+### `bluetoothctl`
+
+Used to scan for pairable Bluetooth devices. This command only works on Linux.
+
+To turn on the Bluetooth antenna, run
+
+```
+bluetoothctl scan on
+```
+
+Then enter `Ctrl + Z` to stop the command from printing more output.
+
+Then run
+
+```
+bluetoothctl devices
+```
+
+to get a list of MAC addresses associated with nearby Bluetooth devices.
 
 ### Converting between hexadecimal and base64
 
