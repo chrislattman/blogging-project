@@ -65,5 +65,5 @@ Once you create a VM, you have the choice to configure its network settings (cli
         - If a DNAT port forwarding rule's host IP address is the same as the IP address for your Wi-Fi or Ethernet interface (see [`ifconfig`](../terminal-commands#ifconfig)), then you will be able to access your VM from another device on your LAN!
         - To set a static local IP address for a VM connected to a NAT Network, run
             ```
-            VBoxManage dhcpserver modify --network=<nat-network-name> --mac-address=<mac-address> --fixed-address=<static-ip-address>
+            VBoxManage dhcpserver modify --network=<nat-network-name> --mac-address=<vm-nat-network-mac-address> --fixed-address=<static-ip-address>
             ```
