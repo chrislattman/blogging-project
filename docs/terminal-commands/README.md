@@ -1357,6 +1357,11 @@ FTP is largely being phased out, and most web browsers no longer support `ftp://
     - Yes this is weird
 - You can also use the file manager on your OS to access FTP(S) servers, as well as FTP clients such as [FileZilla](https://filezilla-project.org/download.php?type=client)
 
+Windows computers use a similar protocol to FTP called [SMB](https://en.wikipedia.org/wiki/Server_Message_Block). Like FTP, it can be used to share files, but it also supports printing services.
+
+- Replace `ftp://` in the `curl` commands for FTPS with `smbs://` to do the same thing with a SMBS server
+- Even though SMB is a Windows protocol, it can be used on Linux and macOS with [Samba](https://en.wikipedia.org/wiki/Samba_(software))
+
 You can even send and receive email from the command line using `curl`!
 
 To send email, use SMTPS, the secure version of [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol):
