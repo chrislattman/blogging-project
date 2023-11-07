@@ -56,6 +56,9 @@ where `<interface>` can be either the name of the interface or the numerical ind
     - `--print` optionally outputs packet data to the terminal
     - The `capture` in `capture.pcapng` can be anything, but make sure to keep the `.pcapng` file extension
         - You may see `.pcap` elsewhere, which indicates an older format (`tcpdump` uses .pcap)
+- `-I`, which puts a Wi-Fi interface in monitor/promiscuous mode
+    - This allows you to capture Wi-Fi traffic not meant for your computer
+    - This may disconnect you from the Internet, so it's best to use this option for a separate Wi-Fi adapter plugged in to your computer
 - If printing to console:
     - `-nn` doesn't resolve IP addresses and port numbers to hostnames and services, respectively (this makes TShark run faster)
     - `-tad` displays human-readable timestamps (`-tttt` in `tcpdump`)
