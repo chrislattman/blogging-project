@@ -2341,6 +2341,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Job scheduling](#job-scheduling)
 - [Network traffic filtering](#network-traffic-filtering)
 - [Identifying devices on your local network](#identifying-devices-on-your-local-network)
+- [Two-factor authentication from the terminal](#two-factor-authentication-from-the-terminal)
 
 ### `Ctrl D`
 
@@ -2918,6 +2919,9 @@ Libraries can either be static or shared:
 - If you are using a computer with an ARM processor and you want to disassemble a binary compiled with an Intel/AMD processor, you will need to use `x86_64-linux-gnu-objdump`
     - You will need to install either `x86_64-elf-binutils` (macOS) or `binutils-x86-64-linux-gnu` (Linux) with a [package manager](#package-managers)
 - For more involved reverse engineering projects, tools like [Ghidra](https://ghidra-sre.org/) will not only disassemble binaries but also _decompile_ them back into C-like source code
+- Related Linux commands include:
+    - `nm -Cg <binary>`, which outputs the exported symbols (function names) of a binary
+    - `readelf -d <binary> | grep NEEDED`, which outputs shared library dependencies of a binary
 
 Example:
 
@@ -3428,3 +3432,13 @@ You can see cached ARP connections by running
 ```
 arp -an
 ```
+
+### Two-factor authentication from the terminal
+
+Disclaimer: this is not recommended. Two-factor authentication (2FA) is meant to be a safeguard in case a hacker compromises your computer. Storing a 2FA code on your computer defeats the purpose of 2FA.
+
+Instructions are available [here](https://www.cyberciti.biz/faq/use-oathtool-linux-command-line-for-2-step-verification-2fa/). It uses the `oathtool` command and protects the one-time passcodes with a [GPG](#gpg) key.
+
+- If the 2FA private key is stored in a QR (Quick Response) code, you can install `zbar` or `zbar-tools` with a [package manager](#package-managers)
+- Then you can use `zbarimg -q --raw <image>` to print out the text representation of the code (it should be the value of the "secret" parameter in the URI)
+- You can generate QR codes from text using browser extensions such as [Offline QR-Code Generator](https://chrome.google.com/webstore/detail/offline-qr-code-generator/fehmldbcmhbdkofkiaedfejkalnidchm) for Google Chrome or [Offline QR Code Generator](https://addons.mozilla.org/en-US/firefox/addon/offline-qr-code-generator/) for Mozilla Firefox
