@@ -1965,22 +1965,31 @@ Nmap done: 1 IP address (1 host up) scanned in 42.41 seconds
 
 ### `netstat`
 
-Stands for "network statistics." It is used to show all active network connections from your computer.
+Stands for "network statistics." It is used to show all active network connections (sockets) from your computer, including source and destination IP addresses and ports.
 
 - You might need to install `net-tools` with a [package manager](#package-managers)
+- For Linux:
+    - `sudo netstat -tunpa` shows all (`-a`) TCP (`-t`) and UDP (`-u`) sockets with their associated PIDs (`-p`), without resolving IP addresses to hostnames or port numbers to services (`-n`)
+    - There is an alternative command called `ss` (stands for "socket statistics") which is a smaller version of `netstat` and uses the same flags
+- For macOS:
+    - `sudo netstat -vanp tcp && sudo netstat -vanp udp | cat` is the macOS version of the Linux command
+- For Windows (this requires an Administrator PowerShell terminal):
+    - `netstat -bona` is the Windows version of the Linux command
+- On Unix systems (Linux and macOS), everything is treated as a file, including sockets
+    - `sudo lsof -i -nP` will do the same thing as the above `netstat` commands
+- When reading the output, the state column (or name column in `lsof`) will tell you if a TCP socket is a client socket (ESTABLISHED/ESTAB) or a server socket (LISTEN/LISTENING)
 
-Example (I am excluding most results):
+Example (These are not real results):
 
 ```
-[Chris@Chris-MBP-16 ~]$ netstat
-Active Internet connections
-Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)
-tcp6       0      0  2605:ad80:20:1cd.51110 ack.nmap.org.https     CLOSE_WAIT
-tcp6      31      0  2605:ad80:20:1cd.51109 ack.nmap.org.https     CLOSE_WAIT
-tcp6      31      0  2605:ad80:20:1cd.51108 ack.nmap.org.https     CLOSE_WAIT
-tcp6      31      0  2605:ad80:20:1cd.51107 ack.nmap.org.https     CLOSE_WAIT
-tcp6      31      0  2605:ad80:20:1cd.51106 ack.nmap.org.https     CLOSE_WAIT
-tcp6      31      0  2605:ad80:20:1cd.51105 ack.nmap.org.https     CLOSE_WAIT
+[Chris@Chris-MBP-16 ~]$ sudo netstat -vanp tcp && sudo netstat -vanp udp | cat
+Active Internet connections (including servers)
+Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)      rhiwat  shiwat    pid   epid state  options           gencnt    flags   flags1 usscnt rtncnt fltrs
+tcp4       0      0  192.168.1.3.50224    1.2.3.4.443       ESTABLISHED  131072  131376   1263      0 00102 00000008 00000000000059a8 00000081 00000900      1      0 000001
+tcp4       0      0  192.168.1.3.50211    1.2.3.5.443       ESTABLISHED  191888  131768   1819      0 00102 00000100 0000000000005850 00000080 00000900      1      0 000001
+tcp4       0      0  192.168.1.3.50209    1.2.3.6.443       ESTABLISHED  262144  132480   1819      0 00102 00000100 000000000000584c 00000080 00000900      1      0 000001
+tcp4       0      0  192.168.1.3.50195    1.2.3.4.22       ESTABLISHED  131072  131072   1961      0 00102 00000008 0000000000005441 00000080 00000900      1      0 000001
+tcp4       0      0  192.168.1.3.50164    1.2.3.4.80     CLOSE_WAIT   131072  131768   1819      0 00122 00000100 00000000000050d0 00000080 00000900      1      0 000001
 .
 .
 .
