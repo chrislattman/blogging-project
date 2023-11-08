@@ -1858,6 +1858,11 @@ Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
         - Windows has a PowerShell command called [`Set-DnsClientServerAddress`](https://www.thewindowsclub.com/change-dns-server-using-command-prompt-and-powershell) to override the inherited DNS server
     - `/etc/hosts` specifies domain name to IP address mappings, which bypass DNS resolution
         - Windows has an equivalent file at `C:\Windows\System32\drivers\etc\hosts`
+- Routers set up trivial DNS entries for connected devices under the search domain `lan` (comparable to `com` or `edu`)
+    - Therefore you can [ping](#ping) a device on your LAN without having to specify its local IP address, e.g. `ping <hostname>.lan`
+        - The `.lan` is optional, since the router already knows to search this domain
+    - This is useful because local IP addresses can change periodically with DHCP
+- You can use reverse DNS to look up the hostname associated with an IP address: `host <ip-address>`
 
 Examples:
 
@@ -1880,6 +1885,8 @@ www.google.com has IPv6 address 2607:f8b0:4004:c08::63
 www.google.com has IPv6 address 2607:f8b0:4004:c08::6a
 www.google.com has IPv6 address 2607:f8b0:4004:c08::69
 www.google.com has IPv6 address 2607:f8b0:4004:c08::68
+[Chris@Chris-MBP-16 ~]$ host 127.0.0.1
+1.0.0.127.in-addr.arpa domain name pointer localhost.lan.
 [Chris@Chris-MBP-16 ~]$
 ```
 
