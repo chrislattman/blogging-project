@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 45 most important terminal commands (plus symbols and compression)](#the-45-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 43 most important terminal commands (plus symbols and compression)](#the-43-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -20,7 +20,7 @@ Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals inclu
 - Windows is NOT a Unix-like operating system
     - Windows uses the [NT](https://en.wikipedia.org/wiki/Architecture_of_Windows_NT) kernel
 - If you want to try all of these commands on Windows, create a [Docker container](../docker#getting-started) (recommended) or set up a [virtual machine](../virtualbox)
-- Git Bash allows you to run most of these commands (except `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `openvpn`, `htop`, `zip` (use [`powershell Compress-Archive`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/compress-archive?view=powershell-7.3) instead), or any package manager)
+- Git Bash allows you to run most of these commands (except `man`, `wget`, `speedtest`, `nc`, `host` (use `nslookup` instead), `nmap`, `htop`, `zip` (use [`powershell Compress-Archive`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/compress-archive?view=powershell-7.3) instead), `openvpn`, `iwlist`, `bluetoothctl`, `arp-scan`, any package manager, or anything to do with mounting devices or two-factor authentication)
 - Note: if you are using Windows PowerShell, clicking on a PowerShell window will cause the shell to enter "Select mode"
     - Press the escape key or right-click on the window to exit this mode
 
@@ -72,7 +72,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 45 most important terminal commands (plus symbols and compression):
+## The 43 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -100,17 +100,15 @@ To save your changes, quit Terminal and restart it.
 - [`wget` - downloads files from the Internet](#wget)
 - [`curl` - powerful networking tool](#curl)
 - [`shasum` - outputs the SHA-2 hash of a file](#shasum)
-- [`openssl` - encrypts and decrypts files](#openssl)
 - [`gpg` - encrypts and signs files for communication](#gpg)
 - [`speedtest` - calculates Internet speed](#speedtest)
 - [`nc` - troubleshoots connections](#nc)
 - [`ping` - pings a URL for connectivity](#ping)
 - [`traceroute` - shows IP addresses of all servers encountered during a ping](#traceroute)
 - [`host` - resolves the IP address of a website](#host)
-- [`nmap` - scans a website for open ports](#nmap)
+- [`nmap` - scans a domain for open ports](#nmap)
 - [`netstat` - shows active network connections](#netstat)
 - [`ifconfig` - outputs network interface information](#ifconfig)
-- [`openvpn` - connects to a VPN service](#openvpn)
 - [`date` - outputs the current date and time](#date)
 - [`clear` - clears the terminal screen](#clear)
 - [`less` - displays a terminal window-sized chunk of scrollable output](#less)
@@ -1549,59 +1547,6 @@ ubuntu-22.04.1-live-server-amd64.iso: OK
 [Chris@Chris-MBP-16 VM images]$
 ```
 
-## `openssl`
-
-OpenSSL is a cryptography toolkit used, among other things, to encrypt and decrypt files.
-
-- You might need to install `openssl` with a [package manager](#package-managers)
-- `openssl` is organized into subcommands:
-    - `openssl rand <num-bytes>` is used to generate random bytes of data
-    - `openssl enc -aes-256-cbc -pass file:<file> -pbkdf2 -P` is used to securely generate a secret key for the [AES-256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) cipher in [CBC](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)) mode, where `<file>` is a file containing random bytes
-        - This will output a salt, key, and iv (initialization vector) used for encryption
-    - `openssl enc -aes-256-cbc -in <plaintext-file> -out <ciphertext-file> -S <salt> -K <key> -iv <iv>` is used to encrypt a file `<plaintext-file>`, and stores the encrypted file in `<ciphertext-file>`
-    - `openssl enc -aes-256-cbc -in <ciphertext-file> -out <decrypted-file> -d -S <salt> -K <key> -iv <iv>` decrypts a file, and stores the decrypted file in `<decrypted-file>`
-        - Don't forget the `-d` (decrypt) flag
-    - Despite the names "plaintext" and "ciphertext" any type of file (not just text files) can be encrypted using `openssl`
-    - `openssl dgst -sha256 <file>` can be used to output the SHA-256 hash of a file
-
-The following example creates a text file and shows how to properly encrypt a file, decrypt it, and prove that the decryption process was correct.
-
-```
-[Chris@Chris-MBP-16 crypto]$ touch plain.txt
-[Chris@Chris-MBP-16 crypto]$ echo "Hello world!" >> plain.txt
-[Chris@Chris-MBP-16 crypto]$ cat plain.txt
-Hello world!
-[Chris@Chris-MBP-16 crypto]$ openssl rand 32 > rand.bin
-[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -pass file:rand.bin -pbkdf2 -P
-salt=E6B1C7C1A26E13DB
-key=86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7
-iv =DE64D1654EF1C92E92B3BA9FFEE0123A
-[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin -S E6B1C7C1A26E13DB -K 86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7 -iv DE64D1654EF1C92E92B3BA9FFEE0123A
-[Chris@Chris-MBP-16 crypto]$ ls -l
-total 24
--rw-r--r--  1 Chris  staff  16 Jan 22 13:00 encrypted.bin
--rw-r--r--  1 Chris  staff  13 Jan 22 12:59 plain.txt
--rw-r--r--  1 Chris  staff  32 Jan 22 12:59 rand.bin
-[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -in encrypted.bin -out decrypted.txt -d -S E6B1C7C1A26E13DB -K 86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7 -iv DE64D1654EF1C92E92B3BA9FFEE0123A
-[Chris@Chris-MBP-16 crypto]$ ls -l
-total 32
--rw-r--r--  1 Chris  staff  13 Jan 22 13:06 decrypted.txt
--rw-r--r--  1 Chris  staff  16 Jan 22 13:00 encrypted.bin
--rw-r--r--  1 Chris  staff  13 Jan 22 12:59 plain.txt
--rw-r--r--  1 Chris  staff  32 Jan 22 12:59 rand.bin
-[Chris@Chris-MBP-16 crypto]$ cat decrypted.txt
-Hello world!
-[Chris@Chris-MBP-16 crypto]$ openssl dgst -sha256 decrypted.txt
-SHA256(decrypted.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391dd8
-[Chris@Chris-MBP-16 crypto]$ openssl dgst -sha256 plain.txt
-SHA256(plain.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391dd8
-[Chris@Chris-MBP-16 crypto]$
-```
-
-- The `.bin` extension is meant to imply that the file consists of raw bytes
-- The "password" in this example is the three values (salt, key, iv)
-- The identical SHA-256 hashes for `plain.txt` and `decrypted.txt` prove that the two files are identical
-
 ### `gpg`
 
 Stands for "GNU Privacy Guard" and also referred to as "GnuPG." It is a free and open source implementation of the OpenPGP standard, which is used by proprietary software such as [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
@@ -1949,7 +1894,7 @@ Stands for "network mapper." It is used to scan a website for open ports.
 - `nmap -T4 <url>` shows the open ports and services running on those ports
     - Remove `-T4` if your Internet connection is slow
     - There are many more flags you can use with `nmap`
-        - Run `man nmap` or read [here](https://linux.die.net/man/1/nmap) for more information
+        - Run `man nmap` or read [here](https://man7.org/linux/man-pages/man1/nmap.1.html) for more information
 
 Example:
 
@@ -2057,27 +2002,6 @@ bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 
 - In this example, `en0` is the Wi-Fi device for my Mac, its MAC address is 01:23:45:67:89:0a (I made this up for demonstration purposes), and my local IP address is 192.168.1.56
 
-### `openvpn`
-
-Endpoint that connects to a VPN service. This command only works for Linux.
-
-- You might need to install `openvpn` with a [package manager](#package-managers)
-- OpenVPN is NOT a VPN service, it is a _protocol_ used to connect to VPN services like NordVPN, ExpressVPN, ProtonVPN, etc.
-- You need to already have an account with a VPN service (and you will probably need to pay for it)
-- Refer to your VPN service for specific instructions on using OpenVPN
-    - There may be some steps that have to be done prior to running `openvpn`
-    - You will need a `.ovpn` configuration file from your VPN service that indicates which server to route your Internet traffic through
-        - Make sure to specify Linux (if applicable) and use UDP (it is faster than TCP)
-        - However, use TCP if there are connection issues with UDP (unlikely)
-    - You may also be prompted for an OpenVPN username/password pair that is provided by your VPN service
-- WireGuard is an alternative VPN protocol that promises faster speeds
-    - WireGuard client instructions are available [here](https://engineerworkshop.com/blog/how-to-set-up-a-wireguard-client-on-linux-with-conf-file/)
-
-Usage: `sudo openvpn some-file.ovpn`
-
-- Keep the terminal window open to stay connected
-- To disconnect, enter `Ctrl + C`
-
 ### `date`
 
 Outputs the current date and time.
@@ -2166,7 +2090,11 @@ Stands for "password." Changes the login password of a user.
 Stands for "process status." It displays a list of processes.
 
 - All processes have a unique PID (process ID)
-- `ps aux` outputs all processes
+- `ps` is an interesting command because it allows you to combine Unix-style flags (`-f`) with BSD-style flags (`f`)
+- `ps aux` outputs all processes, including the user each process belongs to, PID, [state code](https://man7.org/linux/man-pages/man1/ps.1.html#PROCESS_STATE_CODES), what time it started, and the full command
+- You can see a "tree" output of processes and their subprocesses with:
+    - Linux: `ps -eHf f`
+    - macOS: `pstree`, which you can install by running `brew install pstree`
 
 Example:
 
@@ -2357,6 +2285,8 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Job scheduling](#job-scheduling)
 - [Network traffic filtering](#network-traffic-filtering)
 - [Identifying devices on your local network](#identifying-devices-on-your-local-network)
+- [`openvpn` - connects to a VPN service](#openvpn)
+- [`openssl` - encrypts and decrypts files](#openssl)
 - [Two-factor authentication from the terminal](#two-factor-authentication-from-the-terminal)
 
 ### `Ctrl D`
@@ -3448,6 +3378,80 @@ You can see cached ARP connections by running
 ```
 arp -an
 ```
+
+### `openvpn`
+
+Endpoint client that connects to a VPN service. This command only works for Linux.
+
+- You might need to install `openvpn` with a [package manager](#package-managers)
+- OpenVPN is NOT a VPN service, it is a _protocol_ used to connect to VPN services like NordVPN, ExpressVPN, ProtonVPN, etc.
+- You need to already have an account with a VPN service (and you will probably need to pay for it)
+- Refer to your VPN service for specific instructions on using OpenVPN
+    - There may be some steps that have to be done prior to running `openvpn`
+    - You will need a `.ovpn` configuration file from your VPN service that indicates which server to route your Internet traffic through
+        - Make sure to specify Linux (if applicable) and use UDP (it is faster than TCP)
+        - However, use TCP if there are connection issues with UDP (unlikely)
+    - You may also be prompted for an OpenVPN username/password pair that is provided by your VPN service
+- WireGuard is an alternative VPN protocol that promises faster speeds
+    - WireGuard client instructions are available [here](https://engineerworkshop.com/blog/how-to-set-up-a-wireguard-client-on-linux-with-conf-file/)
+
+Usage: `sudo openvpn some-file.ovpn`
+
+- Keep the terminal window open to stay connected
+- To disconnect, enter `Ctrl + C`
+
+### `openssl`
+
+OpenSSL is a cryptography toolkit used, among other things, to encrypt and decrypt files.
+
+- You might need to install `openssl` with a [package manager](#package-managers)
+- `openssl` is organized into subcommands:
+    - `openssl rand <num-bytes>` is used to generate random bytes of data
+    - `openssl enc -aes-256-cbc -pass file:<file> -pbkdf2 -P` is used to securely generate a secret key for the [AES-256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) cipher in [CBC](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)) mode, where `<file>` is a file containing random bytes
+        - This will output a salt, key, and iv (initialization vector) used for encryption
+    - `openssl enc -aes-256-cbc -in <plaintext-file> -out <ciphertext-file> -S <salt> -K <key> -iv <iv>` is used to encrypt a file `<plaintext-file>`, and stores the encrypted file in `<ciphertext-file>`
+    - `openssl enc -aes-256-cbc -in <ciphertext-file> -out <decrypted-file> -d -S <salt> -K <key> -iv <iv>` decrypts a file, and stores the decrypted file in `<decrypted-file>`
+        - Don't forget the `-d` (decrypt) flag
+    - Despite the names "plaintext" and "ciphertext" any type of file (not just text files) can be encrypted using `openssl`
+    - `openssl dgst -sha256 <file>` can be used to output the SHA-256 hash of a file
+
+The following example creates a text file and shows how to properly encrypt a file, decrypt it, and prove that the decryption process was correct.
+
+```
+[Chris@Chris-MBP-16 crypto]$ touch plain.txt
+[Chris@Chris-MBP-16 crypto]$ echo "Hello world!" >> plain.txt
+[Chris@Chris-MBP-16 crypto]$ cat plain.txt
+Hello world!
+[Chris@Chris-MBP-16 crypto]$ openssl rand 32 > rand.bin
+[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -pass file:rand.bin -pbkdf2 -P
+salt=E6B1C7C1A26E13DB
+key=86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7
+iv =DE64D1654EF1C92E92B3BA9FFEE0123A
+[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin -S E6B1C7C1A26E13DB -K 86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7 -iv DE64D1654EF1C92E92B3BA9FFEE0123A
+[Chris@Chris-MBP-16 crypto]$ ls -l
+total 24
+-rw-r--r--  1 Chris  staff  16 Jan 22 13:00 encrypted.bin
+-rw-r--r--  1 Chris  staff  13 Jan 22 12:59 plain.txt
+-rw-r--r--  1 Chris  staff  32 Jan 22 12:59 rand.bin
+[Chris@Chris-MBP-16 crypto]$ openssl enc -aes-256-cbc -in encrypted.bin -out decrypted.txt -d -S E6B1C7C1A26E13DB -K 86FEAFDFA6035F06AEAC2CF946F8C1E28F64134BBF60B41957D380926055A3A7 -iv DE64D1654EF1C92E92B3BA9FFEE0123A
+[Chris@Chris-MBP-16 crypto]$ ls -l
+total 32
+-rw-r--r--  1 Chris  staff  13 Jan 22 13:06 decrypted.txt
+-rw-r--r--  1 Chris  staff  16 Jan 22 13:00 encrypted.bin
+-rw-r--r--  1 Chris  staff  13 Jan 22 12:59 plain.txt
+-rw-r--r--  1 Chris  staff  32 Jan 22 12:59 rand.bin
+[Chris@Chris-MBP-16 crypto]$ cat decrypted.txt
+Hello world!
+[Chris@Chris-MBP-16 crypto]$ openssl dgst -sha256 decrypted.txt
+SHA256(decrypted.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391dd8
+[Chris@Chris-MBP-16 crypto]$ openssl dgst -sha256 plain.txt
+SHA256(plain.txt)= 0ba904eae8773b70c75333db4de2f3ac45a8ad4ddba1b242f0b3cfc199391dd8
+[Chris@Chris-MBP-16 crypto]$
+```
+
+- The `.bin` extension is meant to imply that the file consists of raw bytes
+- The "password" in this example is the three values (salt, key, iv)
+- The identical SHA-256 hashes for `plain.txt` and `decrypted.txt` prove that the two files are identical
 
 ### Two-factor authentication from the terminal
 
