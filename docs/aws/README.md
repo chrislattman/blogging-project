@@ -60,6 +60,8 @@ ssh <instance-username>@<instance-public-dns-name>
     - It should be located under the "Public IPv4 DNS" column
 - You can also use [`scp`](../ssh#scp) and [`sftp`](../ssh#sftp) (both will require the `-i` flag like `ssh` does, if using the AWS-generated key pair)
 
+If you are hosting a website on your own server or on an EC2 instance, you can get a free [X.509 certificate](https://en.wikipedia.org/wiki/X.509) from [Let's Encrypt](https://letsencrypt.org/getting-started/).
+
 ## Using ECS
 
 Here are helpful videos on how to use ECS to run Docker containers in AWS:
