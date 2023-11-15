@@ -1836,11 +1836,23 @@ Usage:
 # To view the contents of a .zip file:
 zip -sf archive.zip
 
-# To compress files into a .zip:
+# To compress files into a .zip file:
 zip archive.zip [files] [directory/*]
+
+# To add files to an existing .zip file (-r is for directories):
+zip [-r] archive.zip [files] [directory/*]
+
+# To remove files from an existing .zip file (need quotes):
+zip -d archive.zip "file" "directory/*"
 
 # To extract a .zip file:
 unzip archive.zip
+
+# To extract a .zip file into another folder:
+unzip archive.zip -d other-folder
+
+# To extract certain files from a .zip file:
+unzip archive.zip [files] [directory/*]
 
 # To view the contents of a .tar[.gz|.bz2|.xz] file:
 tar -tf archive.tar[.gz|.bz2|.xz]
@@ -1873,9 +1885,12 @@ tar -xJf archive.tar.xz
 uncompress archive.tar.Z
 tar -xf archive.tar
 
-# When extracting any archive, you can output its contents to a separate directory:
+# When extracting any tar archive, you can output its contents to a separate directory:
 mkdir output-directory
 tar -x[z|j|J]f archive.tar[.gz|.bz2|.xz] -C output-directory
+
+# To extract certain files from a tar archive:
+tar -x[z|j|J]f archive.tar[.gz|.bz2|.xz] [files] [directory/*]
 ```
 
 - `[files]` refers to the files that you want to compress
