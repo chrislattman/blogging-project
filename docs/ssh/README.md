@@ -143,6 +143,8 @@ ssh -TR 127.0.0.1:<remote-local-port>:127.0.0.1:<your-local-port> <user>@<remote
 - This also connects to the remote server via SSH on port 22, but has _their_ local port listen to _your_ local port
 - You can replace `<user>@<remote-host>` with an SSH [configuration](#ssh-configurations)
 
+If you want to run either of these in the background, add the `-fN` flags to the command.
+
 ## X11 Forwarding
 
 Every single window you see on your computer is served by a windowing system that runs as a part of your operating system. Without it, you would not have a desktop.
