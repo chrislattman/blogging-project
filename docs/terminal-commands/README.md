@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 41 most important terminal commands (plus symbols and compression)](#the-41-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 40 most important terminal commands (plus symbols and compression)](#the-40-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -72,7 +72,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 41 most important terminal commands (plus symbols and compression):
+## The 40 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -104,7 +104,6 @@ To save your changes, quit Terminal and restart it.
 - [`ping` - pings a URL for connectivity](#ping)
 - [`traceroute` - shows IP addresses of all servers encountered during a ping](#traceroute)
 - [`host` - resolves the IP address of a website](#host)
-- [`nmap` - scans a domain for open ports](#nmap)
 - [`netstat` - shows active network connections](#netstat)
 - [`ifconfig` - outputs network interface information](#ifconfig)
 - [`date` - outputs the current date and time](#date)
@@ -1521,35 +1520,6 @@ Received 49 bytes from 1.1.1.1#53 in 10 ms
 [Chris@Chris-MBP-16 ~]$
 ```
 
-### `nmap`
-
-Stands for "network mapper." It is used to scan a website for open ports.
-
-- You might need to install `nmap` with a [package manager](#package-managers)
-- `nmap -T4 <url>` shows the open ports and services running on those ports
-    - Remove `-T4` if your Internet connection is slow
-    - There are many more flags you can use with `nmap`
-        - Run `man nmap` or read [here](https://man7.org/linux/man-pages/man1/nmap.1.html) for more information
-
-Example:
-
-```
-[Chris@Chris-MBP-16 ~]$ nmap -T4 google.com
-Starting Nmap 7.92 ( https://nmap.org ) at 2023-02-05 14:07 EST
-Nmap scan report for google.com (172.253.62.100)
-Host is up (0.013s latency).
-Other addresses for google.com (not scanned): 2607:f8b0:4004:c1b::71 2607:f8b0:4004:c1b::64 2607:f8b0:4004:c1b::8b 2607:f8b0:4004:c1b::65 172.253.62.138 172.253.62.101 172.253.62.139 172.253.62.102 172.253.62.113
-rDNS record for 172.253.62.100: bc-in-f100.1e100.net
-Not shown: 997 filtered tcp ports (no-response)
-PORT    STATE SERVICE
-53/tcp  open  domain
-80/tcp  open  http
-443/tcp open  https
-
-Nmap done: 1 IP address (1 host up) scanned in 42.41 seconds
-[Chris@Chris-MBP-16 ~]$
-```
-
 ### `netstat`
 
 Stands for "network statistics." It is used to show all active network connections (sockets) from your computer, including source and destination IP addresses and ports.
@@ -1934,6 +1904,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Managing services](#managing-services)
 - [Job scheduling](#job-scheduling)
 - [Network traffic filtering](#network-traffic-filtering)
+- [`nmap` - scans a domain for open ports](#nmap)
 - [Identifying devices on your local network](#identifying-devices-on-your-local-network)
 - [`openvpn` - connects to a VPN service](#openvpn)
 - [`openssl` - encrypts and decrypts files](#openssl)
@@ -2997,6 +2968,35 @@ This section describes how to manage rules on Linux, macOS, and Windows.
     - To specify multiple ports: `block out proto tcp from any to ip-address-or-url port { port1, port2, ... }`
 - Windows: `New-NetFirewallRule -DisplayName <rule-name> -Direction Outbound -Action Block -RemoteAddress <ip-address> -Protocol TCP -RemotePort <port>`
     - To specify multiple ports, replace `<port>` with `@("port1", "port2", ...)`
+
+### `nmap`
+
+Stands for "network mapper." It is used to scan a website for open ports.
+
+- You might need to install `nmap` with a [package manager](#package-managers)
+- `nmap -T4 <url>` shows the open ports and services running on those ports
+    - Remove `-T4` if your Internet connection is slow
+    - There are many more flags you can use with `nmap`
+        - Run `man nmap` or read [here](https://man7.org/linux/man-pages/man1/nmap.1.html) for more information
+
+Example:
+
+```
+[Chris@Chris-MBP-16 ~]$ nmap -T4 google.com
+Starting Nmap 7.92 ( https://nmap.org ) at 2023-02-05 14:07 EST
+Nmap scan report for google.com (172.253.62.100)
+Host is up (0.013s latency).
+Other addresses for google.com (not scanned): 2607:f8b0:4004:c1b::71 2607:f8b0:4004:c1b::64 2607:f8b0:4004:c1b::8b 2607:f8b0:4004:c1b::65 172.253.62.138 172.253.62.101 172.253.62.139 172.253.62.102 172.253.62.113
+rDNS record for 172.253.62.100: bc-in-f100.1e100.net
+Not shown: 997 filtered tcp ports (no-response)
+PORT    STATE SERVICE
+53/tcp  open  domain
+80/tcp  open  http
+443/tcp open  https
+
+Nmap done: 1 IP address (1 host up) scanned in 42.41 seconds
+[Chris@Chris-MBP-16 ~]$
+```
 
 ### Identifying devices on your local network
 
