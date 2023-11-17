@@ -2811,7 +2811,10 @@ Services, also known as daemons, are processes that are meant to continuously ru
 
 This section describes how to manage them on Linux, macOS, and Windows.
 
-- On Windows, PowerShell is used
+- On Linux, `systemctl` calls the underlying `systemd` daemon, which replaced `init`
+    - It is the first process started on boot, with a PID of 1
+- On macOS, `launchctl` calls the underlying `launchd` daemon, which also has a PID of 1
+- On Windows, PowerShell is used (Windows isn't a Unix OS and therefore doesn't have a single init system)
 
 #### View all services
 
