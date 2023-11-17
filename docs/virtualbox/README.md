@@ -22,6 +22,11 @@ Advanced: VirtualBox offers a command line interface through the `VBoxManage` co
 
 - More information can be found [here](https://www.oracle.com/technical-resources/articles/it-infrastructure/admin-manage-vbox-cli.html)
 
+Advanced: there was once a web interface to VirtualBox called phpVirtualBox. This allowed you to manage VirtualBox VMs through a webpage, and therefore allow you to easily manage VMs running on a server from a different computer.
+
+- A video explaining it is available [here](https://www.youtube.com/watch?v=rofOpKNnFP0)
+- It hasn't been maintained since 2016, so it's considered a dead project
+
 ## Installing Ubuntu
 
 Since VirtualBox isn't something we'll be using a lot in this project, I won't go into much detail. However, knowing how to install an OS on VirtualBox (or an alternative like VMware) is valuable knowledge to have. There are several tutorials online on how to install Ubuntu on VirtualBox. Here are a few:
