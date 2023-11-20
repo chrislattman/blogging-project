@@ -2402,8 +2402,7 @@ Sometimes, you need to add a [TLS certificate](https://aws.amazon.com/what-is/ss
 To download a certificate from a website, you can use your web browser (it likely has a way for you to click to download), or you can use [openssl](#openssl):
 
 ```
-openssl s_client -showcerts -connect <domain-name>:443 < /dev/null | \
-    sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt
+openssl s_client -showcerts -connect <domain-name>:443 < /dev/null | openssl x509 -outform PEM > certificate.crt
 ```
 
 - You may see other extensions such as `.cer` or `.pem` for certificates (they refer to the same file type)
