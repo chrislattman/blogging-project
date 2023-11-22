@@ -1935,6 +1935,8 @@ Address: 142.250.81.238
 
 `Ctrl + C` (for both macOS and Windows keyboards) tries to gracefully kill a running command in a terminal.
 
+- It can also be used to clear a command that you were about to run
+
 Example (here I am using the [`wget`](#wget) command to attempt to download a 3 GB file):
 
 ```
