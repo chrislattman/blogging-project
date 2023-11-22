@@ -1442,6 +1442,7 @@ Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
         - The `.lan` is optional, since the router already knows to search this domain
     - This is useful because local IP addresses can change periodically with DHCP
 - You can use reverse DNS resolution (rDNS) to look up the hostname associated with an IP address: `host <ip-address>`
+- A related protocol is multicast DNS (mDNS), which performs DNS resolution on a local network without a name server
 
 Examples:
 
