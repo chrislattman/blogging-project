@@ -15,7 +15,7 @@ Examples of [Unix-like](https://en.wikipedia.org/wiki/Unix-like) terminals inclu
 - While macOS (and iOS, iPadOS, watchOS, and tvOS) are Unix-like, they all derive from [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system))
     - Much of Darwin's code comes from [FreeBSD](https://en.wikipedia.org/wiki/FreeBSD), an alternative to Linux that is also free and open source
     - Darwin uses the [XNU](https://en.wikipedia.org/wiki/XNU) kernel
-- Android (and Wear OS, Android TV) are based off of Linux, which itself is a kernel
+- Android (and Wear OS, Android TV), as well as derivatives like Fire OS and LineageOS are based off of Linux, which itself is a kernel
     - All Linux distributions (Ubuntu, Debian, etc.) are Unix-like
 - Windows is NOT a Unix-like operating system
     - Windows uses the [NT](https://en.wikipedia.org/wiki/Architecture_of_Windows_NT) kernel
@@ -2491,8 +2491,13 @@ Libraries can either be static or shared:
     - You will need to install either `x86_64-elf-binutils` (macOS) or `binutils-x86-64-linux-gnu` (Linux) with a [package manager](#package-managers)
 - For more involved reverse engineering projects, tools like [Ghidra](https://ghidra-sre.org/) will not only disassemble binaries but also _decompile_ them back into C-like source code
 - Related Linux commands include:
-    - `nm -Cg <binary>`, which outputs the exported symbols (function names) of a binary
+    - `nm -g <binary>`, which outputs the exported symbols (function names) of a binary
+        - Add `-C` to demangle symbol names, which is useful for C++ binaries since C++ supports [function overloading](https://en.wikipedia.org/wiki/Function_overloading)
     - `readelf -d <binary> | grep NEEDED`, which outputs shared library dependencies of a binary
+- Related macOS command include:
+    - `nm -g <binary>`, which does the same thing as the Linux version
+        - Run `nm -g <binary> | c++filt` to demangle symbol names
+    - `otool -L <binary>`, which outputs shared library dependencies of a binary
 
 Example:
 
