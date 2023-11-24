@@ -27,6 +27,8 @@ Advanced: there was once a web interface to VirtualBox called phpVirtualBox. Thi
 - A video explaining it is available [here](https://www.youtube.com/watch?v=rofOpKNnFP0)
 - It hasn't been maintained since 2016, so it's considered a dead project
 
+VirtualBox also supports an RDP server to its VMs, which by default listens on port 3389.
+
 ## Installing Ubuntu
 
 Since VirtualBox isn't something we'll be using a lot in this project, I won't go into much detail. However, knowing how to install an OS on VirtualBox (or an alternative like VMware) is valuable knowledge to have. There are several tutorials online on how to install Ubuntu on VirtualBox. Here are a few:

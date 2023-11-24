@@ -157,8 +157,8 @@ Every single window you see on your computer is served by a windowing system tha
 X11 and Wayland both have the ability to serve windows to a remote user. This is essentially a remote desktop solution comparable to TeamViewer or Chrome Remote Desktop, except it's designed to serve individual applications.
 
 - Alternatives to X11 forwarding include [RDP](https://en.m.wikipedia.org/wiki/Remote_Desktop_Protocol) and [VNC](https://en.m.wikipedia.org/wiki/Virtual_Network_Computing)
-    - RDP clients include Microsoft Remote Desktop and Remmina
-    - VNC clients include RealVNC, TigerVNC, and Remmina
+    - RDP clients include Microsoft Remote Desktop client and Remmina
+    - VNC clients include RealVNC Viewer, TigerVNC Viewer, and Remmina
 
 To run a GUI application through SSH, run
 
