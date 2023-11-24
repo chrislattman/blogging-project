@@ -154,7 +154,11 @@ Every single window you see on your computer is served by a windowing system tha
     - This is what you see when you log in to a computer
     - Popular Linux desktop environments include GNOME, KDE Plasma, and Xfce
 
-X11 and Wayland both have the ability to serve windows to a remote user. This is essentially a remote desktop solution comparable to TeamViewer, except it's designed to serve individual applications.
+X11 and Wayland both have the ability to serve windows to a remote user. This is essentially a remote desktop solution comparable to TeamViewer or Chrome Remote Desktop, except it's designed to serve individual applications.
+
+- Alternatives to X11 forwarding include [RDP](https://en.m.wikipedia.org/wiki/Remote_Desktop_Protocol) and [VNC](https://en.m.wikipedia.org/wiki/Virtual_Network_Computing)
+    - RDP clients include Microsoft Remote Desktop and Remmina
+    - VNC clients include RealVNC, TigerVNC, and Remmina
 
 To run a GUI application through SSH, run
 
