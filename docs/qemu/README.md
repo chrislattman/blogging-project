@@ -1,12 +1,14 @@
 # QEMU
 
-QEMU (Quick EMUlator) is a command line [hypervisor](https://en.wikipedia.org/wiki/Hypervisor). Like [VirtualBox](../virtualbox), you can use it to create virtual machines (VMs).
+QEMU (Quick EMUlator) is a command line [hypervisor](https://en.wikipedia.org/wiki/Hypervisor). Like [VirtualBox](../virtualbox), you can use it to create, modify, and run virtual machines (VMs).
 
 There are graphical interfaces available for QEMU, which can help you if you are not experienced/comfortable with the various QEMU flags:
 
 - For Linux host OSes (hosts), there is [Virtual Machine Manager](https://virt-manager.org/) (also called virt-manager)
 - For macOS hosts, there is [UTM](https://mac.getutm.app/)
 - For Windows hosts, there is [QtEmu](https://carlavilla.es/qtemu/qtemu_setup_x86_64.exe) (direct download link)
+
+The [Android Emulator](../android) is a notable user of QEMU.
 
 ## Table of Contents
 
