@@ -81,7 +81,7 @@ You can copy files to and from a device under certain conditions:
 
 Android stores software packages in the form of [`.apk`](https://en.wikipedia.org/wiki/Apk_(file_format)#Package_contents) (Android Package) files, which are essentially `.zip` files containing the app's contents
 
-- "Package managers" available for Android include Google Play, Amazon Appstore, and alternatives such as F-Droid and APKPure
+- "Package managers" available for Android include Google Play, Amazon Appstore, Galaxy Store (exclusively for Samsung Galaxy devices), and alternatives such as F-Droid and APKPure
 - Install APK file: `adb install <app>.apk`
 - List installed packages: `adb shell pm list packages [-f]`
     - Results are listed in the form of `package:[<apk-location>=]<package-name>`
