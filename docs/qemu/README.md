@@ -21,6 +21,7 @@ The [Android Emulator](../android) is a notable user of QEMU.
     - [Shared clipboard](#shared-clipboard)
     - [Shared folders](#shared-folders)
     - [Headless mode](#headless-mode)
+    - [Remote desktop](#remote-desktop)
     - [Convert file format](#convert-file-format)
     - [Resizing a VM](#resizing-a-vm)
     - [Importing a VM](#importing-a-vm)
@@ -230,6 +231,18 @@ qemu-system-x86_64 -enable-kvm \
 - You will have to wait until the VM is ready
 - You can SSH into the VM by running `ssh -p 3022 user@127.0.0.1`, where `user` is the username for your VM and `127.0.0.1` is the hostname
     - From there, you can shut it down (recommended), or you can [`kill`](../terminal-commands#kill) the `qemu-system-x86_64` process
+
+### Remote desktop
+
+QEMU supports a VNC server to a VM, which listens by default to port 5900. To enable VNC:
+
+```
+qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda myvm.qcow2 -vnc :0
+```
+
+- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
+- Append a [`&`](../terminal-commands#run-in-background) to the command to run it in the background
+- You will have to wait until the VM is ready
 
 ### Convert file format
 
