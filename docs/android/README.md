@@ -83,8 +83,9 @@ Android stores software packages in the form of [`.apk`](https://en.wikipedia.or
 
 - "Package managers" available for Android include Google Play, Amazon Appstore, and alternatives such as F-Droid and APKPure
 - Install APK file: `adb install <app>.apk`
-- List installed packages: `adb list packages`
-- Uninstall package: `adb uninstall <app-name>`
+- List installed packages: `adb shell pm list packages`
+    - Results are listed in the form of `package:<package-name>`
+- Uninstall package: `adb uninstall <package-name>`
 
 ### Port forwarding
 
