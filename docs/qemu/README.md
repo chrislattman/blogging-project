@@ -234,7 +234,7 @@ qemu-system-x86_64 -enable-kvm \
 
 ### Remote desktop
 
-QEMU supports a VNC server to a VM, which listens by default to port 5900. To enable VNC:
+QEMU supports a VNC server to a VM, which by default listens on port 5900. To enable VNC:
 
 ```
 qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda myvm.qcow2 -vnc :0
