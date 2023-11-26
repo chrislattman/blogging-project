@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 40 most important terminal commands (plus symbols and compression)](#the-40-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 41 most important terminal commands (plus symbols and compression)](#the-41-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -72,7 +72,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 40 most important terminal commands (plus symbols and compression):
+## The 41 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -114,6 +114,7 @@ To save your changes, quit Terminal and restart it.
 - [`ps` - outputs a list of running processes](#ps)
 - [`kill` - terminates one or more running processes](#kill)
 - [`htop` - displays system usage](#htop)
+- [`uname` - displays system name](#uname)
 - [Symbols](#symbols)
 - [Compression (`zip` and `tar`)](#compression-zip-and-tar)
 
@@ -1443,6 +1444,7 @@ Performs a [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) query.
     - This is useful because local IP addresses can change periodically with DHCP
 - You can use reverse DNS resolution (rDNS) to look up the hostname associated with an IP address: `host <ip-address>`
 - A related protocol is multicast DNS (mDNS), which performs DNS resolution on a local network without a name server
+    - Apple's Bonjour uses mDNS
 
 Examples:
 
@@ -1759,6 +1761,25 @@ Improved version of `top` (table of processes). It lists process activity includ
 - It is similar to Task Manager on Windows or Activity Monitor on macOS
 - Type `q` and press enter/return to exit `htop`
 - `uptime` outputs the amount of time the computer has been on for the current session, but `htop` includes this and much more
+
+### `uname`
+
+Stands for "unix name." It prints out the name of the OS.
+
+- You can print out more information with `uname -a`
+- On Linux, you can see more information with two more commands:
+    - `cat /etc/os-release` outputs OS version details
+    - `cat /proc/cpuinfo` outputs detailed CPU information
+
+Example:
+
+```
+[Chris@Chris-MBP-16 ~]$ uname
+Darwin
+[Chris@Chris-MBP-16 ~]$ uname -a
+Darwin Chris-MBP-16.lan 23.1.0 Darwin Kernel Version 23.1.0: Mon Oct  9 21:27:27 PDT 2023; root:xnu-10002.41.9~6/RELEASE_X86_64 x86_64
+[Chris@Chris-MBP-16 ~]$
+```
 
 ## Symbols
 

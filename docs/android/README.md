@@ -58,7 +58,7 @@ You have two choices to install Android emulation software:
 
 ## `adb`
 
-Short for "Android Debug Bridge." It's used to interact with AVDs as well as physical Android devices plugged in to your computer.
+Stands for "Android Debug Bridge." It's used to interact with AVDs as well as physical Android devices plugged in to your computer.
 
 - `adb` can be installed by running `sdkmanager "platform-tools"` or by downloading it directly from [here](https://developer.android.com/tools/releases/platform-tools)
 - It works by running an adb server on your computer and an adb service on the device, which allows commands sent by your computer's `adb` client to be received by the device
