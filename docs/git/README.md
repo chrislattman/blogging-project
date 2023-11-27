@@ -355,6 +355,7 @@ git push -f
 
 ### Contents:
 
+- [Manually merging branches](#manually-merging-branches)
 - [Forking a repository](#forking-a-repository)
 - [Renaming a branch](#renaming-a-branch)
 - [Making a copy of a branch](#making-a-copy-of-a-branch)
@@ -364,6 +365,25 @@ git push -f
 - [Changing remote URL](#changing-remote-url)
 - [Git settings](#git-settings)
 - [Patches](#patches)
+
+### Manually merging branches
+
+While GitLab makes it easy, sometimes you want to manually merge one branch into another from the command line. Let's say you want to merge a leaf branch into a feature branch. The process is as follows:
+
+```
+git checkout <feature-branch>
+git merge <leaf-branch>
+git push
+git branch -d <leaf-branch>
+```
+
+- Fast-forward merge (--ff) is the default strategy (commits aren't squashed and no merge commit is created)
+- If you want to squash the commits before merging, replace `git merge <leaf-branch>` with
+    ```
+    git merge --squash <leaf-branch>
+    git commit -m "Squash and merge leaf branch into feature branch"
+    ```
+- Add `--no-ff` if merge commits are required for your project
 
 ### Forking a repository
 

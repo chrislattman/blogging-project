@@ -11,6 +11,8 @@ stages:             # List of stages for jobs, and their order of execution.
 
 lint-job:           # This job lints, or scans your code to ensure good coding practices.
   stage: lint       # It makes your code conform to the Google Java Style.
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
   script:
     - curl -LO https://repo.maven.apache.org/maven2/com/google/googlejavaformat/google-java-format/1.17.0/google-java-format-1.17.0-all-deps.jar
     - |
@@ -29,6 +31,8 @@ lint-job:           # This job lints, or scans your code to ensure good coding p
 
 build-job:          # This job builds the .class files for your source code.
   stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
   script:
     - javac -d bin src/app/*.java
   artifacts:
@@ -38,6 +42,8 @@ build-job:          # This job builds the .class files for your source code.
 
 test-job:           # This job builds the .class files for your test code and runs the tests with instrumentation.
   stage: test
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
   dependencies:
     - build-job
   needs:
@@ -55,6 +61,8 @@ test-job:           # This job builds the .class files for your test code and ru
 
 coverage-job:       # This job generates a HTML code coverage report.
   stage: coverage
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
   dependencies:
     - test-job
   needs:
@@ -84,6 +92,7 @@ pages:              # This job is a special GitLab CI/CD job that uploads a stat
 jar-job:            # This job builds a runnable jar of the project.
   stage: deploy
   rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG # Only runs the job if committing to main or pushing a tag
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH # This is for normal commits into main branch
       variables:
         JAR_NAME: $CI_PROJECT_NAME.jar
@@ -111,6 +120,7 @@ image-job:          # This job builds and uploads a Docker image for this projec
   services:
     - docker:latest
   rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG # Only runs the job if committing to main or pushing a tag
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH # This is for normal commits into main branch
       variables:
         IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
