@@ -32,7 +32,7 @@ lint-job:           # This job lints, or scans your code to ensure good coding p
 build-job:          # This job builds the .class files for your source code.
   stage: build
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG
   script:
     - javac -d bin src/app/*.java
   artifacts:
@@ -103,7 +103,6 @@ jar-job:            # This job builds a runnable jar of the project.
     - build-job
   needs:
     - build-job
-    - test-job
   script:
     - cd bin
     - mkdir META-INF
@@ -128,7 +127,7 @@ image-job:          # This job builds and uploads a Docker image for this projec
         IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG # Only runs the job if committing to main or pushing a tag
   needs:
-    - test-job
+    - build-job
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_TAG .
