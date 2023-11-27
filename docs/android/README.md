@@ -37,6 +37,8 @@ You have two choices to install Android emulation software:
     - The system image can be obtained by running `sdkmanager --list` and will need to be installed first
     - Example system image: `"system-images;android-34;google_apis;x86_64"`
     - Make sure the architecture (x86_64 or arm64-v8a) matches your computer's CPU
+    - Created AVD files are located in `~/.android/avd/<name>.avd/`
+        - From here, you can manually configure settings in `config.ini`, such as `hw.keyboard = yes` to enable keyboard input
 - Delete an AVD: `avdmanager delete avd -n <name>`
 - List AVDs: `avdmanager list avd [-c]`
     - Add `-c` to list just the AVD names
