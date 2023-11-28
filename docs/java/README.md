@@ -220,3 +220,4 @@ jadx File.class
 - You will need to install `jadx` with a [package manager](../terminal-commands#package-managers)
 - You can also pass in a `.jar` file to decompile an entire Java project
 - Use `-d <dir>` to specify an output directory
+- An alternative decompiler is FernFlower
