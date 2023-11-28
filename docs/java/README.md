@@ -7,6 +7,7 @@ Java is a cross-platform programming language used for many applications.
 - [Development](#development)
 - [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
+- [Deployment](#deployment)
 - [Build Automation Tools](#build-automation-tools)
 - [Advanced](#advanced-not-recommended)
 
@@ -132,6 +133,26 @@ If this still doesn't work, try the following:
 - Click Apply and Close
 
 The Driver class should now be able to run.
+
+Advanced: to debug Java from the command line using `jdb` (Java Debugger):
+
+```
+javac -g -d out -cp /src/pkg/*.java YourMainClass.java
+cd out
+jdb YourMainClass
+```
+
+- Common `jdb` commands are described [here](https://www.geeksforgeeks.org/java-debugger-jdb/)
+
+## Deployment
+
+To generate JavaDoc HTML pages:
+
+```
+javadoc -d public src/pkg/*.java
+```
+
+- The homepage should be in `public/index.html`
 
 ## Build Automation Tools
 
