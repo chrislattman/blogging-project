@@ -444,7 +444,7 @@ git push -f
 
 Git tagging is commonplace on popular open source projects. It allows you to mark a point in a branch's history as being important. This point in history is commonly known as a version, and the version numbers in tags should follow the versioning standard laid out [here](https://semver.org/).
 
-Example: create a version 1.0.1 tag for the `main` branch:
+Example: create a version 1.0.1 tag for the `main` branch at the most recent commit:
 
 ```
 git checkout main
@@ -452,6 +452,9 @@ git pull
 git tag -a v1.0.1 -m "Version 1.0.1"
 git push origin v1.0.1
 ```
+
+- To create a tag at a previous commit: `git tag -a v1.0.1 -m "Version 1.0.1" <commit-hash>`
+- The commit hash can be the full hash or part of it
 
 To update and list all of the tags, run the following code:
 
