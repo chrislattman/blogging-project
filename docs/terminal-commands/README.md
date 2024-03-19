@@ -2501,7 +2501,7 @@ Libraries can either be static or shared:
 
 `objdump` stands for for "object dump." It's used to disassemble a binary's raw bytes into assembly code.
 
-- `objdump -d <binary>` outputs the standard disassembly of a binary
+- `objdump -d <binary>` outputs the standard disassembly of a binary (specifically the .text section)
 - By default, `objdump` on macOS and Linux will display x86-64 assembly using AT&T syntax
     - Adding `-M intel` will output the assembly using Intel syntax (differences are described [here](https://staffwww.fullcoll.edu/aclifton/courses/cs241/syntax.html))
         - Notably, operands are in reverse order
@@ -2512,9 +2512,20 @@ Libraries can either be static or shared:
     - You will need to install either `x86_64-elf-binutils` (macOS) or `binutils-x86-64-linux-gnu` (Linux) with a [package manager](#package-managers)
 - For more involved reverse engineering projects, tools like [Ghidra](https://ghidra-sre.org/) will not only disassemble binaries but also _decompile_ them back into C-like source code
 - Related Linux commands include:
-    - `nm -g <binary>`, which outputs the exported symbols (function names) of a binary
+    - `nm -g <binary>`, which outputs the exported symbols (including function names) of a binary in alphabetical order
         - Add `-C` to demangle symbol names, which is useful for C++ binaries since C++ supports [function overloading](https://en.wikipedia.org/wiki/Function_overloading)
+        - The output of `nm` is organized into rows of 3 columns: the offset of the symbol, the symbol type (uppercase means the symbol is exported), and the symbol name.
+        - A binary is organized into various sections. Common symbol types are:
+            - B: the symbol is in the .bss (uninitialized/zeroed global and static variables) section
+            - D: the symbol is in the .data (initialized global and static variables) section
+            - R: the symbol is in the .rodata (read-only data, e.g format strings) section
+            - T: the symbol is in the .text (machine code) section
+            - U: the symbol is undefined (imported from a library like glibc)
+            - W,w: the symbol is a weak symbol
+            - Other sections include: .symtab (symbol table), .strtab (string table), .init (defines the _init function), .debug (debugging symbol table), and .line (mapping between C source lines and machine code instructions in .text), among others
+                - .debug and .line are only included if the code is compiled with `-g` (debugging enabled)
     - `readelf -d <binary> | grep NEEDED`, which outputs shared library dependencies of a binary
+        - An alternative is `ldd <binary>`
 - Related macOS command include:
     - `nm -g <binary>`, which does the same thing as the Linux version
         - Run `nm -g <binary> | c++filt` to demangle symbol names
