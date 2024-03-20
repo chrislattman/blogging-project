@@ -2060,7 +2060,7 @@ Package managers are meant to make software installation easier, by providing a 
 
 - There are [two major families](https://en.wikipedia.org/wiki/List_of_Linux_distributions) of Linux distributions: `deb` and `rpm`
 - Ubuntu, part of the Debian (`.deb`) family of distributions, uses the `apt` package manager
-- Distributions in the Red Hat (`.rpm`) family, such as CentOS, use the `dnf` package manager
+- Distributions in the Red Hat (`.rpm`) family, such as Fedora and CentOS/RHEL, use the `dnf` package manager
 
 However, both of the major package managers use the same syntax:
 
@@ -2073,8 +2073,8 @@ However, both of the major package managers use the same syntax:
 - `sudo apt clean` clears the cache
     - This wipes metadata that speeds up fetching updates
 - `sudo apt autoremove` removes all unneeded packages
-- `apt list --installed` shows all installed packages
-- `sudo dnf update` fetches updates for packages on a Red Hat-based OS
+- `apt list --installed` lists all installed packages
+- `sudo dnf check-update` fetches updates for packages on a Red Hat-based OS
 - `sudo dnf upgrade` installs updates for packages on a Red Hat-based OS
 - `sudo dnf install <package>` installs a package on a Red Hat-based OS
     - Example: `sudo dnf install wget`
@@ -2083,7 +2083,7 @@ However, both of the major package managers use the same syntax:
 - `sudo dnf clean all` clears the cache
     - This wipes metadata that speeds up fetching updates
 - `sudo dnf autoremove` removes all unneeded packages
-- `dnf list installed` shows all installed packages
+- `dnf list installed` lists all installed packages
 - **If you are running these commands in a Docker container (Ubuntu preferably):**
     - Remove `sudo` since you are already the [root](https://en.wikipedia.org/wiki/Superuser) user
     - Run either `apt update` (Ubuntu uses this) or `dnf update` before installing first package
@@ -2112,6 +2112,14 @@ The are package managers available for other operating systems too:
     - `pkg clean`
     - `pkg autoremove`
     - `pkg info`
+- `pacman` is a package manager for Arch Linux and MSYS2. It's similar to `apt` and `dnf` but has some distinctions:
+    - `pacman -Syu` checks for updates and installs them (it's not recommended to just check for updates)
+    - `pacman -S <package>` installs a package
+        - Example: `pacman -S wget` or `pacman -S mingw-w64-ucrt-x86_64-wget`
+        - Full list of MSYS2 packages is available [here](https://packages.msys2.org/package/)
+    - `pacman -Rs <package>` removes a package and its unused dependencies in one command
+    - `pacman -Scc` clears the cache
+    - `pacman -Q` lists all installed packages
 
 ### More commands!
 
