@@ -2491,7 +2491,7 @@ Afterwards, the assembly code is assembled into object code (pure binary, theref
 
 After this stage, the object files are linked with static libraries it depends on, and the end result is either an executable or a library.
 
-- On Linux and macOS, there is no common file extension for executable files
+- On Linux and macOS, there is no common file extension for executable files, although they are nicknamed "a.out" files
 - On Windows, executables are `.exe` files
 
 Libraries can either be static or shared:
