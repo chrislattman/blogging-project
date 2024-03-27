@@ -176,6 +176,8 @@ To build and run a Java project from the command line, you have two options:
     java pkg/YourMainClassName
     ```
 
+    - If using [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)), replace `javac` with `kotlinc`
+
 1. Create an executable [`.jar`](https://en.wikipedia.org/wiki/JAR_(file_format)) file:
 
     ```
@@ -184,6 +186,8 @@ To build and run a Java project from the command line, you have two options:
     mkdir META-INF
     ```
 
+    - If using Kotlin, replace `javac` with `kotlinc`
+        - If you want to run the Kotlin-generated `.jar` file with `java`, add `-include-runtime` to the `kotlinc` command
     - Create a `MANIFEST.MF` file in the `META-INF` directory with the following contents (note the blank third line):
 
     ```
@@ -198,6 +202,8 @@ To build and run a Java project from the command line, you have two options:
     jar -cmf META-INF/MANIFEST.MF archive.jar pkg/*.class
     java -jar archive.jar
     ```
+
+    - You can run `kotlin archive.jar` for Kotlin projects that weren't compiled with `-include-runtime`
 
 To view the contents of a `.jar` file:
 
