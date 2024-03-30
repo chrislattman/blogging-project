@@ -45,7 +45,9 @@ Example use cases:
     - A list of supported protocols is available [here](https://man7.org/linux/man-pages/man1/curl.1.html#PROTOCOLS)
         - You can also run `curl -V | grep Protocols` to locally see what protocols your version of `curl` supports
 - `-c <file>.txt` outputs cookies from a website to a text file
-- `-b <file>.txt` uses cookies from a text file when uploading data
+- `-b <file>.txt` uses cookies from a text file when submitting a request
+- `-b <cookie-1>=<value>` passes a cookie when submitting a request
+    - You can specify multiple cookies like so: `-b <cookie-1>=<value>; <cookie-2>=<value>`
 - `-T <file>` uploads a file with the request
 - `-X <request>` specifies a custom request
     - This is generally unnecessary for HTTP, but other protocols may necessitate it (see below)
