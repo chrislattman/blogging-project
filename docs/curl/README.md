@@ -46,11 +46,12 @@ Example use cases:
         - You can also run `curl -V | grep Protocols` to locally see what protocols your version of `curl` supports
 - `-c <file>.txt` outputs cookies from a website to a text file
 - `-b <file>.txt` uses cookies from a text file when submitting a request
-- `-b <cookie-1>=<value>` passes a cookie when submitting a request
-    - You can specify multiple cookies like so: `-b <cookie-1>=<value>; <cookie-2>=<value>`
+- `-b "<cookie-1>=<value>"` passes a HTTP cookie when submitting a request
+    - You can specify multiple cookies like so: `-b "<cookie-1>=<value>; <cookie-2>=<value>"`
+    - This is equivalent to sending the HTTP header `"Cookie: <cookie-1>=<value>; <cookie-2>=<value>"`
 - `-T <file>` uploads a file with the request
 - `-X <request>` specifies a custom request
-    - This is generally unnecessary for HTTP, but other protocols may necessitate it (see below)
+    - This is generally unnecessary for HTTP and FTP, but other protocols may necessitate it (see below)
 
 Aside from HTTP requests, `curl` can be used with other protocols, such as FTP(S).
 
