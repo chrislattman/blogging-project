@@ -37,7 +37,9 @@ Example use cases:
 - `-i` outputs the HTTP response line and headers along with the HTTP response body
 - `-v` outputs any TLS handshake data and the HTTP request line and headers, as well as the output from `-i`
 - `-U <username:password>` specifies the username and password for a proxy
+    - This is equivalent to sending the HTTP request header `Proxy-Authentication: Basic <encoding>`, where `<encoding>` is the string `username:password` encoded in [base64](../terminal-commands#converting-between-hexadecimal-and-base64)
 - `-u <username:password>` specifies the username and password for a server
+    - This is equivalent to sending the HTTP request header `Authentication: Basic <encoding>`, where `<encoding>` is the string `username:password` encoded in [base64](../terminal-commands#converting-between-hexadecimal-and-base64)
 - `-x https://proxy-address` specifies an HTTPS proxy to use to connect to a website
 - `--ssl-reqd` forces TLS to be used for any protocol
     - Alternatively, you can specify a specific (secure) protocol to use with `--proto =<protocol>`
@@ -48,7 +50,7 @@ Example use cases:
 - `-b <file>.txt` uses cookies from a text file when submitting a request
 - `-b "<cookie-1>=<value>"` passes a HTTP cookie when submitting a request
     - You can specify multiple cookies like so: `-b "<cookie-1>=<value>; <cookie-2>=<value>"`
-    - This is equivalent to sending the HTTP header `"Cookie: <cookie-1>=<value>; <cookie-2>=<value>"`
+    - This is equivalent to sending the HTTP request header `"Cookie: <cookie-1>=<value>; <cookie-2>=<value>"`
 - `-T <file>` uploads a file with the request
 - `-X <request>` specifies a custom request
     - This is generally unnecessary for HTTP and FTP, but other protocols may necessitate it (see below)

@@ -2409,6 +2409,12 @@ Example: convert a base64 value to hexadecimal:
 echo -n "bGlnaHQgdw==" | base64 -d | xxd -p
 ```
 
+Example: convert a string to base64:
+
+```
+echo -n "hello" | base64
+```
+
 ### Editing a binary file
 
 You can edit a binary file with `vim` and `xxd`.
