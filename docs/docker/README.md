@@ -28,7 +28,7 @@ docker run -it --name ubuntu ubuntu /bin/bash
 - From the `docker run` command, `--name ubuntu` names the container "ubuntu" and builds the container using the official `ubuntu` image that you just pulled
 - `-it` keeps the terminal window open, and `/bin/bash` specifies that the bash terminal shall be used
 
-Congratulations! You now have terminal access to a bare-bones Ubuntu. You can try experimenting with some [terminal commands](../terminal-commands#the-41-most-important-terminal-commands-plus-symbols-and-compression). When you're done, you can exit the Ubuntu container by running `exit`.
+Congratulations! You now have terminal access to a bare-bones Ubuntu. You can try experimenting with some [terminal commands](../terminal-commands#the-42-most-important-terminal-commands-plus-symbols-and-compression). When you're done, you can exit the Ubuntu container by running `exit`.
 
 ## Docker image vs. Docker container vs. Docker volume
 

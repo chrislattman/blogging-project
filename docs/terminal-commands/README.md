@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Before you start (macOS only)](#before-you-start-macos-only)
-- [The 41 most important terminal commands (plus symbols and compression)](#the-41-most-important-terminal-commands-plus-symbols-and-compression)
+- [The 42 most important terminal commands (plus symbols and compression)](#the-42-most-important-terminal-commands-plus-symbols-and-compression)
 - [Other important terminal info](#other-important-terminal-info)
 
 ## Introduction
@@ -72,7 +72,7 @@ To change your Terminal profile, open Terminal and go to Terminal -> Preferences
 
 To save your changes, quit Terminal and restart it.
 
-## The 41 most important terminal commands (plus symbols and compression):
+## The 42 most important terminal commands (plus symbols and compression):
 
 - [`ls` - lists items in a directory](#ls)
 - [`du` - shows size of file or directory contents](#du)
@@ -95,6 +95,7 @@ To save your changes, quit Terminal and restart it.
 - [`find` - searches the file system for files and directories](#find)
 - [`which` - searches for the location of a command](#which)
 - [`chmod` - changes the permissions of a file](#chmod)
+- [`chown` - changes the user (and optionally group) ownership of a file](#chown)
 - [`man` - manual pages for various commands](#man)
 - [`history` - outputs your previous terminal commands](#history)
 - [`wget` - downloads files from the Internet](#wget)
@@ -1228,6 +1229,28 @@ echo "Hello, world!"
 [Chris@Chris-MBP-16 test-directory]$ chmod 744 script.sh
 [Chris@Chris-MBP-16 test-directory]$ ./script.sh
 Hello, world!
+[Chris@Chris-MBP-16 test-directory]$
+```
+
+### `chown`
+
+Stands for "change owner." It changes the user and optionally group ownership of a file.
+
+- `chown root <file>` changes the user owner of `<file>` to root
+- `chown root:staff <file>` changes the user owner of `<file>` to root and group owner to staff
+- `chown -hR root <directory>` changes the user owner of `<directory>` and all subfiles to root
+
+Example:
+
+```
+[Chris@Chris-MBP-16 test-directory]$ ls -l
+total 0
+-rw-r--r--  1 Chris  staff  0 Apr 12 10:50 file.txt
+[Chris@Chris-MBP-16 test-directory]$ sudo chown root file.txt
+Password:
+[Chris@Chris-MBP-16 test-directory]$ ls -l
+total 0
+-rw-r--r--  1 root  staff  0 Apr 12 10:50 file.txt
 [Chris@Chris-MBP-16 test-directory]$
 ```
 
