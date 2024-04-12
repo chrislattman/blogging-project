@@ -16,6 +16,8 @@ The [Android Emulator](../android) is a notable user of QEMU.
 - [Usage](#usage)
     - [Creating a VM](#creating-a-vm)
     - [Running a VM](#running-a-vm)
+    - [Enable sound](#enable-sound)
+    - [Enable USB passthrough](#enable-usb-passthrough)
     - [Port forwarding](#port-forwarding)
     - [Creating a snapshot](#creating-a-snapshot)
     - [Shared clipboard](#shared-clipboard)
@@ -87,6 +89,43 @@ qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda ~/qemu-vms/myvm.qcow2
 - Like VirtualBox VMs, a QEMU VM can access the host OS's `localhost` at `10.0.2.2`
 - Advanced: adding `-D <log-file>` will output logging information to the specified file
 - Optional: add `-name "My VM Name"` to give your VM a name (this will show up in the window title after "QEMU")
+
+### Enable sound
+
+```
+qemu-system-x86_64 -enable-kvm \
+    -cpu host \
+    -smp 2 \
+    -m 4G \
+    -hda ~/qemu-vms/myvm.qcow2 \
+    -device intel-hda \
+    -device hda-output
+```
+
+- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
+
+### Enable USB passthrough
+
+Sometimes you want to access a USB device (such as a flash drive) from your VM.
+
+First, you need to run either `lsusb` on Linux or `system_profiler SPUSBDataType` on macOS. Then find the entry that corresponds to your device. Find the Product ID and Vendor ID of the device (they should be hexadecimal values).
+
+- On Linux, they are in the form `ID <vendor-id>:<product-id>`
+
+Then, **eject the device from your host**. Afterwards, you can use the IDs in the following command:
+
+```
+sudo qemu-system-x86_64 -enable-kvm \
+    -cpu host \
+    -smp 2 \
+    -m 4G \
+    -hda ~/qemu-vms/myvm.qcow2 \
+    -device qemu-xhci \
+    -device usb-host,productid=<product-id>,vendorid=<vendor-id>
+```
+
+- `sudo` is required for USB passthrough
+- Replace `-enable-kvm` and `-cpu host` as necessary (refer to step 3 of [Creating a VM](#creating-a-vm))
 
 ### Port forwarding
 
