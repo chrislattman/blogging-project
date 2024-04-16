@@ -2216,9 +2216,9 @@ Redirectors can be used to redirect terminal output to a file.
 - `ls -l &> file.txt` copies the output and any additional error output from running `ls -l` to file.txt
 - `ls -l &> file.txt &` runs the previous command in the [background](#run-in-background)
 
-The pipes created by `|` are technically anonymous pipes. You can create named pipes, also called FIFOs, with the `mkfifo` command. Named pipes are treated as regular files by Unix systems (like sockets).
+The pipes created by `|` are technically anonymous pipes. You can create named pipes, also called FIFOs, with the `mkfifo` command. Named pipes are treated as files by Unix systems (like sockets).
 
-Example: in one terminal window, you can create a named pipe and have a command listen to output from it:
+Example: in one terminal window, you can create a named pipe and redirect the input of a command to the pipe:
 
 ```
 [Chris@Chris-MBP-16 Downloads]$ mkfifo pipe
@@ -2233,7 +2233,7 @@ It will wait for output from the pipe. In another terminal window, you can redir
 [Chris@Chris-MBP-16 Downloads]$
 ```
 
-Back in the first terminal window, the waiting command receives the pipe's contents and returns the result.
+Back in the first terminal window, the waiting command receives the pipe's contents as input and returns the result:
 
 ```
       12
