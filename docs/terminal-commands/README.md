@@ -2199,7 +2199,7 @@ In either case, run `source ~/.bashrc` to save your changes.
 
 ### Pipes and redirection
 
-Pipes can be used to send the output of one command to the input of another command.
+Pipes can be used to send the standard output of one command to the standard input of another command.
 
 Example:
 
@@ -2215,6 +2215,31 @@ Redirectors can be used to redirect terminal output to a file.
 - `ls -l >> file.txt` copies the output of `ls -l` and appends it to the end of file.txt (rather than overwrite file.txt's contents)
 - `ls -l &> file.txt` copies the output and any additional error output from running `ls -l` to file.txt
 - `ls -l &> file.txt &` runs the previous command in the [background](#run-in-background)
+
+The pipes created by `|` are technically anonymous pipes. You can create named pipes, also called FIFOs, with the `mkfifo` command. FIFOs are treated as regular files by Unix systems (like sockets).
+
+Example: in one terminal window, you can create a named pipe and have a command listen to output from it
+
+```
+[Chris@Chris-MBP-16 Downloads]$ mkfifo pipe
+[Chris@Chris-MBP-16 Downloads]$ wc -l < pipe
+
+```
+
+It will wait for output from the pipe. In another terminal window, you can redirect the output of a command to the named pipe
+
+```
+[Chris@Chris-MBP-16 Downloads]$ cat firsts.txt > pipe
+```
+
+In the first terminal window, the command receives the named pipe's contents and returns the result.
+
+```
+      12
+[Chris@Chris-MBP-16 Downloads]$
+```
+
+You can delete the named pipe with [`rm`](#rm).
 
 ### Run sequential commmands
 
