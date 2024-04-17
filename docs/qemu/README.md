@@ -24,7 +24,7 @@ The [Android Emulator](../android) is a notable user of QEMU.
     - [Shared folders](#shared-folders)
     - [Headless mode](#headless-mode)
     - [Remote desktop](#remote-desktop)
-    - [Convert file format](#convert-file-format)
+    - [Convert disk image format](#convert-disk-image-format)
     - [Resizing a VM](#resizing-a-vm)
     - [Importing a VM](#importing-a-vm)
     - [Emulating an executable](#emulating-an-executable)
@@ -283,7 +283,7 @@ qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -hda myvm.qcow2 -vnc :0
 - Append a [`&`](../terminal-commands#run-in-background) to the command to run it in the background
 - You will have to wait until the VM is ready
 
-### Convert file format
+### Convert disk image format
 
 You may want to export a VM for use with another hypervisor, i.e. VirtualBox or VMware. You can do this by running
 
