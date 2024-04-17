@@ -1744,6 +1744,8 @@ Ends one or more processes.
 - `kill -2 <pid>` tries to end a process gracefully
 - These are associated with `Ctrl +` signals, read more [below](#contents)
 - You can end multiple processes at once, e.g. `kill -9 <pid1> [pid2] ... [pidN]`
+- There is also `pkill` which ends a process by name rather than PID
+    - E.g. `pkill -9 <process-name>`
 
 Example (I am downloading a 3 GB file in the [background](#run-in-background)):
 
