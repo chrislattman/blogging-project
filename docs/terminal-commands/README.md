@@ -1926,6 +1926,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 
 ### Contents:
 
+- [`id` - print out user ID and group ID](#id)
 - [`Ctrl + D` - end of file](#ctrl-d)
 - [`Ctrl + C` - kills a command](#ctrl-c)
 - [`Ctrl + Z` - stops a command](#ctrl-z)
@@ -1956,6 +1957,20 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [`openvpn` - connects to a VPN service](#openvpn)
 - [`openssl` - encrypts and decrypts files](#openssl)
 - [Two-factor authentication from the terminal](#two-factor-authentication-from-the-terminal)
+
+### `id`
+
+Used to output the numeric ID associated with a user or a group.
+
+- Can also run `echo $UID` and `echo $GROUPS`
+
+Example:
+
+```
+[Chris@Chris-MBP-16 ~]$ id
+uid=501(Chris) gid=20(staff) groups=20(staff),101(access_bpf),12(everyone),61(localaccounts),79(_appserverusr),80(admin),81(_appserveradm),98(_lpadmin),33(_appstore),100(_lpoperator),204(_developer),250(_analyticsusers),395(com.apple.access_ftp),398(com.apple.access_screensharing),399(com.apple.access_ssh),400(com.apple.access_remote_ae)
+[Chris@Chris-MBP-16 ~]$
+```
 
 ### `Ctrl D`
 
