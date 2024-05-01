@@ -63,7 +63,15 @@ where `<interface>` can be either the name of the interface or the numerical ind
     - `-nn` doesn't resolve IP addresses and port numbers to hostnames and services, respectively (this makes TShark run faster)
     - `-tad` displays human-readable timestamps (`-tttt` in `tcpdump`)
 
-Replace `capture filter` with the actual filter you want to use; examples can be found [here](https://gitlab.com/wireshark/wireshark/-/wikis/CaptureFilters#examples)
+Replace `capture filter` with the actual filter you want to use; examples can be found [here](https://gitlab.com/wireshark/wireshark/-/wikis/CaptureFilters#examples). Examples include:
+
+- `host 192.168.1.1`
+- `tcp port 80`
+- `port 53`
+- `tcp port 80 or tcp port 443`
+- `dst host 192.168.1.1`
+- `tcp dst port 80`
+- `tcp[tcpflags] & (tcp-psh) != 0`
 
 To stop capturing packets, enter `Ctrl + C` (if TShark did not exit already).
 
@@ -72,21 +80,24 @@ To stop capturing packets, enter `Ctrl + C` (if TShark did not exit already).
 To analyze a packet capture:
 
 ```
-tshark -r capture.pcapng "read filter"
+tshark -r capture.pcapng [-x] "read filter"
 ```
 
 - You can use the `-nn` and `-tad` (`-tttt` in `tcpdump`) flags here as well
+- `-x` prints out the packet in hex and ASCII (just hex on `tcpdump`)
+    - `-A` prints out the packet in ASCII on `tcpdump`
 
-Replace `read filter` with a valid display filter. Examples include:
+Replace `read filter` with a valid display filter; examples can be found [here](https://www.wireshark.org/docs/man-pages/wireshark-filter.html). Examples include:
 
 - `ip.addr == 192.168.1.1`
 - `tcp.port == 80`
 - `dns`
 - `tcp.port == 80 or tcp.port == 443`
+- `ip.dst == 192.168.1.1`
+- `tcp.dstport == 80`
+- `tcp.flags & 0x08`
 
-More information can be found [here](https://www.wireshark.org/docs/man-pages/wireshark-filter.html).
-
-- `tcpdump` display filters are the same as its capture filters
+`tcpdump`'s display filters are the same as its capture filters.
 
 ## `mergecap`
 
