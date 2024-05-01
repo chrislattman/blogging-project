@@ -71,7 +71,7 @@ Replace `capture filter` with the actual filter you want to use; examples can be
 - `tcp port 80 or tcp port 443`
 - `dst host 192.168.1.1`
 - `tcp dst port 80`
-- `tcp[tcpflags] & (tcp-psh) != 0`
+- `tcp[tcpflags] & 0x08 != 0`
 
 To stop capturing packets, enter `Ctrl + C` (if TShark did not exit already).
 
