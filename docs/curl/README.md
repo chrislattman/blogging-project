@@ -29,6 +29,7 @@ Example use cases:
     - This flag can be specified multiple times for multiple headers
     - A file of HTTP request headers (one for each line) can be specified with `-H @<headerfilename>.txt`
     - `--proxy-header "<header>"` does the same thing, but passes the header to an HTTP proxy only
+    - Note: many custom HTTP headers start with `x-` to avoid conflicting with standard HTTP headers
 - `--dns-servers <address>` specifies a custom DNS server to use
     - This flag is not available on all versions of `curl`, but you can use [`host`](#host) to get a website's IP address according to a particular DNS server
 - `-D <file>` writes the HTTP response line and headers from a GET request to a file
