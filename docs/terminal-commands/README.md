@@ -1908,6 +1908,12 @@ tar -x[z|j|J]f archive.tar[.gz|.bz2|.xz] -C output-directory
 
 # To extract certain files from a tar archive:
 tar -x[z|j|J]f archive.tar[.gz|.bz2|.xz] [files] [directory/*]
+
+# Pipe output from a command to gzip and write compressed data to .gz file
+echo "hello" | gzip > compressed.gz
+
+# Uncompress .gz file
+gunzip compressed.gz
 ```
 
 - `[files]` refers to the files that you want to compress
