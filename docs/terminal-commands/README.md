@@ -1914,6 +1914,9 @@ echo "hello" | gzip > compressed.gz
 
 # Uncompress .gz file
 gunzip compressed.gz
+
+# Print out the decompressed contents of a .gz file without modifying the file itself
+gunzip -c compressed.gz
 ```
 
 - `[files]` refers to the files that you want to compress
