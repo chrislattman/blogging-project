@@ -1,6 +1,6 @@
 # VirtualBox
 
-VirtualBox is a [hypervisor](https://en.wikipedia.org/wiki/Hypervisor), or a program used to simulate operating systems on computers. It allows you to run multiple guest OSes (known as virtual machines) on a single host computer.
+VirtualBox is a [hypervisor](https://en.wikipedia.org/wiki/Hypervisor), or a program used to simulate operating systems on computers. It allows you to run multiple guest OSes (known as virtual machines) on a single host computer. It is released by Oracle.
 
 This is different from [dual-booting](https://www.howtogeek.com/187789/dual-booting-explained-how-you-can-have-multiple-operating-systems-on-your-computer/), which allows you to choose between two host OSes at boot time.
 

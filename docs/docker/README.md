@@ -2,6 +2,8 @@
 
 Docker is a tool used to containerize operating systems. It facilitates software development by mitigating the need for virtual machines (in most cases).
 
+Kubernetes is a container orchestration tool which manages a cluster of servers each running Docker.
+
 ## Table of Contents
 
 - [Getting started](#getting-started)
