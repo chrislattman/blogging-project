@@ -4,7 +4,7 @@ Stands for "client URL" and is often written as cURL. It allows you to both down
 
 - You could also run `curl -LO https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.iso` to do the same thing as the above `wget` command
 - `curl` only works for individual files (`wget` is more [robust](https://daniel.haxx.se/docs/curl-vs-wget.html))
-- You might also need to install `curl` with a package manager (it's better to use `wget` anyways for downloads)
+- You might also need to install `curl` with a [package manager](../terminal-commands#package-managers) (it's better to use `wget` anyways for downloads)
 
 Example use cases:
 
@@ -15,7 +15,7 @@ Example use cases:
 
 ## jq
 
-You can use `curl` and `jq` to parse [JSON](https://en.wikipedia.org/wiki/JSON) from a website. For example, GitLab exposes an API endpoint that lets you see what projects a user has published in a structured format. You can use `jq` without any options to "pretty-print" the output:
+You can use `curl` and `jq` (available from a package manager) to parse [JSON](https://en.wikipedia.org/wiki/JSON) from a website. For example, GitLab exposes an API endpoint that lets you see what projects a user has published in a structured format. You can use `jq` without any options to "pretty-print" the output:
 
 ```
 [Chris@Chris-MBP-16 ~]$ curl -s https://gitlab.com/api/v4/users/chrislattman/projects | jq
@@ -68,6 +68,8 @@ Blogging Project
 ```
 
 GitHub exposes a similar API endpoint here: https://api.github.com/users/chrislattman/repos
+
+- A similar tool for XML parsing is called `xq`, which also has to be installed with a package manager
 
 `curl` is a very powerful tool for testing web applications. Here are some more `curl` options:
 
