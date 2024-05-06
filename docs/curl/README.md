@@ -13,6 +13,62 @@ Example use cases:
     - `curl wttr.in/<city>` outputs a 3-day weather forecast for the given city
     - You can also specify a state to narrow down the right city, e.g. `curl wttr.in/manhattan,ks`
 
+## jq
+
+You can use `curl` and `jq` to parse [JSON](https://en.wikipedia.org/wiki/JSON) from a website. For example, GitLab exposes an API endpoint that lets you see what projects a user has published in a structured format. You can use `jq` without any options to "pretty-print" the output:
+
+```
+[Chris@Chris-MBP-16 ~]$ curl -s https://gitlab.com/api/v4/users/chrislattman/projects | jq
+[
+  {
+    "id": 42716057,
+    "description": "Sample project that demonstrates GitLab CI/CD.",
+    "name": "Blogging Project",
+    "name_with_namespace": "Chris Lattman / Blogging Project",
+    "path": "blogging-project",
+    "path_with_namespace": "chrislattman/blogging-project",
+    "created_at": "2023-01-19T02:32:35.997Z",
+    "default_branch": "main",
+    "tag_list": [],
+    "topics": [],
+    "ssh_url_to_repo": "git@gitlab.com:chrislattman/blogging-project.git",
+    "http_url_to_repo": "https://gitlab.com/chrislattman/blogging-project.git",
+    "web_url": "https://gitlab.com/chrislattman/blogging-project",
+    "readme_url": "https://gitlab.com/chrislattman/blogging-project/-/blob/main/README.md",
+    "forks_count": 0,
+    "avatar_url": null,
+    "star_count": 0,
+    "last_activity_at": "2024-05-06T00:28:10.739Z",
+    "namespace": {
+      "id": 7709877,
+      "name": "Chris Lattman",
+      "path": "chrislattman",
+      "kind": "user",
+      "full_path": "chrislattman",
+      "parent_id": null,
+      "avatar_url": "https://secure.gravatar.com/avatar/9c9ab844d0d19ad6cc0682c61c2e3557b9a5c796653dcf86ce195ceee4a4b359?s=80&d=identicon",
+      "web_url": "https://gitlab.com/chrislattman"
+    }
+  }
+]
+```
+
+The real power of `jq` comes with its filter. You can select what to print out by JSON key names, which can be grouped together:
+
+```
+[Chris@Chris-MBP-16 ~]$ curl -s https://gitlab.com/api/v4/users/chrislattman/projects | jq -r ".[]|.name"
+Blogging Project
+[Chris@Chris-MBP-16 ~]$ curl -s https://gitlab.com/api/v4/users/chrislattman/projects | jq ".[]|[.name, .description, .web_url]"
+[
+  "Blogging Project",
+  "Sample project that demonstrates GitLab CI/CD.",
+  "https://gitlab.com/chrislattman/blogging-project"
+]
+[Chris@Chris-MBP-16 ~]$
+```
+
+GitHub exposes a similar API endpoint here: https://api.github.com/users/chrislattman/repos
+
 `curl` is a very powerful tool for testing web applications. Here are some more `curl` options:
 
 - `-L` follows HTTP 3xx redirects
