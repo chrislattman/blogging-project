@@ -2519,6 +2519,8 @@ openssl s_client -showcerts -connect <domain-name>:443 < /dev/null | openssl x50
 ```
 
 - You may see other extensions such as `.cer` or `.pem` for certificates (they refer to the same file type)
+- You can print out a PEM-formatted certificate with `openssl x509 -in certificate.crt -text`
+    - The other format, DER, is the binary-encoded version of a certificate
 
 Adding the certificate to the operating system's trust/certificate store depends on which OS you are using:
 
