@@ -72,6 +72,10 @@ Replace `capture filter` with the actual filter you want to use; examples can be
 - `dst host 192.168.1.1`
 - `tcp dst port 80`
 - `tcp[tcpflags] & 0x08 != 0`
+    - This filter checks that the TCP PSH flag is set
+- `((ip[2:2] - ((ip[0] & 0xf) << 2)) - ((tcp[12] & 0xf0) >> 2)) != 0`
+    - This filter captures TCP segments that contain (payload) data
+    - It does this by subtracting from the IPv4 total packet length (`ip[2:2]`) the IPv4 header length (`(ip[0] & 0xf) << 2`) and the TCP header length (`(tcp[12] & 0xf0) >> 2`) to get the TCP data length, and checking that it's not equal to 0
 
 To stop capturing packets, enter `Ctrl + C` (if TShark did not exit already).
 
@@ -96,6 +100,9 @@ Replace `read filter` with a valid display filter; examples can be found [here](
 - `ip.dst == 192.168.1.1`
 - `tcp.dstport == 80`
 - `tcp.flags & 0x08`
+    - This filter checks that the TCP PSH flag is set
+- `tcp.len != 0`
+    - This filter captures TCP segments that contain (payload) data
 
 `tcpdump`'s display filters are the same as its capture filters.
 
