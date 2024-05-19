@@ -100,9 +100,13 @@ GitHub exposes a similar API endpoint here: https://api.github.com/users/chrisla
 - `-u <username:password>` specifies the username and password for a server
     - This is equivalent to sending the HTTP request header `Authentication: Basic <encoding>`, where `<encoding>` is the string `username:password` encoded in [base64](../terminal-commands#converting-between-hexadecimal-and-base64)
 - `-x https://proxy-address` specifies an HTTPS proxy to use to connect to a website
-    - Under the hood, this works by changing the IP header destination host to the proxy address
-    - The proxy server then gets the real destination host from the HTTP Host header (and then use DNS to get the real destination IP address)
-    - This differs from a VPN, since all network traffic is tunneled through a virtual network adapter, which the VPN client reads from, encrypts the traffic, and sends it to the VPN server through the real network adapter
+    - Under the hood, this works by `curl` changing the IP header destination host to the proxy address
+    - The proxy server then gets the real destination host from the HTTP Host header (and then use DNS to get the real destination IP address), changes the IP header source host to itself, the IP header destination host to the real IP address, and sends the packets
+        - The proxy server keeps track of different clients by specifying unique source ports when it sends the packets, and mapping them to the actual source ports
+    - This differs from a VPN, where all network traffic is tunneled through a virtual network adapter
+    - The VPN client listens on the virtual network adapter, encapsulates and encrypts the packets it receives, and sends them to the VPN server through the real network adapter (oftentimes using UDP), where they are subsequently decrypted, decapsulated, and sent to the real destination (after the VPN server changes the IP header source host to itself)
+        - The VPN server keeps track of different clients by specifying unique source ports when it sends the packets, and mapping them to the actual source ports
+        - ICMP responses received by the VPN server may not be sent to the right clients, or may not even be processed by some VPN clients
 - `--ssl-reqd` forces TLS to be used for any protocol
     - Alternatively, you can specify a specific (secure) protocol to use with `--proto =<protocol>`
     - Example: `--proto =https` only lets `curl` use HTTPS for the request
