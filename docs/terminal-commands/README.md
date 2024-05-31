@@ -2543,16 +2543,21 @@ Adding the certificate to the operating system's trust/certificate store depends
 On Linux (and FreeBSD), you can see which dynamic library (e.g. libc) functions are invoked from a running application. To do so, use `ltrace`:
 
 ```
-ltrace <command> [command-flags]
+ltrace -f -s 4096 <command> [command-flags]
 ```
+
+- `-t` prints out the timestamp for each result
+- `-o <filename>` prints out the results to a file instead
+- `-p <pid>` attaches `ltrace` to an existing process
 
 You can also include system calls in the output:
 
 ```
-ltrace -S <command> [command-flags]
+ltrace -f -s 4096 -S <command> [command-flags]
 ```
 
 - A similar command to do this is called `strace`, which only traces system calls
+    - It uses the same flags as `ltrace`
     - macOS has a similar tool to `strace` called `dtruss`, read more [here](https://poweruser.blog/using-dtrace-with-sip-enabled-3826a352e64b)
 - You will need to install `ltrace` or `strace` with a [package manager](#package-managers)
 
