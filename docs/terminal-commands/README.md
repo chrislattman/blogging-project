@@ -2548,6 +2548,7 @@ ltrace -f -s 4096 <command> [command-flags]
 
 - `-t` prints out the timestamp for each result
 - `-o <filename>` prints out the results to a file instead
+    - If outputting to a file, the first column is the PID
 - `-p <pid>` attaches `ltrace` to an existing process
 
 You can also include system calls in the output:
