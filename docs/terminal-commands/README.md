@@ -1100,6 +1100,7 @@ some more text
 
 It searches a file (or files) for a given phrase.
 
+- To use (extended) regex: `grep -E "regex-phrase" <file>` or `egrep "regex-phrase" <file>`
 - `grep -In "phrase" <file>` outputs every line that has a match as well as the line number
     - You can specify more than one file: `grep -In "phrase" <file1> <file2> ... <fileN>`
     - `grep -In "phrase" test*` searches all files that start with "test" for phrase
