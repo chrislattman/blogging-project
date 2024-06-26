@@ -1100,7 +1100,7 @@ some more text
 
 It searches a file (or files) for a given phrase.
 
-- To use (extended) regex: `grep -E "regex-phrase" <file>` or `egrep "regex-phrase" <file>`
+- To use (extended) regex: `grep -E "regex-phrase" <file>`
 - `grep -In "phrase" <file>` outputs every line that has a match as well as the line number
     - You can specify more than one file: `grep -In "phrase" <file1> <file2> ... <fileN>`
     - `grep -In "phrase" test*` searches all files that start with "test" for phrase
@@ -1163,6 +1163,8 @@ Done
 It searches the file system for files and directories that match the input phrase. You specify which directory to search within.
 
 - `find <directory> -iname "phrase"`
+- `find <directory> -regex "regex-phrase"` searches for matching file and directory names using a regex phrase
+    - On macOS, replace `-regex` with `-E -regex`
 - `find / -iname "file.txt"` searches anywhere in the entire drive for files with the name "file.txt"
 - `find . -iname "test*"` only searches within the current directory (and any subdirectories) for files and directories whose names start with "test"
     - `find . -iname "test*" -maxdepth 1` does the same thing but does not search within subdirectories
