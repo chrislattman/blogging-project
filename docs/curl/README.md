@@ -75,6 +75,7 @@ GitHub exposes a similar API endpoint here: https://api.github.com/users/chrisla
 
 - `-L` follows HTTP 3xx redirects
 - `-O` names the downloaded file as it appears in the URL
+- `-m <timeout>` is used to set a timeout value (in seconds, such as 1 or 0.5) for the entire request
 - `-d arg=value` is used to submit a POST request with `Content-Type: application/x-www-form-urlencoded`
     - This flag can be specified multiple times for multiple arguments
     - This flag cannot be used with `-F`
