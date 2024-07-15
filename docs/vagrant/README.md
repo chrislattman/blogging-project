@@ -4,7 +4,12 @@ Vagrant is software that allows for portable virtual machine (VM) creation and d
 
 Vagrant is comparable to [Docker](../docker), except that while Docker runs containers using images, which can be extended in Dockerfiles, Vagrant builds VMs using boxes, which are used in Vagrantfiles.
 
-Infrastructure as Code (IaC) software aims to automate the process of provisioning VMs. They might use Vagrant under the hood to actually create the VMs. Examples include Puppet, Chef, Salt, Ansible, and Terraform.
+Infrastructure as Code (IaC) software aims to automate the process of defining and provisioning VMs.
+
+- Terraform, another HasiCorp product, uses Vagrant to define data center infrastructure (create multiple VMs)
+    - Terraform also uses the concept of providers (in this case cloud infrastructure providers) and supports the major cloud computing companies (AWS, Azure, GCP, IBM Cloud, Oracle Cloud, and DigitalOcean), as well as on-premises cloud tools such as OpenStack and VMware vSphere
+- From there, other IaC tools like Ansible, Puppet, Chef, or Salt can be used to provision (communicate with and install software on) those VMs
+- Kubernetes does the work of both Terraform and Ansible/Puppet/Chef/Salt but for Docker containers instead of VMs
 
 ## Table of Contents
 
