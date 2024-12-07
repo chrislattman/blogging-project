@@ -122,6 +122,22 @@ GitHub exposes a similar API endpoint here: https://api.github.com/users/chrisla
 - `-X <request>` specifies a custom request
     - This is generally unnecessary for HTTP and FTP, but other protocols may necessitate it (see below)
 
+Example (using OpenAI):
+
+```
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-api-key" \
+  -d '{
+    "model": "gpt-4",
+    "messages": [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Tell me something interesting about space."}
+    ],
+    "temperature": 0.7
+  }' | jq -r '.choices[0].message.content'
+```
+
 Aside from HTTP requests, `curl` can be used with other protocols, such as FTP(S).
 
 - FTPS is different from [SFTP](../ssh#sftp)
