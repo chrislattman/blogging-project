@@ -15,6 +15,7 @@ Kubernetes is a container orchestration tool which manages a cluster of servers 
 - [Informational commands](#informational-commands)
 - [Removing images, containers, volumes, and networks](#removing-images-containers-volumes-and-networks)
 - [Pushing images to a Docker image library](#pushing-images-to-a-docker-image-library)
+- [Downloading images locally](#downloading-images-locally)
 - [Docker Compose](#docker-compose)
 
 ## Getting Started
@@ -246,6 +247,15 @@ To push an image:
 The latest version of an image should be tagged with version `latest` and pushed.
 
 If you need to use another image library, make sure to run `docker logout <image-library-url>`.
+
+## Downloading images locally
+
+You can also download an image to a .tar file and load an image from a .tar file with the following commands:
+
+- `docker image save -o archive image-name`
+    - Saves a Docker image to `archive.tar`
+    - You can compress the image with `gzip archive.tar` (renames it in place to `archive.tar.gz`)
+- `docker image load -o archive.tar`
 
 ## Docker Compose
 
