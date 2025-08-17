@@ -3178,16 +3178,21 @@ arp -an
 Endpoint client that connects to a VPN service. This command only works for Linux.
 
 - You might need to install `openvpn` with a [package manager](#package-managers)
-- OpenVPN is NOT a VPN service, it is a _protocol_ used to connect to VPN services like NordVPN, ExpressVPN, ProtonVPN, etc.
+- OpenVPN is NOT a VPN service, it is a _protocol_ used to connect to VPN services like NordVPN, ExpressVPN, Proton VPN, etc.
 - You need to already have an account with a VPN service (and you will probably need to pay for it)
 - Refer to your VPN service for specific instructions on using OpenVPN
     - There may be some steps that have to be done prior to running `openvpn`
-    - You will need a `.ovpn` configuration file from your VPN service that indicates which server to route your Internet traffic through
+    - You will need a `.ovpn` configuration file from your VPN service that indicates which server to route your Internet traffic through, which may include your user credentials in the form of a certificate
         - Make sure to specify Linux (if applicable) and use UDP (it is faster than TCP)
-        - However, use TCP if there are connection issues with UDP (unlikely)
     - You may also be prompted for an OpenVPN username/password pair that is provided by your VPN service
 - WireGuard is an alternative VPN protocol that promises faster speeds
     - WireGuard client instructions are available [here](https://engineerworkshop.com/blog/how-to-set-up-a-wireguard-client-on-linux-with-conf-file/)
+- OpenVPN and WireGuard capture all IP traffic from the kernel via a TUN (tunnel) device (a virtual network adapter), encrypts the traffic, wraps it around UDP, then reroutes the encrypted traffic over the real network device
+    - Likewise, incoming traffic is unwrapped, decrypted, and then sent through the TUN device
+    - It's safe to use UDP because the _underlying_ TCP streams are still protected by TCP
+- Another option is to use IKEv2/IPsec, which has built-in support on macOS and Windows
+    - To use on Linux, you might need to install `strongswan` with a [package manager](#package-managers)
+    - IPsec, unlike OpenVPN and WireGuard, doesn't wrap traffic around UDP, but encrypts the IP packets _directly_ due to built-in kernel support
 
 Usage: `sudo openvpn some-file.ovpn`
 
