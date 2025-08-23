@@ -2126,6 +2126,7 @@ However, both of the major package managers use the same syntax:
     - This wipes metadata that speeds up fetching updates
 - `sudo apt autoremove` removes all unneeded packages
 - `apt list --installed` lists all installed packages
+- `apt-mark showmanual` lists all user-installed packages
 - `sudo dnf check-update` fetches updates for packages on a Red Hat-based OS
 - `sudo dnf upgrade` installs updates for packages on a Red Hat-based OS
 - `sudo dnf install <package>` installs a package on a Red Hat-based OS
@@ -2136,6 +2137,7 @@ However, both of the major package managers use the same syntax:
     - This wipes metadata that speeds up fetching updates
 - `sudo dnf autoremove` removes all unneeded packages
 - `dnf list installed` lists all installed packages
+- `dnf repoquery --userinstalled` lists all user-installed packages
 - **If you are running these commands in a Docker container (Ubuntu preferably):**
     - Remove `sudo` since you are already the [root](https://en.wikipedia.org/wiki/Superuser) user
     - Run either `apt update` (Ubuntu uses this) or `dnf update` before installing first package
@@ -2151,6 +2153,7 @@ The are package managers available for other operating systems too:
     - `brew cleanup`
     - `brew autoremove`
     - `brew list`
+    - `brew leaves`
 - [MacPorts](https://www.macports.org/) is an older but less popular package manager for macOS
     - Its name originated from FreeBSD Ports
 - `pkg` is a package manager for FreeBSD, and has similar syntax to the other package managers:
@@ -2164,6 +2167,7 @@ The are package managers available for other operating systems too:
     - `pkg clean`
     - `pkg autoremove`
     - `pkg info`
+    - `pkg query -e '%a =0' %o`
 - `pacman` is a package manager for Arch Linux and MSYS2. It's similar to `apt` and `dnf` but has some distinctions:
     - `pacman -Syu` checks for updates and installs them (it's not recommended to just check for updates)
     - `pacman -S <package>` installs a package
@@ -2172,6 +2176,7 @@ The are package managers available for other operating systems too:
     - `pacman -Rs <package>` removes a package and its unused dependencies in one command
     - `pacman -Scc` clears the cache
     - `pacman -Q` lists all installed packages
+    - `pacman -Qqdt` lists all user-installed packages
 
 ### More commands!
 
