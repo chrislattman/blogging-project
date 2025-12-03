@@ -1,5 +1,5 @@
 default:            # Default options for all jobs.
-  image: openjdk:latest
+  image: eclipse-temurin:latest
 
 stages:             # List of stages for jobs, and their order of execution.
   - lint
