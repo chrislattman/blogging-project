@@ -14,6 +14,7 @@ lint-job:           # This job lints, or scans your code to ensure good coding p
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
   script:
+    - apt update && apt install -y curl
     - curl -LO https://repo.maven.apache.org/maven2/com/google/googlejavaformat/google-java-format/1.17.0/google-java-format-1.17.0-all-deps.jar
     - |
       java \
@@ -49,6 +50,7 @@ test-job:           # This job builds the .class files for your test code and ru
   needs:
     - build-job
   script:
+    - apt update && apt install -y curl
     - curl -LO https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.9.3/junit-platform-console-standalone-1.9.3.jar
     - curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.9/org.jacoco.agent-0.8.9-runtime.jar
     - javac -d bin -cp bin:junit-platform-console-standalone-1.9.3.jar test/app/*.java
@@ -68,6 +70,7 @@ coverage-job:       # This job generates a HTML code coverage report.
   needs:
     - test-job
   script:
+    - apt update && apt install -y curl
     - curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.cli/0.8.9/org.jacoco.cli-0.8.9-nodeps.jar
     - rm bin/app/*Test.class bin/app/Driver.class
     - java -jar org.jacoco.cli-0.8.9-nodeps.jar report jacoco.exec --classfiles bin --sourcefiles src --html coverage-report
