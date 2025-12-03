@@ -63,6 +63,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
     - e.g. `CMD ["/bin/bash"]` or `CMD ["python3", "./setup.py"]` for multiple arguments
 
 [This](https://gist.github.com/chrislattman/a787857d4bbd3192ebe792c463379084) is an example of a valid Dockerfile.
+Information about multi-stage builds can be found [here](https://docs.docker.com/build/building/multi-stage/).
 
 ## Creating images, containers, volumes, and networks
 
@@ -90,6 +91,7 @@ Congratulations! You now have terminal access to a bare-bones Ubuntu. You can tr
     - Optional: use `--network <network>` to connect the container to a specified Docker network
         - Docker containers connected to a Docker network can communicate to each other by using a container's name as the hostname
     - Optional: use `--add-host host.docker.internal:host-gateway` to allow the container to access the host OS's `localhost` from the hostname `host.docker.internal`
+    - Optional: follow [these](https://blog.golioth.io/usb-docker-windows-macos/) instructions to enable USB passthrough in Docker containers
 
 - `docker run -it [--name container-name] -v volume-name:/data image-name [/bin/bash]`
     - Starts up a container named `container-name` using the image `image-name` running a bash shell
