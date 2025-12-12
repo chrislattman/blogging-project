@@ -92,6 +92,11 @@ Information about multi-stage builds can be found [here](https://docs.docker.com
         - Docker containers connected to a Docker network can communicate to each other by using a container's name as the hostname
     - Optional: use `--add-host host.docker.internal:host-gateway` to allow the container to access the host OS's `localhost` from the hostname `host.docker.internal`
     - Optional: follow [these](https://blog.golioth.io/usb-docker-windows-macos/) instructions to enable USB passthrough in Docker containers
+    - Optional: use `-e ENV_VAR=VALUE` to set an environment variable in the container
+    - You can enable X11 forwarding in Docker containers to enable GUI applications to launch from a container
+        - Optional: use `-e DISPLAY=host.docker.internal:0` to enable X11 forwarding
+        - For macOS: XQuartz needs to be installed and running, with "Allow connections from network clients" checked in the Security settings tab, and then you need to run `xhost +localhost` from Terminal
+        - For Windows: Xming needs to be installed and running
 
 - `docker run -it [--name container-name] -v volume-name:/data image-name [/bin/bash]`
     - Starts up a container named `container-name` using the image `image-name` running a bash shell
