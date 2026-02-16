@@ -145,6 +145,8 @@ ssh -TR 127.0.0.1:<remote-local-port>:127.0.0.1:<your-local-port> <user>@<remote
 
 If you want to run either of these in the background, add the `-fN` flags to the command.
 
+Note: SSH tunneling is highly encouraged for VNC connections because they are unencrypted by default (RDP is encrypted).
+
 ## X11 Forwarding
 
 Every single window you see on your computer is served by a windowing system that runs as a part of your operating system. Without it, you would not have a desktop.
