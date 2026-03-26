@@ -36,7 +36,7 @@ To see which network interfaces are available to TShark, run:
 tshark -D
 ```
 
-You should see an indexed list of network interfaces. Pick the interface that corresponds to the connection you want to monitor. Reference [`ifconfig`](../terminal-commands#ifconfig) to verify the name of the Wi-Fi/Ethernet device.
+You should see an indexed list of network interfaces. Pick the interface that corresponds to the connection you want to monitor. Reference [`ip a`](../terminal-commands#ip) to verify the name of the Wi-Fi/Ethernet device.
 
 ### Capturing packets
 

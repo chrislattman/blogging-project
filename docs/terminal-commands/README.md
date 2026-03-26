@@ -106,7 +106,7 @@ To save your changes, quit Terminal and restart it.
 - [`traceroute` - shows IP addresses of all servers encountered during a ping](#traceroute)
 - [`host` - resolves the IP address of a website](#host)
 - [`netstat` - shows active network connections](#netstat)
-- [`ifconfig` - outputs network interface information](#ifconfig)
+- [`ip` - outputs network interface information](#ip)
 - [`date` - outputs the current date and time](#date)
 - [`clear` - clears the terminal screen](#clear)
 - [`less` - displays a terminal window-sized chunk of scrollable output](#less)
@@ -1581,16 +1581,16 @@ tcp4       0      0  192.168.1.3.50164    1.2.3.4.80     CLOSE_WAIT   131072  13
 .
 ```
 
-### `ifconfig`
+### `ip`
 
 Outputs information about your network interfaces, e.g. Wi-Fi and Ethernet.
 
-- You might need to install `net-tools` with a [package manager](#package-managers)
-- `ifconfig` shows your local IP address and MAC address
-    - You will see multiple network devices when you run `ifconfig`
+- `ip a` shows your local IP address and MAC address
+    - You will see multiple network devices when you run `ip a`
     - The one corresponding to your active device (either a Wi-Fi antenna or an Ethernet port) will have an inet address that is not 127.0.0.1 and multiple inet6 address that are not ::1
     - The MAC address of a device is denoted by "ether" (even for a Wi-Fi antenna)
-- `ipconfig` is the Windows/Git Bash equivalent of `ifconfig`
+- macOS still uses the old `ifconfig` command
+- `ipconfig` is the Windows/Git Bash equivalent of `ip a`
 
 Example:
 
@@ -1613,25 +1613,6 @@ en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 	nd6 options=201<PERFORMNUD,DAD>
 	media: autoselect
 	status: active
-bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
-	options=63<RXCSUM,TXCSUM,TSO4,TSO6>
-	ether 82:30:ea:68:4c:01
-	Configuration:
-		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
-		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
-		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
-		ipfilter disabled flags 0x0
-	member: en1 flags=3<LEARNING,DISCOVER>
-	        ifmaxaddr 0 port 10 priority 0 path cost 0
-	member: en2 flags=3<LEARNING,DISCOVER>
-	        ifmaxaddr 0 port 11 priority 0 path cost 0
-	member: en3 flags=3<LEARNING,DISCOVER>
-	        ifmaxaddr 0 port 12 priority 0 path cost 0
-	member: en4 flags=3<LEARNING,DISCOVER>
-	        ifmaxaddr 0 port 13 priority 0 path cost 0
-	nd6 options=201<PERFORMNUD,DAD>
-	media: <unknown type>
-	status: inactive
 ```
 
 - In this example, `en0` is the Wi-Fi device for my Mac, its MAC address is 01:23:45:67:89:0a (I made this up for demonstration purposes), and my local IP address is 192.168.1.56
@@ -1955,6 +1936,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Mounting devices](#mounting-devices)
 - [`xclip` - clipboard](#xclip)
 - [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
+- [`wpa_supplicant` - connects to a Wi-Fi network](#wpa-supplicant)
 - [`bluetoothctl` - scans for nearby Bluetooth devices](#bluetoothctl)
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Editing a binary file](#editing-a-binary-file)
@@ -2435,10 +2417,36 @@ To output a list of distinct access points, run
 iwlist <interface> scan | grep "ESSID" | sort -u
 ```
 
-where `<interface>` is the name of the Wi-Fi interface from [`ifconfig`](#ifconfig)
+where `<interface>` is the name of the Wi-Fi interface from [`ip a`](#ip)
 
-- It is usually either `wlan0` or `wlp4so`, but run `ifconfig` to be sure
+- It is usually either `wlan0` or `wlp4so`, but run `ip a` to be sure
 - This is another good command to [alias](#aliasing)
+
+### `wpa_supplicant`
+
+Used to connect to a Wi-Fi network. This command only works on Linux.
+
+To connect to a Wi-Fi network:
+
+- First, in your `~/.bashrc` file, define the environment variables to connect to your network:
+    ```
+    export WIFI_SSID="your SSID"
+    export WIFI_PASSWORD="your Wi-Fi password"
+    ```
+- Then run `source ~/.bashrc`
+
+```
+sudo killall wpa_supplicant
+sudo ip link set wlan0 down
+sudo ip link set wlan0 up
+wpa_passphrase $WIFI_SSID $WIFI_PASSWORD | sudo tee /etc/wpa_supplicant.conf
+sudo wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf
+sudo dhclient wlan0
+```
+
+- You can safely ignore p2p error messages from the output of the `wpa_supplicant` command
+
+If instead, you want to connect via Ethernet, plug in the cable and run this one command: `sudo dhclient eth0`
 
 ### `bluetoothctl`
 
@@ -3170,7 +3178,7 @@ arp-scan -I <interface> -l
 ```
 
 - `arp-scan` will need to be installed with a [package manager](#package-managers)
-- `<interface>` is the name of the Wi-Fi or Ethernet interface from [`ifconfig`](#ifconfig)
+- `<interface>` is the name of the Wi-Fi or Ethernet interface from [`ip a`](#ip)
 
 You can see cached ARP connections by running
 

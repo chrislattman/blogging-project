@@ -68,7 +68,7 @@ Once you create a VM, you have the choice to configure its network settings (cli
 - Host-Only Network: this extends upon an Internal Network by allowing the host OS to access VMs on it
 - NAT Network: this sets up a virtual router that VMs can connect to, much like devices connecting to a home Wi-Fi router
     - Like routers, NAT Networks include a DHCP server and support DNAT port forwarding, which allows computers from the outside world (in this case the host OS) to connect to a particular device (in this case a VM)
-        - If a DNAT port forwarding rule's host IP address is the same as the IP address for your Wi-Fi or Ethernet interface (see [`ifconfig`](../terminal-commands#ifconfig)), then you will be able to access your VM from another device on your LAN!
+        - If a DNAT port forwarding rule's host IP address is the same as the IP address for your Wi-Fi or Ethernet interface (see [`ip a`](../terminal-commands#ip)), then you will be able to access your VM from another device on your LAN!
             - This also works in the default NAT mode
         - To set a static local IP address for a VM connected to a NAT Network, run
             ```
