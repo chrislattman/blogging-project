@@ -1589,6 +1589,7 @@ Outputs information about your network interfaces, e.g. Wi-Fi and Ethernet.
     - You will see multiple network devices when you run `ip a`
     - The one corresponding to your active device (either a Wi-Fi antenna or an Ethernet port) will have an inet address that is not 127.0.0.1 and multiple inet6 address that are not ::1
     - The MAC address of a device is denoted by "ether" (even for a Wi-Fi antenna)
+- `sudo ip a add 192.168.1.3/24 eth0` makes a device directly connected to your Ethernet port reachable
 - macOS still uses the old `ifconfig` command
 - `ipconfig` is the Windows/Git Bash equivalent of `ip a`
 
