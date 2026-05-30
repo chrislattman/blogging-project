@@ -4,6 +4,14 @@ Docker is a tool used to containerize operating systems. It facilitates software
 
 Kubernetes is a container orchestration tool which manages a cluster of servers each running Docker.
 
+Podman is a related tool that doesn't rely on a constantly running background daemon with root privileges, unlike Docker. Podman commands are compatible with Docker commands. 
+
+Docker and Podman containers are made possible by Linux namespaces, cgroups (control groups), and seccomp (secure computing).
+
+- namespaces "tricks" a container process into thinking it's the only process running on the entire PC
+- cgroups limits how many resources (CPUs, memory) a container can use
+- seccomp filters what syscalls (e.g. reboot, sys_chroot, swapon, clock_settime) a container can use
+
 ## Table of Contents
 
 - [Getting started](#getting-started)
