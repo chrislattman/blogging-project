@@ -2987,6 +2987,18 @@ This section describes how to manage them on Linux, macOS, and Windows.
 - macOS: `sudo launchctl enable/disable <service>`
 - Windows: `Set-Service -Name <service> -StartupType Automatic/Manual`
 
+#### Stream live logs from a service
+
+- Linux: `journalctl -u <service> -f`
+- macOS: `log stream --predicate 'subsystem == "com.<service>.app"' --level info`
+- Windows: `while ($true) { Clear-Host; Get-WinEvent -FilterHashtable @{LogName='Application'; ProviderName='<service>'} -MaxEvents 10 | Select-Object TimeCreated, Message; Start-Sleep -Seconds 1 }`
+
+#### View existing logs from a service
+
+- Linux: `journalctl -u <service>`
+- macOS: `log show --predicate 'subsystem == "com.<service>.app"' --info`
+- Windows: `Get-WinEvent -FilterHashtable @{LogName='Application'; ProviderName='<service>'} | Select-Object TimeCreated, Message`
+
 ### Job scheduling
 
 On all major operating systems, you can schedule a job to be run at intervals. This is useful for servers that need to run routine tasks automatically without human intervention.
