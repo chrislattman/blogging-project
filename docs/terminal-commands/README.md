@@ -1936,7 +1936,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Add to path](#add-to-path)
 - [Mounting devices](#mounting-devices)
 - [`xclip` - clipboard](#xclip)
-- [Wi-Fi (`wpa_supplicant`, `wpa_cli`, and `nmcli`)](#wi-fi)
+- [Wi-Fi](#wi-fi)
 - [`bluetoothctl` - scans for nearby Bluetooth devices](#bluetoothctl)
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Editing a binary file](#editing-a-binary-file)
@@ -2445,6 +2445,8 @@ The following commands are wpa_supplicant-specific:
 If instead, you want to connect via Ethernet and don't have NetworkManager running, plug in the cable and run this one command: `sudo dhclient eth0`
 
 One thing to note about Wi-Fi adapters, whether they connect via PCIe or USB (or some other way, maybe SDIO), is that they run their own, largely closed-source, firmware "blobs" on custom RISC cores. This is because these cores are optimized for (encrypted) Wi-Fi traffic, and this allows for firmware updates, e.g. to patch a WPA3 vulnerability.
+
+Wi-Fi adapters also have power save modes, and their functionality (e.g. which channels an adapter can use) depends on region/country.
 
 ### `bluetoothctl`
 
