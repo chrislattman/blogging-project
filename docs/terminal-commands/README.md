@@ -1936,8 +1936,7 @@ You do not have to run every single terminal command one at a time. You can aggr
 - [Add to path](#add-to-path)
 - [Mounting devices](#mounting-devices)
 - [`xclip` - clipboard](#xclip)
-- [`iwlist` - scans for nearby Wi-Fi networks](#iwlist)
-- [`wpa_supplicant` - connects to a Wi-Fi network](#wpa-supplicant)
+- [Wi-Fi (`wpa_supplicant`, `wpa_cli`, and `nmcli`)](#wi-fi)
 - [`bluetoothctl` - scans for nearby Bluetooth devices](#bluetoothctl)
 - [Converting between hexadecimal and base64](#converting-between-hexadecimal-and-base64)
 - [Editing a binary file](#editing-a-binary-file)
@@ -2408,46 +2407,44 @@ source ~/.bashrc
 
 Now you can use `pbcopy` and `pbpaste` in Git Bash like you would on macOS.
 
-### `iwlist`
+### `Wi-Fi`
 
-Used to scan for Wi-Fi access points. This command only works on Linux.
+Note: these commands only work on Linux.
 
-To output a list of distinct access points, run
+Modern desktop Linux distributions offer several ways to connect to a Wi-Fi network. The recommended way to scan for, connect to, and observe the status of a Wi-Fi connection is to use `nmcli`, which invokes the NetworkManager daemon. NetworkManager handles both Wi-Fi and Ethernet connections, as well as VPNs for either type of connection.
 
-```
-iwlist <interface> scan | grep "ESSID" | sort -u
-```
+- To turn on/off the Wi-Fi interface: `nmcli radio wifi <on|off>`
+- To scan for nearby Wi-Fi networks: `nmcli device wifi list`
+- To connect to a Wi-Fi network: `nmcli device wifi connect <SSID> [password <PASSWORD>]`
+- To see the status of all network connections: `nmcli device status`
+- To get more detailed information about a Wi-Fi connection: `iw dev wlan0 link`
 
-where `<interface>` is the name of the Wi-Fi interface from [`ip a`](#ip)
+NetworkManager wraps wpa_supplicant/`wpa_cli` or iwd/`iwctl`, `dhclient`, and `rfkill` in one simple interface. While iwd is newer, wpa_supplicant is still widely used, especially on embedded Linux devices, where NetworkManager might not be present.
 
-- It is usually either `wlan0` or `wlp4so`, but run `ip a` to be sure
-- This is another good command to [alias](#aliasing)
+The following commands are wpa_supplicant-specific:
 
-### `wpa_supplicant`
-
-Used to connect to a Wi-Fi network. This command only works on Linux.
-
-To connect to a Wi-Fi network:
-
-- First, in your `~/.bashrc` file, define the environment variables to connect to your network:
+- To turn on/off the Wi-Fi interface: `sudo rfkill <unblock|block> wifi`
+- To scan for nearby Wi-Fi networks: `sudo wpa_cli scan && sudo wpa_cli scan_results`
+- To connect to a Wi-Fi network:
+    - First, in your `~/.bashrc` file, define the environment variables to connect to your network:
+        ```
+        export WIFI_SSID="your SSID"
+        export WIFI_PASSWORD="your Wi-Fi password"
+        ```
+    - Then run `source ~/.bashrc`, then run
     ```
-    export WIFI_SSID="your SSID"
-    export WIFI_PASSWORD="your Wi-Fi password"
+    sudo killall wpa_supplicant
+    sudo ip link set wlan0 down
+    sudo ip link set wlan0 up
+    wpa_passphrase $WIFI_SSID $WIFI_PASSWORD | sudo tee /etc/wpa_supplicant.conf
+    sudo wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf
+    sudo dhclient wlan0
     ```
-- Then run `source ~/.bashrc`
+    - You can safely ignore p2p error messages from the output of the `wpa_supplicant` command
 
-```
-sudo killall wpa_supplicant
-sudo ip link set wlan0 down
-sudo ip link set wlan0 up
-wpa_passphrase $WIFI_SSID $WIFI_PASSWORD | sudo tee /etc/wpa_supplicant.conf
-sudo wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf
-sudo dhclient wlan0
-```
+If instead, you want to connect via Ethernet and don't have NetworkManager running, plug in the cable and run this one command: `sudo dhclient eth0`
 
-- You can safely ignore p2p error messages from the output of the `wpa_supplicant` command
-
-If instead, you want to connect via Ethernet, plug in the cable and run this one command: `sudo dhclient eth0`
+One thing to note about Wi-Fi adapters, whether they connect via PCIe or USB (or some other way, maybe SDIO), is that they run their own, largely closed-source, firmware "blobs" on custom RISC cores. This is because these cores are optimized for (encrypted) Wi-Fi traffic, and this allows for firmware updates, e.g. to patch a WPA3 vulnerability.
 
 ### `bluetoothctl`
 
@@ -2971,20 +2968,24 @@ This section describes how to manage them on Linux, macOS, and Windows.
 
 #### View all services
 
-- Linux: `systemctl -t service`
-- macOS: `launchctl list`
+- Linux: `systemctl [--user] -t service`
+    - Add `--user` to show user-specific services (as compared to system level services)
+- macOS: `[sudo] launchctl list`
+    - Add `sudo` to show system level services (as compared to user specific services)
 - Windows: `Get-Service`
 
 #### Turn a service on/off or restart a service
 
-- Linux: `sudo systemctl start/stop/restart <service>`
-- macOS: `sudo launchctl load/unload/(kickstart -k) -w <service>`
+- Linux: `[sudo] systemctl [--user] start/stop/restart <service>`
+    - Add `sudo` to modify system level services, or `--user` to modify user-specific services
+- macOS: `[sudo] launchctl load/unload/(kickstart -k) -w <service>`
+    - Add `sudo` to modify system level services
 - Windows: `Start-Service/Stop-Service/Restart-Service -Name <service>`
 
 #### Automatically enable/disable a service on startup
 
-- Linux: `sudo systemctl enable/disable <service>`
-- macOS: `sudo launchctl enable/disable <service>`
+- Linux: `[sudo] systemctl [--user] enable/disable <service>`
+- macOS: `[sudo] launchctl enable/disable <service>`
 - Windows: `Set-Service -Name <service> -StartupType Automatic/Manual`
 
 #### Stream live logs from a service
