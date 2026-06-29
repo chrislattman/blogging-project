@@ -1883,10 +1883,10 @@ tar -cJf archive.tar.xz [files] [directory/*]
 # To extract a .tar.xz file:
 tar -xJf archive.tar.xz
 
-# To compress files into a .tar.zstd file:
+# To compress files into a .tar.zstd file (could also separately run zstd <file> afterwards):
 tar --zstd -cf archive.tar.zstd [files] [directory/*]
 
-# To extract a .tar.zstd file:
+# To extract a .tar.zstd file (could also separately run zstd -d <file> beforehand):
 tar --zstd -xf archive.tar.zstd
 
 # To extract a .tar.Z file:
