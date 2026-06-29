@@ -1828,9 +1828,9 @@ Linux distributions also support ZIP with the `zip` and `unzip` commands, but yo
 - However, you can archive and compress files at once (like `zip`) using just the `tar` command
 - `tar` can also be used to decompress and unarchive (a.k.a. extract) files at once (whereas `unzip` is needed for `.zip` files)
 
-You might see other compression algorithms used besides `.gz`, such as `.bz2`, the newer `.xz`, or even the old `.Z` format.
+You might see other compression algorithms used besides `.gz`, such as `.bz2`, the newer `.xz` and `.zstd`, or even the old `.Z` format.
 
-- Due to its novelty, you might need to install `bzip2` and/or `xz` with a [package manager](#package-managers) to compress or extract `.tar.bz2` and/or `.tar.xz` files
+- Due to its novelty, you might need to install `bzip2` and/or `xz` and/or `zstd` with a [package manager](#package-managers) to compress or extract `.tar.bz2` and/or `.tar.xz` and/or `.tar.zstd` files
 
 Usage:
 
@@ -1882,6 +1882,12 @@ tar -cJf archive.tar.xz [files] [directory/*]
 
 # To extract a .tar.xz file:
 tar -xJf archive.tar.xz
+
+# To compress files into a .tar.zstd file:
+tar --zstd -cf archive.tar.zstd [files] [directory/*]
+
+# To extract a .tar.zstd file:
+tar --zstd -xf archive.tar.zstd
 
 # To extract a .tar.Z file:
 uncompress archive.tar.Z
