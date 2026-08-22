@@ -44,6 +44,9 @@ jobs:
 
   Build:
     runs-on: ubuntu-26.04
+    needs: Lint
+    if: |
+      always() && (needs.Lint.result == 'success' || needs.Lint.result == 'skipped')
     steps:
       - name: Pull repo
         uses: actions/checkout@v7
