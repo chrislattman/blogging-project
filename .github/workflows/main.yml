@@ -209,6 +209,11 @@ jobs:
     steps:
       - name: Pull repo
         uses: actions/checkout@v7
+      - name: Download jar
+        uses: actions/download-artifact@v8
+        with:
+          name: blogging-project.jar
+          path: .
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -216,4 +221,5 @@ jobs:
           gh release create ${{ github.ref_name }} \
             --title "Release ${{ github.ref_name }}" \
             -n "Sample release for blogging project." \
-            --generate-notes
+            --generate-notes \
+            blogging-project.jar
