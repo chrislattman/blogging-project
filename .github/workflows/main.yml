@@ -45,8 +45,7 @@ jobs:
   Build:
     runs-on: ubuntu-26.04
     needs: Lint
-    if: |
-      always() && (needs.Lint.result == 'success' || needs.Lint.result == 'skipped')
+    if: always() && (needs.Lint.result == 'success' || needs.Lint.result == 'skipped')
     steps:
       - name: Pull repo
         uses: actions/checkout@v7
@@ -131,6 +130,7 @@ jobs:
   Package:
     needs: Build
     runs-on: ubuntu-26.04
+    if: always() && (needs.Build.result == 'success')
     permissions:
       contents: read
       packages: write
@@ -192,6 +192,7 @@ jobs:
   Release:
     needs: Package
     runs-on: ubuntu-latest
+    if: always() && (needs.Package.result == 'success')
     permissions:
       contents: write
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
