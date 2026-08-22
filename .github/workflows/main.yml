@@ -20,7 +20,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Pull repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       # Runs a set of commands using the runner's shell
       - name: Script
         run: |
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - name: Pull repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Script
         run: javac -d bin src/app/*.java
       - name: Cache build artifacts
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - name: Pull repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Download build artifacts
         uses: actions/cache@v4
         id: build-artifacts
@@ -88,7 +88,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - name: Pull repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Download build artifacts
         uses: actions/cache@v4
         id: build-artifacts
@@ -133,7 +133,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Pull repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload static HTML pages
