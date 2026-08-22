@@ -108,7 +108,7 @@ jobs:
         run: |
           curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar
           curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.cli/0.8.15/org.jacoco.cli-0.8.15-nodeps.jar
-          java -javaagent:org.jacoco.agent-0.8.15-runtime.jar -jar junit-platform-console-standalone-1.8.2.jar --class-path=bin --scan-classpath --fail-if-no-tests
+          java -javaagent:org.jacoco.agent-0.8.15-runtime.jar -jar junit-platform-console-standalone-1.14.4.jar --class-path=bin --scan-classpath --fail-if-no-tests
           rm bin/app/*Test.class bin/app/Driver.class
           java -jar org.jacoco.cli-0.8.15-nodeps.jar report jacoco.exec --classfiles bin --sourcefiles src --html coverage-report
       - name: Upload coverage report
