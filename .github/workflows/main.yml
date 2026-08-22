@@ -24,7 +24,7 @@ jobs:
       # Runs a set of commands using the runner's shell
       - name: Script
         run: |
-          curl -LO https://repo.maven.apache.org/maven2/com/google/googlejavaformat/google-java-format/1.13.0/google-java-format-1.13.0-all-deps.jar
+          curl -LO https://repo.maven.apache.org/maven2/com/google/googlejavaformat/google-java-format/1.36.1/google-java-format-1.36.1-all-deps.jar
           java \
           --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
           --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
@@ -36,7 +36,7 @@ jobs:
           --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
           --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED \
           --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED \
-          -jar google-java-format-1.13.0-all-deps.jar src/app/*.java test/app/*.java
+          -jar google-java-format-1.36.1-all-deps.jar src/app/*.java test/app/*.java
   Build:
     needs: Lint
     runs-on: ubuntu-latest
@@ -65,9 +65,9 @@ jobs:
           key: ${{ runner.os }}-build-artifacts
       - name: Script
         run: |
-          curl -LO https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.8.2/junit-platform-console-standalone-1.8.2.jar
-          javac -d bin -cp bin:junit-platform-console-standalone-1.8.2.jar test/app/*.java
-          java -jar junit-platform-console-standalone-1.8.2.jar --class-path=bin --scan-classpath --fail-if-no-tests
+          curl -LO https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.14.4/junit-platform-console-standalone-1.14.4.jar
+          javac -d bin -cp bin:junit-platform-console-standalone-1.14.4.jar test/app/*.java
+          java -jar junit-platform-console-standalone-1.14.4.jar --class-path=bin --scan-classpath --fail-if-no-tests
       - name: Cache test artifacts
         id: test-artifacts
         uses: actions/cache@v2
@@ -78,7 +78,7 @@ jobs:
         id: junit-jar
         uses: actions/cache@v2
         with:
-          path: junit-platform-console-standalone-1.8.2.jar
+          path: junit-platform-console-standalone-1.14.4.jar
           key: ${{ runner.os }}-junit-jar
   Cover:
     needs: Test
@@ -102,15 +102,15 @@ jobs:
         uses: actions/cache@v2
         id: junit-jar
         with:
-          path: junit-platform-console-standalone-1.8.2.jar
+          path: junit-platform-console-standalone-1.14.4.jar
           key: ${{ runner.os }}-junit-jar
       - name: Script
         run: |
-          curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.7/org.jacoco.agent-0.8.7-runtime.jar
-          curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.cli/0.8.7/org.jacoco.cli-0.8.7-nodeps.jar
-          java -javaagent:org.jacoco.agent-0.8.7-runtime.jar -jar junit-platform-console-standalone-1.8.2.jar --class-path=bin --scan-classpath --fail-if-no-tests
+          curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar
+          curl -LO https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.cli/0.8.15/org.jacoco.cli-0.8.15-nodeps.jar
+          java -javaagent:org.jacoco.agent-0.8.15-runtime.jar -jar junit-platform-console-standalone-1.8.2.jar --class-path=bin --scan-classpath --fail-if-no-tests
           rm bin/app/*Test.class bin/app/Driver.class
-          java -jar org.jacoco.cli-0.8.7-nodeps.jar report jacoco.exec --classfiles bin --sourcefiles src --html coverage-report
+          java -jar org.jacoco.cli-0.8.15-nodeps.jar report jacoco.exec --classfiles bin --sourcefiles src --html coverage-report
       - name: Upload coverage report
         uses: actions/upload-artifact@v2
         with:
