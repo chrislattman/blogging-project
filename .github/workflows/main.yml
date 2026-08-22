@@ -204,4 +204,5 @@ jobs:
         run: |
           gh release create ${{ github.ref_name }} \
             --title "Release ${{ github.ref_name }}" \
+            -n "Sample release for blogging project." \
             --generate-notes
