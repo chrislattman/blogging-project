@@ -15,7 +15,7 @@ on:
 jobs:
   Lint:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -39,7 +39,7 @@ jobs:
           -jar google-java-format-1.36.1-all-deps.jar src/app/*.java test/app/*.java
   Build:
     needs: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Pull repo
         uses: actions/checkout@v2
@@ -53,7 +53,7 @@ jobs:
           key: ${{ runner.os }}-build-artifacts
   Test:
     needs: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Pull repo
         uses: actions/checkout@v2
@@ -82,7 +82,7 @@ jobs:
           key: ${{ runner.os }}-junit-jar
   Cover:
     needs: Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Pull repo
         uses: actions/checkout@v2
@@ -118,7 +118,7 @@ jobs:
           path: coverage-report
   Package:
     needs: Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Pull repo
         uses: actions/checkout@v2
