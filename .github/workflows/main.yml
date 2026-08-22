@@ -186,7 +186,7 @@ jobs:
   Release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
       - name: Pull repo
         uses: actions/checkout@v7
