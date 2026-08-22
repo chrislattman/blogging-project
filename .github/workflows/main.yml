@@ -127,13 +127,12 @@ jobs:
           name: coverage-report
           path: coverage-report
 
-  Package:
-    needs: Test
-    runs-on: ubuntu-26.04
-    if: always() && needs.Build.result == 'success' && (needs.Test.result == 'success' || needs.Test.result == 'skipped')
+  Pages:
+    needs: Cover
+    runs-on: ubuntu-latest
+    if: "!startsWith(github.ref, 'refs/tags/')"
     permissions:
       contents: read
-      packages: write
       pages: write
       id-token: write
     environment:
@@ -151,6 +150,16 @@ jobs:
       - name: Deploy to GitHub Pages # https://chrislattman.github.io/blogging-project
         id: deployment
         uses: actions/deploy-pages@v5
+
+  Package:
+    needs: Test
+    runs-on: ubuntu-26.04
+    if: always() && needs.Build.result == 'success' && (needs.Test.result == 'success' || needs.Test.result == 'skipped')
+    permissions:
+      packages: write
+    steps:
+      - name: Pull repo
+        uses: actions/checkout@v7
       - name: Download build artifacts
         uses: actions/cache@v5
         id: build-artifacts
