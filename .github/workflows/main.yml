@@ -37,6 +37,7 @@ jobs:
           --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED \
           --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED \
           -jar google-java-format-1.36.1-all-deps.jar src/app/*.java test/app/*.java
+
   Build:
     needs: Lint
     runs-on: ubuntu-26.04
@@ -51,6 +52,7 @@ jobs:
         with:
           path: bin
           key: ${{ runner.os }}-build-artifacts
+
   Test:
     needs: Build
     runs-on: ubuntu-26.04
@@ -80,6 +82,7 @@ jobs:
         with:
           path: junit-platform-console-standalone-1.14.4.jar
           key: ${{ runner.os }}-junit-jar
+
   Cover:
     needs: Test
     runs-on: ubuntu-26.04
@@ -116,6 +119,7 @@ jobs:
         with:
           name: coverage-report
           path: coverage-report
+
   Package:
     needs: Build
     runs-on: ubuntu-26.04
@@ -153,6 +157,9 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest
+            type=sha,format=short
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
