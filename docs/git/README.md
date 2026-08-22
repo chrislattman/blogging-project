@@ -141,6 +141,7 @@ Note: you can do more with a GPG key than just signing Git commits. Read more [h
     - `git clone https://your-username:your-PAT@gitlab.com/owner/repository.git`
         - For a private repo that you have access to
 - Add `--depth 1` to any of these to shallow clone a repo (for very large repos)
+- If that repository has submodules: `git submodule update --init --recursive`
 
 ### To initialize your current directory as a new Git repo:
 
@@ -164,6 +165,16 @@ git push -u origin main
 ```
 
 - `<url>` is the SSH or HTTPS Git URL used to clone the repo
+
+Sometimes you need to add another repo as a dependency for your project. Git allows you to create "submodules" which are just other git repos pinned to a specific commit hash (or tag). To add a submodule:
+
+```
+git submodule add <repo-url> <repo-name>
+cd <repo-name>
+git checkout <commit-hash-or-tag>
+cd ..
+git add <repo-name>
+```
 
 ## Committing to a repository
 
