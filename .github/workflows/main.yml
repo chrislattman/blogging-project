@@ -190,7 +190,7 @@ jobs:
           images: ghcr.io/${{ github.repository }}
           flavor: latest=false
           tags: |
-            type=raw,value=latest,enable=${{ github.ref_type == 'refs/heads/main' }}
+            type=raw,value=latest,enable=${{ github.ref_type == 'branch' && github.ref_name == 'main' }}
             type=raw,value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
