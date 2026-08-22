@@ -43,7 +43,6 @@ jobs:
           -jar google-java-format-1.36.1-all-deps.jar src/app/*.java test/app/*.java
 
   Build:
-    needs: Lint
     runs-on: ubuntu-26.04
     steps:
       - name: Pull repo
