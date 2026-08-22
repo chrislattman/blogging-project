@@ -219,7 +219,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ github.ref_name }} \
-            --title "Release ${{ github.ref_name }}" \
+            --title "Blogging Project ${{ github.ref_name }}" \
             -n "Sample release for blogging project." \
             --generate-notes \
             blogging-project.jar
