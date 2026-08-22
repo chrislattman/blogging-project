@@ -166,17 +166,24 @@ jobs:
         with:
           path: bin
           key: ${{ runner.os }}-build-artifacts
+      - name: Set JAR name
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "JAR_NAME=${{ github.event.repository.name }}-${{ github.ref_name }}.jar" >> "$GITHUB_ENV"
+          else
+            echo "JAR_NAME=${{ github.event.repository.name }}.jar" >> "$GITHUB_ENV"
+          fi
       - name: Script
         run: |
           cd bin
           mkdir META-INF
           echo -e "Manifest-Version":" 1.0\nMain-Class":" app.Driver\n" > META-INF/MANIFEST.MF
-          jar -cmf META-INF/MANIFEST.MF ../blogging-project.jar app/*.class
+          jar -cmf META-INF/MANIFEST.MF "../$JAR_NAME" app/*.class
       - name: Upload jar
         uses: actions/upload-artifact@v7
         with:
-          name: blogging-project.jar
-          path: blogging-project.jar
+          name: ${{ env.JAR_NAME }}
+          path: ${{ env.JAR_NAME }}
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v4
         with:
@@ -212,7 +219,7 @@ jobs:
       - name: Download jar
         uses: actions/download-artifact@v8
         with:
-          name: blogging-project.jar
+          name: blogging-project-${{ github.ref_name }}.jar
           path: .
       - name: Create GitHub Release
         env:
@@ -222,4 +229,4 @@ jobs:
             --title "Blogging Project ${{ github.ref_name }}" \
             -n "Sample release for blogging project." \
             --generate-notes \
-            blogging-project.jar
+            "blogging-project-${{ github.ref_name }}.jar"
