@@ -191,7 +191,7 @@ jobs:
           flavor: latest=false
           tags: |
             type=raw,value=latest,enable=${{ github.ref_type == 'refs/heads/main' }}
-            type=ref,event=tag
+            type=raw,value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
