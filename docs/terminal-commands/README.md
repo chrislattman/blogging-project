@@ -2166,10 +2166,11 @@ The are package managers available for other operating systems too:
     - `pacman -Q` lists all installed packages
     - `pacman -Qqdt` lists all user-installed packages
 - `winget` is the default package manager for Windows 10 and 11
+    - Many of these commands require you to be in Administrator mode
 	- `winget upgrade`
- 	- `winget upgrade --all`
-  	- `winget install --id <package-id>`
-  	- `winget uninstall --id <package-id>`
+ 	- `winget upgrade --all --silent`
+  	- `winget install --id <package-id> --silent`
+  	- `winget uninstall --id <package-id> --silent`
   	- No equivalent to autoremove
   	- `winget reset`
   	- `winget list`
