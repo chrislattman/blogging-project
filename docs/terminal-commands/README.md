@@ -2110,9 +2110,9 @@ However, both of the major package managers use the same syntax:
     - Example: `sudo apt install wget`
     - Works with `.deb` files too, e.g. `sudo apt install package.deb`
 - `sudo apt remove <package>` uninstalls a package on a Debian-based OS
+- `sudo apt autoremove` removes all unneeded packages
 - `sudo apt clean` clears the cache
     - This wipes metadata that speeds up fetching updates
-- `sudo apt autoremove` removes all unneeded packages
 - `apt list --installed` lists all installed packages
 - `apt-mark showmanual` lists all user-installed packages
 - `sudo dnf check-update` fetches updates for packages on a Red Hat-based OS
@@ -2121,9 +2121,9 @@ However, both of the major package managers use the same syntax:
     - Example: `sudo dnf install wget`
     - Works with `.rpm` files too, e.g. `sudo dnf install package.rpm`
 - `sudo dnf remove <package>` uninstalls a package on a Red Hat-based OS
+- `sudo dnf autoremove` removes all unneeded packages
 - `sudo dnf clean all` clears the cache
     - This wipes metadata that speeds up fetching updates
-- `sudo dnf autoremove` removes all unneeded packages
 - `dnf list installed` lists all installed packages
 - `dnf repoquery --userinstalled` lists all user-installed packages
 - **If you are running these commands in a Docker container (Ubuntu preferably):**
@@ -2138,8 +2138,8 @@ The are package managers available for other operating systems too:
     - `brew install <package>`
         - Example: `brew install wget`
     - `brew remove <package>`
+  	- `brew autoremove`
     - `brew cleanup`
-    - `brew autoremove`
     - `brew list`
     - `brew leaves`
 - [MacPorts](https://www.macports.org/) is an older but less popular package manager for macOS
@@ -2152,8 +2152,8 @@ The are package managers available for other operating systems too:
     - `pkg install <package>`
         - Example: `pkg install wget`
     - `pkg delete <package>`
-    - `pkg clean`
     - `pkg autoremove`
+    - `pkg clean`
     - `pkg info`
     - `pkg query -e '%a =0' %o`
 - `pacman` is a package manager for Arch Linux and MSYS2. It's similar to `apt` and `dnf` but has some distinctions:
@@ -2165,6 +2165,15 @@ The are package managers available for other operating systems too:
     - `pacman -Scc` clears the cache
     - `pacman -Q` lists all installed packages
     - `pacman -Qqdt` lists all user-installed packages
+- `winget` is the default package manager for Windows 10 and 11
+	- `winget upgrade`
+ 	- `winget upgrade --all`
+  	- `winget install --id <package-id>`
+  	- `winget uninstall --id <package-id>`
+  	- No equivalent to autoremove
+  	- `winget reset`
+  	- `winget list`
+  	- `winget list --scope user`
 
 ### More commands!
 
