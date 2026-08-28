@@ -2176,6 +2176,16 @@ The are package managers available for other operating systems too:
   	- `winget list`
   	- `winget list --scope user`
 
+Some languages (Python and Node.js) come with their own package managers as well, and allow you to install applications globally, much like you would with `apt` or `brew`.
+
+- `pipx` installs Python applications globally and `npm` does the same for Node.js applications
+- You will need to install `pipx` with a traditional package manager
+    - `pipx upgrade-all` and `npm upgrade -g`
+    - `pipx install <package>` and `npm install -g <package>`
+    - `pipx uninstall <package>` and `npm uninstall -g <package>`
+    - `pipx list` and `npm list -g`
+    - `pipx list --short` and `npm list -g --depth=0`
+
 ### More commands!
 
 I lied. There are actually a few more useful terminal commands, but they are more complex. They have their own pages linked below:
